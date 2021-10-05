@@ -67,8 +67,8 @@ public class WaiterAdapter  extends BaseAdapter {
         }
 
             final Waiter _waiter = (Waiter) this.getItem(i);
-            _viewholder.txtview.setText(_waiter.get_WaiterName());
-            _viewholder.txtview.setTag(_waiter.get_id());
+            _viewholder.txtwaitername.setText(_waiter.get_WaiterName());
+            _viewholder.txtwaitername.setTag(_waiter.get_id());
             Log.d(TAG, "From View" + _waiter.get_WaiterName());
         return vw;
     }

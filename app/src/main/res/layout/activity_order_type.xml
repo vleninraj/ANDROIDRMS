@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderTypeActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        >
+    <RelativeLayout
+        android:id="@+id/reldinein"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        >
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btndinein"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dinein" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btndinein"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/nunito_regular"
+            android:text="Dine In"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/reltakeaway"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/reldinein"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btntakeaway"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/takeaway" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btntakeaway"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/nunito_regular"
+                android:text="Take Away"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

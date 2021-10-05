@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/lblvoucherno"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_regular"
+            android:text="SI123"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblparty"
+            android:layout_marginLeft="10dp"
+            android:text="Party 1"
+            android:gravity="start"
+            android:layout_alignBaseline="@+id/lblvoucherno"
+            android:fontFamily="@font/nunito_regular"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/lblvoucherno" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lbltable"
+            android:text="TAB 1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/lblvoucherno"
+            android:gravity="start"
+            android:fontFamily="@font/nunito_regular"
+             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_regular"
+            android:layout_below="@+id/lblvoucherno"
+            android:text="0.00"
+            android:textColor="#0D9228"
+            android:layout_alignParentRight="true"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:id="@+id/lblgrandamount"/>
+        <View
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/lblgrandamount"
+            android:background="#B8CBEB"/>
+    </RelativeLayout>
+</RelativeLayout>

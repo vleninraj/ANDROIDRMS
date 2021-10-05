@@ -2,10 +2,13 @@ package com.atlanta.rms;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
@@ -41,8 +44,7 @@ public class WaiterListActivity extends AppCompatActivity {
         final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
         sIpAddress=ipAddress.getString("ipaddress", "");
         getWaiterList();
-        WaiterAdapter adapter = new WaiterAdapter(WaiterListActivity.this, _waiters);
-        grdWaiters.setAdapter(adapter);
+
         ArrayAdapter<String> _waiteradapter = new ArrayAdapter<String>(WaiterListActivity.this, android.R.layout.simple_list_item_1, waiternames.toArray(new String[waiternames.size()]));
         txtwaitersearch.setAdapter(_waiteradapter);
         txtwaitersearch.setThreshold(0);
@@ -67,13 +69,21 @@ public class WaiterListActivity extends AppCompatActivity {
                 WaiterAdapter adapter = new WaiterAdapter(WaiterListActivity.this, _waiterfiltered);
                 grdWaiters.setAdapter(adapter);
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
 
             }
         });
-
+        grdWaiters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ViewHolderWaiter holder=(ViewHolderWaiter) view.getTag();
+               Common.sCurrentWaiterName=  holder.txtwaitername.getText().toString();
+               Common.sCurrentWaiterID=holder.txtwaitername.getTag().toString();
+                Intent intent = new Intent(WaiterListActivity.this, OrderTypeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private  void getWaiterList()
     {
@@ -97,6 +107,8 @@ public class WaiterListActivity extends AppCompatActivity {
                         waiternames.add(_waiter.get_WaiterName());
                         _waiters.add(_waiter);
                     }
+                    WaiterAdapter adapter = new WaiterAdapter(WaiterListActivity.this, _waiters);
+                    grdWaiters.setAdapter(adapter);
                 }
                 catch (Exception w)
                 {
