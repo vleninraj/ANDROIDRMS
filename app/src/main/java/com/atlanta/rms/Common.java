@@ -2,5 +2,6 @@ package com.atlanta.rms;
 
 public class Common {
 
-    public static String DomainName;
+    public static String DomainName="atACCWeb";
+
 }

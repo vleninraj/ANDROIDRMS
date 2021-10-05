@@ -2,6 +2,7 @@ package com.atlanta.rms;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,6 +30,7 @@ public class WaiterListActivity extends AppCompatActivity {
     final ArrayList<Waiter> _waiterfiltered=new ArrayList<>();
     ArrayList<String> waiternames = new ArrayList<>();
     AutoCompleteTextView txtwaitersearch;
+    String sIpAddress="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,8 @@ public class WaiterListActivity extends AppCompatActivity {
         grdWaiters=(GridView) findViewById(R.id.grdwaiters);
         txtwaitersearch=(AutoCompleteTextView) findViewById(R.id.txtwaitersearch);
         requestQueue = Volley.newRequestQueue(this);
-
+        final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
+        sIpAddress=ipAddress.getString("ipaddress", "");
         getWaiterList();
         WaiterAdapter adapter = new WaiterAdapter(WaiterListActivity.this, _waiters);
         grdWaiters.setAdapter(adapter);
@@ -76,7 +79,7 @@ public class WaiterListActivity extends AppCompatActivity {
     {
         waiternames.clear();
         _waiters.clear();
-        String url="https://localhost:44363/api/Login";
+        String url="http://" + sIpAddress + "/" + Common.DomainName + "/api/Login";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

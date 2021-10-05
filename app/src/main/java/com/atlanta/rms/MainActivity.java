@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
                 ipAddressEditor.putString("ipaddress", txtipaddress.getText().toString().trim());
                 ipAddressEditor.apply();
 
-           /*     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+               Intent intent = new Intent(MainActivity.this, WaiterListActivity.class);
                 startActivity(intent);
-            */
+
 
             }
         });
