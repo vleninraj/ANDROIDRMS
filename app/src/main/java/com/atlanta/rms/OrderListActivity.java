@@ -40,6 +40,7 @@ public class OrderListActivity extends AppCompatActivity {
         grdOrders=findViewById(R.id.grdorders);
         btnSearch=findViewById(R.id.btnsearchorder);
         btnneworder=findViewById(R.id.btnneworder);
+        requestQueue = Volley.newRequestQueue(this);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +91,16 @@ public class OrderListActivity extends AppCompatActivity {
     {
         _orders.clear();
         String url="";
-        url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Order";
+        if(Common.sCurrentOrderType.equals("DineIn")) {
+            url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Order?WaiterID=" + Common.sCurrentWaiterID
+                    + "&TypeID=688";
+        }
+        else
+        {
+            url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Order?WaiterID=" + Common.sCurrentWaiterID
+                    + "&TypeID=689";
+        }
+/*
         HashMap<String ,String> params=new HashMap<String, String>();
         params.put("WaiterID",Common.sCurrentWaiterID);
         if(Common.sCurrentOrderType.equals("DineIn")) {
@@ -101,7 +111,8 @@ public class OrderListActivity extends AppCompatActivity {
         {
             params.put("TypeID","689") ;
         }
-        CustomJsonRequest jsonArrayRequest = new CustomJsonRequest(Request.Method.GET, url, params, new Response.Listener<JSONArray>() {
+*/
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONArray jsonArray = response;
