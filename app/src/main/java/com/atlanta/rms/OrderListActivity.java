@@ -101,7 +101,7 @@ public class OrderListActivity extends AppCompatActivity {
         {
             params.put("TypeID","689") ;
         }
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, params, new Response.Listener<JSONArray>() {
+        CustomJsonRequest jsonArrayRequest = new CustomJsonRequest(Request.Method.GET, url, params, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONArray jsonArray = response;
