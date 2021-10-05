@@ -11,6 +11,8 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -88,17 +90,18 @@ public class OrderListActivity extends AppCompatActivity {
     {
         _orders.clear();
         String url="";
+        url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Order";
+        HashMap<String ,String> params=new HashMap<String, String>();
+        params.put("WaiterID",Common.sCurrentWaiterID);
         if(Common.sCurrentOrderType.equals("DineIn")) {
-            url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Order?WaiterID=" +
-                    Common.sCurrentWaiterID + "&TypeID=688";
+
+            params.put("TypeID","688") ;
         }
         else
         {
-            url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Order?WaiterID=" +
-                    Common.sCurrentWaiterID + "&TypeID=689";
+            params.put("TypeID","689") ;
         }
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, params, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONArray jsonArray = response;
