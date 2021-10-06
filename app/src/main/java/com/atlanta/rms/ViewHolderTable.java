@@ -9,6 +9,6 @@ public class ViewHolderTable {
     public TextView txttablename;
     ViewHolderTable(View v)
     {
-        txttablename=(TextView)v.findViewById(R.id.txtwaitername);
+        txttablename=(TextView)v.findViewById(R.id.txttablename);
     }
 }
