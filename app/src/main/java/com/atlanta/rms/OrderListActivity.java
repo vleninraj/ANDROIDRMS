@@ -150,7 +150,7 @@ public class OrderListActivity extends AppCompatActivity {
                             intent.putExtra("PartyName",_party.get_PartyName());
                             intent.putExtra("ArabicName",_party.get_ArabicName());
                             intent.putExtra("MobileNumber",txtmobilenumber.getText().toString());
-
+                            intent.putExtra("NewRecord",true);
                             startActivity(intent);
                             alert.dismiss();
                         }
