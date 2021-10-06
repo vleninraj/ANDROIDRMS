@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -33,7 +34,7 @@ public class TableActivity extends AppCompatActivity {
     final ArrayList<Table> _tables=new ArrayList<>();
     final ArrayList<Table> _tablesfiltered=new ArrayList<>();
     ArrayList<String> floors = new ArrayList<>();
-    AutoCompleteTextView txtfloor;
+    Spinner txtfloor;
     ArrayList<String> floornames = new ArrayList<>();
     String sIpAddress="";
     @Override
@@ -41,7 +42,7 @@ public class TableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
         grdtables=(GridView) findViewById(R.id.grdtables);
-        txtfloor=(AutoCompleteTextView) findViewById(R.id.txtfloor);
+        txtfloor=(Spinner) findViewById(R.id.txtfloor);
         requestQueue = Volley.newRequestQueue(this);
         final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
         sIpAddress=ipAddress.getString("ipaddress", "");
@@ -49,7 +50,7 @@ public class TableActivity extends AppCompatActivity {
         txtfloor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String sfloorname=txtfloor.getText().toString();
+                String sfloorname=txtfloor.getSelectedItem().toString();
                 if(sfloorname.equals("")){ return;}
                 Floor _floor= Common._floors.get(sfloorname);
                 if(_floor!=null)
@@ -98,9 +99,11 @@ public class TableActivity extends AppCompatActivity {
                         Common._floors.put(_floor.get_FloorName() ,_floor);
                         floornames.add(_floor.get_FloorName());
                     }
+
+                    txtfloor.setAdapter(null);
                     ArrayAdapter<String> _flooradapter = new ArrayAdapter<String>(TableActivity.this, android.R.layout.simple_list_item_1, floornames.toArray(new String[floornames.size()]));
+                    _flooradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     txtfloor.setAdapter(_flooradapter);
-                    txtfloor.setThreshold(0);
                 }
                 catch (Exception w)
                 {
