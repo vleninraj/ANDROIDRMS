@@ -158,6 +158,8 @@ public class OrderListActivity extends AppCompatActivity {
                             intent.putExtra("ArabicName",_party.get_ArabicName());
                             intent.putExtra("MobileNumber",txtmobilenumber.getText().toString());
                             intent.putExtra("NewRecord",true);
+                            intent.putExtra("TableName",Common.selectedTableName);
+                            intent.putExtra("TableID",Common.selectedTableID);
                             startActivity(intent);
                             alert.dismiss();
                         }

@@ -112,6 +112,35 @@
 
             />
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reltablename"
+        android:layout_below="@id/relorderdate"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_regular"
+            android:text="Table: "
+            android:layout_alignParentStart="true"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/lbltablecap"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_regular"
+            android:text="TAB1"
+            android:layout_toRightOf="@id/lbltablecap"
+            android:textSize="12sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/lblnewordertablename"
+            />
+    </RelativeLayout>
     <TextView
         android:fontFamily="@font/nunito_regular"
         android:layout_centerHorizontal="true"
@@ -122,7 +151,7 @@
         android:textSize="20sp"
         android:textColor="#6B6868"
         android:textStyle="bold"
-        android:layout_below="@id/relorderdate" />
+        android:layout_below="@id/reltablename" />
     <TextView
         android:fontFamily="@font/nunito_regular"
         android:layout_centerHorizontal="true"

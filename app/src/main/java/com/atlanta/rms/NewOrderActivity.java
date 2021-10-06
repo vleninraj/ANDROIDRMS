@@ -21,7 +21,7 @@ public class NewOrderActivity extends AppCompatActivity {
 
 
     TextView txtparty,txtinvno,dtdate,txtsalestype,txtbillamount;
-    TextView lblmobilenumber;
+    TextView lblmobilenumber,lbltablename;
     Button btnAddItem,btnCalandar;
     Boolean blnNewRecord=false;
     Calendar cal = Calendar.getInstance();
@@ -35,6 +35,7 @@ public class NewOrderActivity extends AppCompatActivity {
         txtsalestype=findViewById(R.id.txtsalestype);
         txtbillamount=findViewById(R.id.txtbillamount);
         lblmobilenumber=findViewById(R.id.lblnewordermobileno);
+        lbltablename=findViewById(R.id.lblnewordertablename);
         btnAddItem=findViewById(R.id.btnadditem);
         btnCalandar=findViewById(R.id.btnCalandar);
         final Intent intent = getIntent();
@@ -43,6 +44,8 @@ public class NewOrderActivity extends AppCompatActivity {
         txtparty.setTag((Integer) bd.get("PartyID"));
         txtsalestype.setText(Common.sCurrentOrderType);
         lblmobilenumber.setText((String) bd.get("MobileNumber"));
+        lbltablename.setText((String) bd.get("TableName"));
+        lbltablename.setTag((String) bd.get("TableID"));
         blnNewRecord=(Boolean) bd.get("NewRecord");
         dtdate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 
