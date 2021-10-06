@@ -69,6 +69,13 @@ public class OrderListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+                if(Common.sCurrentOrderType.equals("DineIn"))
+                {
+                    Intent intent = new Intent(OrderListActivity.this, TableActivity.class);
+                    startActivity(intent);
+                }
+
                 LayoutInflater layoutInflater=getLayoutInflater();
                 final View DialougView = layoutInflater.inflate(R.layout.select_party, null);
                 final AutoCompleteTextView txtcustomername=DialougView.findViewById(R.id.txtcustomername);

@@ -45,6 +45,7 @@ public class NewOrderActivity extends AppCompatActivity {
         lblmobilenumber.setText((String) bd.get("MobileNumber"));
         blnNewRecord=(Boolean) bd.get("NewRecord");
         dtdate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+
 /*
         btnCalandar.setOnClickListener(new View.OnClickListener() {
             @Override
