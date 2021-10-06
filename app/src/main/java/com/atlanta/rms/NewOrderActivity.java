@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+/*
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
-
+*/
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,7 +45,7 @@ public class NewOrderActivity extends AppCompatActivity {
         lblmobilenumber.setText((String) bd.get("MobileNumber"));
         blnNewRecord=(Boolean) bd.get("NewRecord");
         dtdate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
-
+/*
         btnCalandar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +73,6 @@ public class NewOrderActivity extends AppCompatActivity {
                 datePicker.show();
             }
         });
-
+*/
     }
 }
