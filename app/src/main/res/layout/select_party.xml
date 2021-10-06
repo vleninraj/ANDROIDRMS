@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp"
+    tools:context=".Alert"
+    >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/CustomerLayout"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:src="@drawable/customericon"
+            android:id="@+id/nameimg"
+            />
+        <TextView
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:textSize="15sp"
+            android:layout_toRightOf="@+id/nameimg"
+            android:hint="Enter customer name "
+            android:id="@+id/nameEdtxt"
+            android:paddingLeft="5dp"/>
+        <AutoCompleteTextView
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtcustomername"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/nameEdtxt" />
+        <ImageView
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_below="@id/txtcustomername"
+            android:src="@drawable/customericon"
+            android:id="@+id/mobimg"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/mobimg"
+            android:layout_below="@id/txtcustomername"
+            android:hint="Enter Mobile Number "
+            android:id="@+id/lblmobileno"
+            android:paddingLeft="5dp"/>
+        <EditText
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Enter Mobile Number"
+            android:id="@+id/txtmobilenumber"
+            android:layout_marginTop="10dp"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:layout_below="@id/mobimg"
+
+            />
+    </RelativeLayout>
+    <Button
+        android:fontFamily="@font/nunito_regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/CustomerLayout"
+        android:text="OK"
+        android:id="@+id/btnselectparty"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="#fff"/>
+
+</RelativeLayout>

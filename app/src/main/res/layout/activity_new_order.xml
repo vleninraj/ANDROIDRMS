@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewOrderActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:id="@+id/AppBar"
+        >
+    </RelativeLayout>
+<RelativeLayout
+    android:id="@+id/relhead"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:fontFamily="@font/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invoice number : "
+        android:visibility="gone"
+        android:paddingLeft="20dp"
+        android:id="@+id/vnocap"/>
+    <TextView
+        android:fontFamily="@font/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="18679"
+        android:layout_marginLeft="10dp"
+        android:textSize="12sp"
+        android:layout_toRightOf="@id/vnocap"
+        android:id="@+id/txtinvno"/>
+    <TextView
+        android:fontFamily="@font/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KOT"
+        android:textColor="#0D9228"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tvkotcap"
+        android:textSize="20sp"/>
+    <TextView
+        android:fontFamily="@font/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mathayichan"
+        android:paddingRight="10dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/txtparty"
+        android:textSize="16sp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relorderdate"
+        android:layout_below="@id/txtparty"
+        >
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_date_range_black_24dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:elevation="10dp"
+            android:paddingRight="20dp"
+            android:id="@+id/btnCalandar"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_regular"
+            android:text="Order Date : "
+            android:layout_toLeftOf="@+id/dtdate"
+            android:textSize="12sp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/OrderText"
+            android:paddingLeft="20dp"
+            />
+        <TextView
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="16-11-2019"
+            android:id="@+id/dtdate"
+            android:layout_toLeftOf="@id/btnCalandar"
+            android:layout_marginTop="15dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginRight="10dp"
+
+            />
+    </RelativeLayout>
+    <TextView
+        android:fontFamily="@font/nunito_regular"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dine In"
+        android:id="@+id/txtsalestype"
+        android:textSize="20sp"
+        android:textColor="#6B6868"
+        android:textStyle="bold"
+        android:layout_below="@id/relorderdate" />
+    <TextView
+        android:fontFamily="@font/nunito_regular"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bill amount"
+        android:id="@+id/BIllAmountxt"
+        android:textSize="15sp"
+        android:textColor="#6B6868"
+        android:layout_below="@id/txtsalestype" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/BIllAmountxt"
+        android:layout_centerHorizontal="true"
+        >
+        <TextView
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="35dp"
+            android:layout_height="60sp"
+            android:id="@+id/currencyicon"
+            android:layout_toLeftOf="@id/txtbillamount"
+            android:textStyle="bold"
+            android:background="@drawable/curency_note"
+            android:textColor="#7E7F81"
+            android:textSize="40sp"
+            />
+        <TextView
+            android:fontFamily="@font/nunito_regular"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:text="0.0"
+            android:id="@+id/txtbillamount"
+            android:textSize="40sp"
+            android:textColor="#03832E"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relhead"
+        android:id="@+id/gridView"/>
+
+    <LinearLayout
+        android:id="@+id/lnbuttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnadditem"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ic_add_circle_black_24dp"
+            android:elevation="5dp" />
+    </LinearLayout>
+
+</RelativeLayout>
