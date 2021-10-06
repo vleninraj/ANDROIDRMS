@@ -93,12 +93,12 @@ public class OrderListActivity extends AppCompatActivity {
                                 Party _party=new Party();
                                 _party.set_id(jsonObject.getInt("id"));
                                 _party.set_PartyCode(jsonObject.getString("PartyCode"));
-                                _party.set_PartyName(jsonObject.getString("VoucherNo").trim());
-                                _party.set_ArabicName(jsonObject.getString("VoucherNo"));
-                                _party.set_GSTNO(jsonObject.getString("VoucherNo"));
-                                _party.set_VATNO(jsonObject.getString("VoucherNo"));
-                                _party.set_MobileNumber(jsonObject.getString("VoucherNo"));
-                                _party.set_Balance(jsonObject.getDouble("VoucherNo"));
+                                _party.set_PartyName(jsonObject.getString("PartyName").trim());
+                                _party.set_ArabicName(jsonObject.getString("ArabicName"));
+                                _party.set_GSTNO(jsonObject.getString("GSTNO"));
+                                _party.set_VATNO(jsonObject.getString("VATNO"));
+                                _party.set_MobileNumber(jsonObject.getString("MobileNumber"));
+                                _party.set_Balance(jsonObject.getDouble("Balance"));
                                 _partynames.add(_party.get_PartyName());
                                 Common._parties.put(_party.get_PartyName(),_party);
                             }
@@ -150,6 +150,7 @@ public class OrderListActivity extends AppCompatActivity {
                             intent.putExtra("PartyName",_party.get_PartyName());
                             intent.putExtra("ArabicName",_party.get_ArabicName());
                             intent.putExtra("MobileNumber",txtmobilenumber.getText().toString());
+
                             startActivity(intent);
                             alert.dismiss();
                         }
