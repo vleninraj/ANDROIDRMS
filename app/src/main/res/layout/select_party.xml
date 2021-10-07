@@ -64,10 +64,65 @@
             android:hint="Enter Mobile Number"
             android:id="@+id/txtmobilenumber"
             android:layout_marginTop="10dp"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
             android:layout_below="@id/mobimg"
-
+            />
+        <ImageView
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_below="@id/txtmobilenumber"
+            android:src="@drawable/customericon"
+            android:id="@+id/imgvehicle"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/imgvehicle"
+            android:layout_below="@id/txtmobilenumber"
+            android:hint="Enter Vehicle Name "
+            android:id="@+id/lblvehiclename"
+            android:paddingLeft="5dp"/>
+        <EditText
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Enter Vehicle Name"
+            android:id="@+id/txtvehiclename"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/imgvehicle"
+            />
+        <ImageView
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_below="@id/txtvehiclename"
+            android:src="@drawable/customericon"
+            android:id="@+id/imgvehicleno"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/imgvehicleno"
+            android:layout_below="@id/txtvehiclename"
+            android:hint="Enter Vehicle Number "
+            android:id="@+id/lblvehicleno"
+            android:paddingLeft="5dp"/>
+        <EditText
+            android:fontFamily="@font/nunito_regular"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Enter Vehicle Number"
+            android:id="@+id/txtvehiclenumber"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/imgvehicleno"
             />
     </RelativeLayout>
     <Button

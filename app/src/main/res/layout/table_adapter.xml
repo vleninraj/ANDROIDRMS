@@ -22,7 +22,7 @@
                 android:id="@+id/imgtable"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                app:srcCompat="@drawable/nowaiter" />
+                app:srcCompat="@drawable/tabletop" />
             <TextView
                 android:id="@+id/txttablename"
                 android:layout_width="match_parent"

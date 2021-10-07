@@ -80,6 +80,8 @@ public class OrderListActivity extends AppCompatActivity {
                 final View DialougView = layoutInflater.inflate(R.layout.select_party, null);
                 final AutoCompleteTextView txtcustomername=DialougView.findViewById(R.id.txtcustomername);
                 final EditText txtmobilenumber=DialougView.findViewById(R.id.txtmobilenumber);
+                final EditText txtVehicleName = DialougView.findViewById(R.id.txtvehiclename);
+                final EditText txtVehicleNumber = DialougView.findViewById(R.id.txtvehiclenumber);
                 txtcustomername.requestFocus();
                 final AlertDialog alert=new AlertDialog.Builder(OrderListActivity.this).create();
                 final Button btnSelectParty=DialougView.findViewById(R.id.btnselectparty);
@@ -160,6 +162,8 @@ public class OrderListActivity extends AppCompatActivity {
                             intent.putExtra("NewRecord",true);
                             intent.putExtra("TableName",Common.selectedTableName);
                             intent.putExtra("TableID",Common.selectedTableID);
+                            intent.putExtra("VehicleName",txtVehicleName.getText().toString());
+                            intent.putExtra("VehicleNumber",txtVehicleNumber.getText().toString());
                             startActivity(intent);
                             alert.dismiss();
                         }
