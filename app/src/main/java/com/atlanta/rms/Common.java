@@ -8,6 +8,8 @@ public class Common {
     public static String sCurrentWaiterName="";
     public static String sCurrentWaiterID="";
     public static String sCurrentOrderType="";// Take Away or Dine In
+    public static String selectedGroupName="";
+    public static String selectedGroupID="";
     public static Dictionary<String,Party> _parties;
     public static Dictionary<String,Table> _tables;
     public static Dictionary<String,Floor> _floors;

@@ -4,13 +4,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ViewHolderWaiter {
+public class ViewHolderGroup {
     public ImageView imgview;
-    public TextView txtwaitername;
-    ViewHolderWaiter(View v)
+    public TextView txtgroupname;
+    ViewHolderGroup(View v)
     {
         imgview=(ImageView)v.findViewById(R.id.imgwaiter);
-        txtwaitername=(TextView)v.findViewById(R.id.txtwaitername);
+        txtgroupname=(TextView)v.findViewById(R.id.txtgroupname);
     }
 }
-

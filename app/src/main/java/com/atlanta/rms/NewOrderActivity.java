@@ -48,7 +48,13 @@ public class NewOrderActivity extends AppCompatActivity {
         lbltablename.setTag((String) bd.get("TableID"));
         blnNewRecord=(Boolean) bd.get("NewRecord");
         dtdate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
-
+        btnAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                  Intent intent = new Intent(NewOrderActivity.this, GroupActivity.class);
+                  startActivity(intent);
+            }
+        });
 /*
         btnCalandar.setOnClickListener(new View.OnClickListener() {
             @Override
