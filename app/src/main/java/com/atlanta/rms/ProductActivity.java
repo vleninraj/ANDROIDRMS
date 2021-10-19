@@ -48,7 +48,7 @@ public class ProductActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
         sIpAddress=ipAddress.getString("ipaddress", "");
-        getProductList();
+        getProductList(sGroupID);
         ArrayAdapter<String> _productadapter = new ArrayAdapter<String>(ProductActivity.this, android.R.layout.simple_list_item_1, productnames.toArray(new String[productnames.size()]));
         txtproductsearch.setAdapter(_productadapter);
         txtproductsearch.setThreshold(0);
@@ -89,11 +89,11 @@ public class ProductActivity extends AppCompatActivity {
             }
         });
     }
-    private  void getProductList()
+    private  void getProductList(String sGroupID)
     {
         productnames.clear();
         _products.clear();
-        String url="http://" + sIpAddress + "/" + Common.DomainName + "/api/Group";
+        String url="http://" + sIpAddress + "/" + Common.DomainName + "/api/Product?GroupID=" + sGroupID;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
