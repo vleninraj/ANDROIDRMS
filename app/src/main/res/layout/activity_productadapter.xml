@@ -19,16 +19,16 @@
             android:layout_margin="5dp"
             android:padding="10dp">
             <ImageView
-                android:id="@+id/imggroup"
+                android:id="@+id/imgproduct"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 app:srcCompat="@drawable/nogroup" />
             <TextView
-                android:id="@+id/txtgroupname"
+                android:id="@+id/txtproductname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="false"
-                android:layout_below="@id/imggroup"
+                android:layout_below="@id/imgproduct"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
                 android:text="Sample"

@@ -78,8 +78,11 @@ public class GroupActivity extends AppCompatActivity {
                 ViewHolderGroup holder=(ViewHolderGroup) view.getTag();
                 Common.selectedGroupName=  holder.txtgroupname.getText().toString();
                 Common.selectedGroupID=holder.txtgroupname.getTag().toString();
-              //  Intent intent = new Intent(GroupActivity.this, OrderTypeActivity.class);
-              //  startActivity(intent);
+                Intent intent = new Intent(GroupActivity.this, ProductActivity.class);
+                intent.putExtra("GroupName", Common.selectedGroupName);
+                intent.putExtra("GroupID", Common.selectedGroupID);
+
+                startActivity(intent);
             }
         });
 

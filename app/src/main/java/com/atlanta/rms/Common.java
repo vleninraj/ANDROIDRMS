@@ -10,6 +10,8 @@ public class Common {
     public static String sCurrentOrderType="";// Take Away or Dine In
     public static String selectedGroupName="";
     public static String selectedGroupID="";
+    public static String selectedProductName="";
+    public static String selectedProductID="";
     public static Dictionary<String,Party> _parties;
     public static Dictionary<String,Table> _tables;
     public static Dictionary<String,Floor> _floors;
