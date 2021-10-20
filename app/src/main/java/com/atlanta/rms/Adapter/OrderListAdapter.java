@@ -72,12 +72,12 @@ public class OrderListAdapter extends BaseAdapter {
         if(_order.get_billed()==1)
         {
             _viewholder.lblbilledstatus.setText("Billed");
-            _viewholder.lblbilledstatus.setTextColor(Color.argb(0,0,255,0));
+          //  _viewholder.lblbilledstatus.setTextColor(Color.argb(0,0,255,0));
         }
         else
         {
             _viewholder.lblbilledstatus.setText("Un Billed");
-            _viewholder.lblbilledstatus.setTextColor(Color.argb(0,255,0,0));
+           // _viewholder.lblbilledstatus.setTextColor(Color.argb(0,255,0,0));
         }
         _viewholder.lblgrandamount.setText(_order.get_GrandAmount());
         Log.d(TAG, "From View" + _order.get_VoucherNo());
