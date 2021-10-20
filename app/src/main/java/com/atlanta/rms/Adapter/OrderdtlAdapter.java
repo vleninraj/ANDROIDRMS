@@ -43,39 +43,52 @@ public class OrderdtlAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         View vw=view;
-        final View newvw=vw;
-        ViewHolderOrderDtl _viewholder=null;
         final OrderDTL _orderitem = (OrderDTL) this.getItem(i);
         if(vw==null)
         {
             LayoutInflater layoutInflater=_context.getLayoutInflater();
             vw=layoutInflater.inflate(R.layout.neworder_adapter,viewGroup,false);
-            _viewholder=new ViewHolderOrderDtl(vw);
+            final ViewHolderOrderDtl _viewholder=new ViewHolderOrderDtl(vw);
             vw.setTag(_viewholder);
-
-        }
-        else{
-            _viewholder=(ViewHolderOrderDtl) vw.getTag();
             _viewholder.btnincrement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Double dblQty=_orderitem.get_Qty();
                     dblQty++;
                     _orderitem.set_Qty(dblQty);
-                    TextView txtqty= (TextView) newvw.findViewById(R.id.lblneworderqty);
-                    txtqty.setText(String.format("%.2f",_orderitem.get_Qty()));
+                    _viewholder.lblneworderqty.setText(String.format("%.2f",_orderitem.get_Qty()));
                 }
             });
+            _viewholder.lblneworderproductname.setText(_orderitem.get_ProductName());
+            _viewholder.lblneworderproductname.setTag(_orderitem.get_productid());
+            _viewholder.lblneworderqty.setText(String.format("%.2f",_orderitem.get_Qty()));
+            _viewholder.lblnewordersalesrate.setText(String.format("%.2f",_orderitem.get_Rate()));
+            _viewholder.lblneworderunit.setText(_orderitem.get_Unit());
+            _viewholder.lblneworderunit.setTag(_orderitem.get_unitid());
+            _viewholder.btnincrement.setTag(_orderitem.get_id());
+        }
+        else{
+            final ViewHolderOrderDtl _viewholder=(ViewHolderOrderDtl) vw.getTag();
+            _viewholder.btnincrement.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Double dblQty=_orderitem.get_Qty();
+                    dblQty++;
+                    _orderitem.set_Qty(dblQty);
+                    _viewholder.lblneworderqty.setText(String.format("%.2f",_orderitem.get_Qty()));
+                }
+            });
+            _viewholder.lblneworderproductname.setText(_orderitem.get_ProductName());
+            _viewholder.lblneworderproductname.setTag(_orderitem.get_productid());
+            _viewholder.lblneworderqty.setText(String.format("%.2f",_orderitem.get_Qty()));
+            _viewholder.lblnewordersalesrate.setText(String.format("%.2f",_orderitem.get_Rate()));
+            _viewholder.lblneworderunit.setText(_orderitem.get_Unit());
+            _viewholder.lblneworderunit.setTag(_orderitem.get_unitid());
+            _viewholder.btnincrement.setTag(_orderitem.get_id());
         }
 
 
-        _viewholder.lblneworderproductname.setText(_orderitem.get_ProductName());
-        _viewholder.lblneworderproductname.setTag(_orderitem.get_productid());
-        _viewholder.lblneworderqty.setText(String.format("%.2f",_orderitem.get_Qty()));
-        _viewholder.lblnewordersalesrate.setText(String.format("%.2f",_orderitem.get_Rate()));
-        _viewholder.lblneworderunit.setText(_orderitem.get_Unit());
-        _viewholder.lblneworderunit.setTag(_orderitem.get_unitid());
-        _viewholder.btnincrement.setTag(_orderitem.get_id());
+
 
      //   _viewholder.txtwaitername.setText(_orderitem.get_WaiterName());
       //  _viewholder.txtwaitername.setTag(_orderitem.get_id());

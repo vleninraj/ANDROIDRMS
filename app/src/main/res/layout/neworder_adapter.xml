@@ -38,7 +38,7 @@
         >
 
         <Button
-            android:id="@+id/btnneworderincrement"
+            android:id="@+id/btnneworderdecrement"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/minusicon"
@@ -49,13 +49,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_regular"
-            android:layout_toRightOf="@id/btnneworderincrement"
+            android:layout_toRightOf="@id/btnneworderdecrement"
             android:text="0"
             android:layout_margin="10dp"
             android:textSize="20sp"
             android:textStyle="bold" />
         <Button
-            android:id="@+id/btnneworderdecrement"
+            android:id="@+id/btnneworderincrement"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_toRightOf="@id/lblneworderqty"
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_margin="5dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnneworderdecrement"
+            android:layout_toRightOf="@id/btnneworderincrement"
             android:fontFamily="@font/nunito_regular"
             android:text="KG"
             android:textSize="20sp"

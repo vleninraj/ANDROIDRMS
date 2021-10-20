@@ -2,7 +2,6 @@ package com.atlanta.rms.ViewHolder;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atlanta.rms.R;
@@ -23,8 +22,8 @@ public class ViewHolderOrderDtl {
         lblneworderqty=(TextView)v.findViewById(R.id.lblneworderqty);
         lblneworderunit=(TextView)v.findViewById(R.id.lblneworderunit);
         lblnewordersalesrate=(TextView)v.findViewById(R.id.lblnewordersalesrate);
-        btnincrement=(Button)v.findViewById(R.id.btnneworderincrement);
-        btndecrement=(Button)v.findViewById(R.id.btnneworderdecrement);
+        btnincrement=(Button)v.findViewById(R.id.btnneworderdecrement);
+        btndecrement=(Button)v.findViewById(R.id.btnneworderincrement);
         btnremoveitem=(Button)v.findViewById(R.id.btnremoveitem);
 
     }
