@@ -43,6 +43,7 @@ public class OrderdtlAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         View vw=view;
+        final View newvw=vw;
         ViewHolderOrderDtl _viewholder=null;
         final OrderDTL _orderitem = (OrderDTL) this.getItem(i);
         if(vw==null)
@@ -58,7 +59,7 @@ public class OrderdtlAdapter extends BaseAdapter {
                     Double dblQty=_orderitem.get_Qty();
                     dblQty++;
                     _orderitem.set_Qty(dblQty);
-                    TextView txtqty= (TextView) view.findViewById(R.id.lblneworderqty);
+                    TextView txtqty= (TextView) newvw.findViewById(R.id.lblneworderqty);
                     txtqty.setText(String.format("%.2f",_orderitem.get_Qty()));
                 }
             });
