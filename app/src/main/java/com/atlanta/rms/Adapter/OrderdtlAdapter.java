@@ -57,6 +57,8 @@ public class OrderdtlAdapter extends BaseAdapter {
                     dblQty++;
                     _orderitem.set_Qty(dblQty);
                     _viewholder.lblneworderqty.setText(String.format("%.2f",_orderitem.get_Qty()));
+                    Double dblRate=Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString());
+                    _viewholder.lblneworderamount.setText(String.format("%.2f",dblRate*dblQty));
                 }
             });
             _viewholder.btndecrement.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +70,8 @@ public class OrderdtlAdapter extends BaseAdapter {
                         dblQty--;
                         _orderitem.set_Qty(dblQty);
                         _viewholder.lblneworderqty.setText(String.format("%.2f",_orderitem.get_Qty()));
+                        Double dblRate=Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString());
+                        _viewholder.lblneworderamount.setText(String.format("%.2f",dblRate*dblQty));
                     }
 
                 }
@@ -89,6 +93,9 @@ public class OrderdtlAdapter extends BaseAdapter {
             _viewholder.lblneworderunit.setText(_orderitem.get_Unit());
             _viewholder.lblneworderunit.setTag(_orderitem.get_unitid());
             _viewholder.btnincrement.setTag(_orderitem.get_id());
+            Double dblQty=Double.valueOf(_viewholder.lblneworderqty.getText().toString());
+            Double dblRate=Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString());
+            _viewholder.lblneworderamount.setText(String.format("%.2f",dblRate*dblQty));
         }
         else{
             final ViewHolderOrderDtl _viewholder=(ViewHolderOrderDtl) vw.getTag();
@@ -99,6 +106,10 @@ public class OrderdtlAdapter extends BaseAdapter {
             _viewholder.lblneworderunit.setText(_orderitem.get_Unit());
             _viewholder.lblneworderunit.setTag(_orderitem.get_unitid());
             _viewholder.btnincrement.setTag(_orderitem.get_id());
+
+            Double dblQty=Double.valueOf(_viewholder.lblneworderqty.getText().toString());
+            Double dblRate=Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString());
+            _viewholder.lblneworderamount.setText(String.format("%.2f",dblRate*dblQty));
         }
 
 

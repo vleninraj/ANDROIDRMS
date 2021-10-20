@@ -68,6 +68,7 @@ public class NewOrderActivity extends AppCompatActivity {
         {
             // Existing Record
         }
+        CalcTotals();
         OrderdtlAdapter _orderDtlAdapter=new OrderdtlAdapter(NewOrderActivity.this,Common._orderdtls);
         grdneworder.setAdapter(_orderDtlAdapter);
         _orderDtlAdapter.notifyDataSetChanged();
@@ -116,6 +117,15 @@ public class NewOrderActivity extends AppCompatActivity {
 */
     }
 
+    private void CalcTotals()
+    {
+        Double dblNetAmount=0.0;
+        for(OrderDTL dtl: Common._orderdtls)
+        {
+            dblNetAmount=dblNetAmount + (dtl.get_Qty()*dtl.get_Rate());
+        }
+        txtbillamount.setText(String.format("%.2f",dblNetAmount));
+    }
     @Override
     protected void onResume() {
         super.onResume();

@@ -71,18 +71,33 @@
             android:text="KG"
             android:textSize="20sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/lblnewordersalesrate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="80dp"
+            android:layout_toRightOf="@id/lblneworderunit"
             android:fontFamily="@font/nunito_regular"
-            android:text="0.00"
+            android:text="0.0"
             android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblneworderamount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/nunito_regular"
+            android:gravity="right"
+            android:text="0.0"
+            android:textSize="25sp"
             android:textStyle="bold" />
     </RelativeLayout>
     <View
