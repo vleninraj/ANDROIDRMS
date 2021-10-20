@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.atlanta.rms.Common;
 import com.atlanta.rms.R;
 import com.atlanta.rms.Models.OrderDTL;
 import com.atlanta.rms.ViewHolder.ViewHolderOrderDtl;
@@ -59,19 +61,21 @@ public class OrderdtlAdapter extends BaseAdapter {
                     _viewholder.lblneworderqty.setText(String.format("%.2f",_orderitem.get_Qty()));
                     Double dblRate=Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString());
                     _viewholder.lblneworderamount.setText(String.format("%.2f",dblRate*dblQty));
+                    CalcTotals();
                 }
             });
             _viewholder.btndecrement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Double dblQty=_orderitem.get_Qty();
-                    if(!dblQty.equals(0.0))
+                    if(!dblQty.equals(1))
                     {
                         dblQty--;
                         _orderitem.set_Qty(dblQty);
                         _viewholder.lblneworderqty.setText(String.format("%.2f",_orderitem.get_Qty()));
                         Double dblRate=Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString());
                         _viewholder.lblneworderamount.setText(String.format("%.2f",dblRate*dblQty));
+                        CalcTotals();
                     }
 
                 }
@@ -81,7 +85,7 @@ public class OrderdtlAdapter extends BaseAdapter {
                 public void onClick(View view) {
                     _orderitems.remove(i);
                     notifyDataSetChanged();
-
+                    CalcTotals();
                 }
             });
 
@@ -110,6 +114,7 @@ public class OrderdtlAdapter extends BaseAdapter {
             Double dblQty=Double.valueOf(_viewholder.lblneworderqty.getText().toString());
             Double dblRate=Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString());
             _viewholder.lblneworderamount.setText(String.format("%.2f",dblRate*dblQty));
+
         }
 
 
@@ -119,5 +124,15 @@ public class OrderdtlAdapter extends BaseAdapter {
       //  _viewholder.txtwaitername.setTag(_orderitem.get_id());
        // Log.d(TAG, "From View" + _orderitem.get_WaiterName());
         return vw;
+    }
+    private void CalcTotals()
+    {
+        Double dblNetAmount=0.0;
+        for(OrderDTL dtl: Common._orderdtls)
+        {
+            dblNetAmount=dblNetAmount + (dtl.get_Qty()*dtl.get_Rate());
+        }
+        TextView txtbillamount=_context.findViewById(R.id.txtbillamount);
+        txtbillamount.setText(String.format("%.2f",dblNetAmount));
     }
 }
