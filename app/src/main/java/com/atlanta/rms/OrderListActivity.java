@@ -254,6 +254,7 @@ public class OrderListActivity extends AppCompatActivity {
                         _order.set_Party(jsonObject.getString("Party"));
                         _order.set_MobileNumber(jsonObject.getString("MobileNumber"));
                         _order.set_TableName(jsonObject.getString("TableName"));
+                        _order.set_billed(jsonObject.getInt("BilledStatus"));
                         _orders.add(_order);
                     }
                     OrderListAdapter adapter = new OrderListAdapter(OrderListActivity.this, _orders);

@@ -8,7 +8,7 @@ public class OrderList {
     private String _MobileNumber;
     private String _TableName;
     private String _GrandAmount;
-
+    private int _billed;
     public int get_id() {
         return _id;
     }
@@ -55,5 +55,13 @@ public class OrderList {
 
     public void set_GrandAmount(String _GrandAmount) {
         this._GrandAmount = _GrandAmount;
+    }
+
+    public int get_billed() {
+        return _billed;
+    }
+
+    public void set_billed(int _billed) {
+        this._billed = _billed;
     }
 }

@@ -1,6 +1,7 @@
 package com.atlanta.rms.Adapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,6 +68,16 @@ public class OrderListAdapter extends BaseAdapter {
         else
         {
             _viewholder.lbltable.setText(_order.get_MobileNumber());
+        }
+        if(_order.get_billed()==1)
+        {
+            _viewholder.lblbilledstatus.setText("Billed");
+            _viewholder.lblbilledstatus.setTextColor(Color.argb(0,0,255,0));
+        }
+        else
+        {
+            _viewholder.lblbilledstatus.setText("Un Billed");
+            _viewholder.lblbilledstatus.setTextColor(Color.argb(0,255,0,0));
         }
         _viewholder.lblgrandamount.setText(_order.get_GrandAmount());
         Log.d(TAG, "From View" + _order.get_VoucherNo());
