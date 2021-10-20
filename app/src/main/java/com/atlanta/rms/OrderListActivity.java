@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -27,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.atlanta.rms.Adapter.OrderListAdapter;
+import com.atlanta.rms.Models.OrderDTL;
 import com.atlanta.rms.Models.OrderList;
 import com.atlanta.rms.Models.Party;
 
@@ -58,6 +60,16 @@ public class OrderListActivity extends AppCompatActivity {
                 btnSearch.setVisibility(View.GONE);
                 search.setVisibility(View.VISIBLE);
                 search.setIconified(false);
+            }
+        });
+        grdOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                OrderList _order= _orders.get(i);
+                if(_order!=null)
+                {
+                    Toast.makeText(OrderListActivity.this,_order.get_VoucherNo(),Toast.LENGTH_LONG).show();
+                }
             }
         });
         search.setOnCloseListener(new SearchView.OnCloseListener() {
