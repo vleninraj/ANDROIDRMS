@@ -52,7 +52,9 @@ public class OrderdtlAdapter extends BaseAdapter {
             vw=layoutInflater.inflate(R.layout.neworder_adapter,viewGroup,false);
             _viewholder=new ViewHolderOrderDtl(vw);
             vw.setTag(_viewholder);
-
+        }
+        else{
+            _viewholder=(ViewHolderOrderDtl) vw.getTag();
             _viewholder.btnincrement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -63,9 +65,6 @@ public class OrderdtlAdapter extends BaseAdapter {
                     txtqty.setText(String.format("%.2f",_orderitem.get_Qty()));
                 }
             });
-        }
-        else{
-            _viewholder=(ViewHolderOrderDtl) vw.getTag();
         }
 
 
