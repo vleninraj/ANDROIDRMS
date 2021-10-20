@@ -76,6 +76,7 @@ public class OrderdtlAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     _orderitems.remove(i);
+                    notifyDataSetChanged();
 
                 }
             });
