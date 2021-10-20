@@ -21,6 +21,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.atlanta.rms.Adapter.WaiterAdapter;
+import com.atlanta.rms.Models.Waiter;
+import com.atlanta.rms.ViewHolder.ViewHolderWaiter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

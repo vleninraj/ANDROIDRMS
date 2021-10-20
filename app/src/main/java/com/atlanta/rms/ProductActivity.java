@@ -20,17 +20,24 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.atlanta.rms.Adapter.ProductAdapter;
+import com.atlanta.rms.Models.OrderDTL;
+import com.atlanta.rms.Models.Product;
+import com.atlanta.rms.ViewHolder.ViewHolderProduct;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 public class ProductActivity extends AppCompatActivity {
 
     GridView grdproducts;
     RequestQueue requestQueue;
     final ArrayList<Product> _products=new ArrayList<>();
+    Dictionary<Integer,Product> _productlist=new Hashtable<Integer, Product>();
     final ArrayList<Product> _productsfiltered=new ArrayList<>();
     ArrayList<String> productnames = new ArrayList<>();
     AutoCompleteTextView txtproductsearch;
@@ -84,6 +91,22 @@ public class ProductActivity extends AppCompatActivity {
                 ViewHolderProduct holder=(ViewHolderProduct) view.getTag();
                 Common.selectedProductName=  holder.txtproductname.getText().toString();
                 Common.selectedProductID=holder.txtproductname.getTag().toString();
+                OrderDTL _dtl=new OrderDTL();
+                Product p=_productlist.get(Integer.valueOf( Common.selectedProductID));
+                if(p!=null) {
+                    _dtl.set_id(Common._orderdtls.size() + 1);
+                    _dtl.set_ProductCode(p.get_productCode());
+                    _dtl.set_ProductName(p.get_productName());
+                    _dtl.set_Qty(1.0);
+                    _dtl.set_unitid(p.get_UnitID());
+                    _dtl.set_Unit(p.get_DefaultUnit());
+                    _dtl.set_Rate(p.get_SalesRate());
+                    _dtl.set_Amount(p.get_SalesRate());
+
+                    Common._orderdtls.add(_dtl);
+
+                    Toast.makeText(ProductActivity.this,"Added to Cart!",Toast.LENGTH_LONG).show();
+                }
                 //  Intent intent = new Intent(GroupActivity.this, OrderTypeActivity.class);
                 //  startActivity(intent);
             }
@@ -93,6 +116,7 @@ public class ProductActivity extends AppCompatActivity {
     {
         productnames.clear();
         _products.clear();
+        _productlist=new Hashtable<Integer, Product>();
         String url="http://" + sIpAddress + "/" + Common.DomainName + "/api/Product?GroupID=" + sGroupID;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -101,6 +125,7 @@ public class ProductActivity extends AppCompatActivity {
                 try {
                     productnames.clear();
                     _products.clear();
+                    _productlist=new Hashtable<Integer, Product>();
                     for(int i=0;i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -108,8 +133,13 @@ public class ProductActivity extends AppCompatActivity {
                         _product.set_id(jsonObject.getInt("id"));
                         _product.set_productCode(jsonObject.getString("ProductCode"));
                         _product.set_productName(jsonObject.getString("ProductName"));
+                        _product.set_PurchaseRate(jsonObject.getDouble("PurchaseRate"));
+                        _product.set_SalesRate(jsonObject.getDouble("SalesRate"));
+                        _product.set_UnitID(jsonObject.getInt("UnitID"));
+                        _product.set_DefaultUnit(jsonObject.getString("Unit"));
                         productnames.add(_product.get_productName());
                         _products.add(_product);
+                        _productlist.put(_product.get_id(),_product);
                     }
                     ProductAdapter adapter = new ProductAdapter(ProductActivity.this, _products);
                     grdproducts.setAdapter(adapter);

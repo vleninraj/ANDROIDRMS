@@ -6,15 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 /*
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 */
+import com.atlanta.rms.Adapter.OrderdtlAdapter;
+import com.atlanta.rms.Models.OrderDTL;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 
 public class NewOrderActivity extends AppCompatActivity {
@@ -24,6 +30,8 @@ public class NewOrderActivity extends AppCompatActivity {
     TextView lblmobilenumber,lbltablename;
     Button btnAddItem,btnCalandar;
     Boolean blnNewRecord=false;
+    GridView grdneworder;
+
     Calendar cal = Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,7 @@ public class NewOrderActivity extends AppCompatActivity {
         lbltablename=findViewById(R.id.lblnewordertablename);
         btnAddItem=findViewById(R.id.btnadditem);
         btnCalandar=findViewById(R.id.btnCalandar);
+        grdneworder=findViewById(R.id.grdneworder);
         final Intent intent = getIntent();
         Bundle bd = intent.getExtras();
         txtparty.setText((String) bd.get("PartyName"));
@@ -48,6 +57,16 @@ public class NewOrderActivity extends AppCompatActivity {
         lbltablename.setTag((String) bd.get("TableID"));
         blnNewRecord=(Boolean) bd.get("NewRecord");
         dtdate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+        if(blnNewRecord)
+        {
+            Common._orderdtls.clear();
+        }
+        else
+        {
+            // Existing Record
+        }
+        OrderdtlAdapter _orderDtlAdapter=new OrderdtlAdapter(NewOrderActivity.this,Common._orderdtls);
+        grdneworder.setAdapter(_orderDtlAdapter);
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +74,7 @@ public class NewOrderActivity extends AppCompatActivity {
                   startActivity(intent);
             }
         });
+
 /*
         btnCalandar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,5 +104,15 @@ public class NewOrderActivity extends AppCompatActivity {
             }
         });
 */
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        OrderdtlAdapter _orderDtlAdapter=new OrderdtlAdapter(NewOrderActivity.this,Common._orderdtls);
+        grdneworder.setAdapter(_orderDtlAdapter);
+
     }
 }

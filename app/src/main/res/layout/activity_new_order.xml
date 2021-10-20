@@ -199,7 +199,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/relhead"
-        android:id="@+id/gridView"/>
+        android:id="@+id/grdneworder"/>
 
     <LinearLayout
         android:id="@+id/lnbuttons"
@@ -211,12 +211,20 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btnsaveorder"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/saveicon"
+            android:elevation="5dp" />
+        <Button
             android:id="@+id/btnadditem"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/ic_add_circle_black_24dp"
+            android:background="@drawable/addicon"
             android:elevation="5dp" />
+
     </LinearLayout>
 
 </RelativeLayout>

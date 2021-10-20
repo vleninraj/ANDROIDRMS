@@ -1,11 +1,13 @@
-package com.atlanta.rms;
+package com.atlanta.rms.ViewHolder;
 
 import android.view.View;
 import android.widget.TextView;
 
-public class ViewHolderOrder {
+import com.atlanta.rms.R;
+
+public class ViewHolderOrderList {
     public TextView lblvoucherno,lblparty,lbltable,lblgrandamount;
-    ViewHolderOrder(View v)
+    public ViewHolderOrderList(View v)
     {
         lblvoucherno=(TextView)v.findViewById(R.id.lblvoucherno);
         lblparty=(TextView)v.findViewById(R.id.lblparty);

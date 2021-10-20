@@ -1,4 +1,4 @@
-package com.atlanta.rms;
+package com.atlanta.rms.Adapter;
 
 import android.app.Activity;
 import android.util.Log;
@@ -6,6 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.atlanta.rms.Common;
+import com.atlanta.rms.Models.OrderList;
+import com.atlanta.rms.R;
+
+import com.atlanta.rms.ViewHolder.ViewHolderOrderList;
 
 import java.util.ArrayList;
 
@@ -40,16 +46,16 @@ public class OrderListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         View vw=view;
-        ViewHolderOrder _viewholder=null;
+        ViewHolderOrderList _viewholder=null;
         if(vw==null)
         {
             LayoutInflater layoutInflater=_context.getLayoutInflater();
             vw=layoutInflater.inflate(R.layout.orderlist_adapter,viewGroup,false);
-            _viewholder=new ViewHolderOrder(vw);
+            _viewholder=new ViewHolderOrderList(vw);
             vw.setTag(_viewholder);
         }
         else{
-            _viewholder=(ViewHolderOrder) vw.getTag();
+            _viewholder=(ViewHolderOrderList) vw.getTag();
         }
 
         final OrderList _order = (OrderList) this.getItem(i);

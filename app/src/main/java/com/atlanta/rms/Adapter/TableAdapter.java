@@ -1,4 +1,4 @@
-package com.atlanta.rms;
+package com.atlanta.rms.Adapter;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import com.atlanta.rms.R;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
@@ -17,6 +18,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.atlanta.rms.Models.Table;
+import com.atlanta.rms.ViewHolder.ViewHolderTable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

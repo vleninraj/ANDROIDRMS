@@ -27,17 +27,17 @@
             android:textStyle="bold"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/lblvoucherno" />
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/lbltable"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblvoucherno"
+            android:fontFamily="@font/nunito_regular"
+            android:gravity="start"
             android:text="TAB 1"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_below="@+id/lblvoucherno"
-            android:gravity="start"
-            android:fontFamily="@font/nunito_regular"
-             />
+            android:textStyle="bold" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

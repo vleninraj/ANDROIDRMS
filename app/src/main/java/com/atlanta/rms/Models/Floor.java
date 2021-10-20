@@ -1,4 +1,4 @@
-package com.atlanta.rms;
+package com.atlanta.rms.Models;
 
 public class Floor {
 

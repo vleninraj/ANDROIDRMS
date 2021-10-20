@@ -1,4 +1,4 @@
-package com.atlanta.rms;
+package com.atlanta.rms.Adapter;
 
 import android.app.Activity;
 import android.util.Log;
@@ -7,26 +7,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.atlanta.rms.Models.Group;
+import com.atlanta.rms.R;
+import com.atlanta.rms.ViewHolder.ViewHolderGroup;
+
 import java.util.ArrayList;
 
-public class ProductAdapter extends BaseAdapter {
+public class GroupAdapter extends BaseAdapter {
     private static final String TAG = "GroupAdapter";
     Activity _context;
-    ArrayList<Product> _products;
+    ArrayList<Group> _groups;
 
-    public ProductAdapter(Activity  context, ArrayList<Product> products) {
+    public GroupAdapter(Activity  context, ArrayList<Group> groups) {
         //   super(c, R.layout.listview,workid);
         this._context=context;
-        this._products=products;
+        this._groups=groups;
     }
     @Override
     public int getCount() {
-        return _products.size();
+        return _groups.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return _products.get(i);
+        return _groups.get(i);
     }
 
     @Override
@@ -38,22 +42,22 @@ public class ProductAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         View vw=view;
-        ViewHolderProduct _viewholder=null;
+        ViewHolderGroup _viewholder=null;
         if(vw==null)
         {
             LayoutInflater layoutInflater=_context.getLayoutInflater();
-            vw=layoutInflater.inflate(R.layout.activity_productadapter,viewGroup,false);
-            _viewholder=new ViewHolderProduct(vw);
+            vw=layoutInflater.inflate(R.layout.activity_groupadapter,viewGroup,false);
+            _viewholder=new ViewHolderGroup(vw);
             vw.setTag(_viewholder);
         }
         else{
-            _viewholder=(ViewHolderProduct) vw.getTag();
+            _viewholder=(ViewHolderGroup) vw.getTag();
         }
 
-        final Product _product = (Product) this.getItem(i);
-        _viewholder.txtproductname.setText(_product.get_productName());
-        _viewholder.txtproductname.setTag(_product.get_id());
-        Log.d(TAG, "From View" + _product.get_productName());
+        final Group _group = (Group) this.getItem(i);
+        _viewholder.txtgroupname.setText(_group.get_GroupName());
+        _viewholder.txtgroupname.setTag(_group.get_id());
+        Log.d(TAG, "From View" + _group.get_GroupName());
         return vw;
     }
 }
