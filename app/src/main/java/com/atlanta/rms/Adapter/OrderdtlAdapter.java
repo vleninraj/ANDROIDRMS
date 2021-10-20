@@ -52,6 +52,7 @@ public class OrderdtlAdapter extends BaseAdapter {
             vw=layoutInflater.inflate(R.layout.neworder_adapter,viewGroup,false);
             _viewholder=new ViewHolderOrderDtl(vw);
             vw.setTag(_viewholder);
+
         }
         else{
             _viewholder=(ViewHolderOrderDtl) vw.getTag();
