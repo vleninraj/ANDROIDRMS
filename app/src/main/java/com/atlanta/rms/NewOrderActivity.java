@@ -59,7 +59,9 @@ public class NewOrderActivity extends AppCompatActivity {
         dtdate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
         if(blnNewRecord)
         {
+            Common._orderdtls=new ArrayList<>();
             Common._orderdtls.clear();
+
         }
         else
         {
