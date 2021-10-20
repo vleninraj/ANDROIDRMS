@@ -60,6 +60,7 @@
             android:layout_height="30dp"
             android:layout_toRightOf="@id/lblneworderqty"
             android:background="@drawable/addicon"
+            android:clickable="true"
             android:elevation="5dp" />
         <TextView
             android:id="@+id/lblneworderunit"
