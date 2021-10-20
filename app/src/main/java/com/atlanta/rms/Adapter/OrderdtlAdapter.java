@@ -72,6 +72,13 @@ public class OrderdtlAdapter extends BaseAdapter {
 
                 }
             });
+            _viewholder.btnremoveitem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    _orderitems.remove(i);
+
+                }
+            });
 
 
             _viewholder.lblneworderproductname.setText(_orderitem.get_ProductName());

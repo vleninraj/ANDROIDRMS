@@ -70,6 +70,7 @@ public class NewOrderActivity extends AppCompatActivity {
         }
         OrderdtlAdapter _orderDtlAdapter=new OrderdtlAdapter(NewOrderActivity.this,Common._orderdtls);
         grdneworder.setAdapter(_orderDtlAdapter);
+        _orderDtlAdapter.notifyDataSetChanged();
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +122,6 @@ public class NewOrderActivity extends AppCompatActivity {
 
         OrderdtlAdapter _orderDtlAdapter=new OrderdtlAdapter(NewOrderActivity.this,Common._orderdtls);
         grdneworder.setAdapter(_orderDtlAdapter);
-
+        _orderDtlAdapter.notifyDataSetChanged();
     }
 }
