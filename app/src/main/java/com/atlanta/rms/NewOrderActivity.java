@@ -112,7 +112,6 @@ public class NewOrderActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-
         OrderdtlAdapter _orderDtlAdapter=new OrderdtlAdapter(NewOrderActivity.this,Common._orderdtls);
         grdneworder.setAdapter(_orderDtlAdapter);
 

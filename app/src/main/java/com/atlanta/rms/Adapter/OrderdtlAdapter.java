@@ -52,7 +52,7 @@ public class OrderdtlAdapter extends BaseAdapter {
             _viewholder=new ViewHolderOrderDtl(vw);
             vw.setTag(_viewholder);
 
-        /*    _viewholder.btnincrement.setOnClickListener(new View.OnClickListener() {
+            _viewholder.btnincrement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Double dblQty=_orderitem.get_Qty();
@@ -61,7 +61,7 @@ public class OrderdtlAdapter extends BaseAdapter {
                     TextView txtqty= (TextView) view.findViewById(R.id.lblneworderqty);
                     txtqty.setText(String.format("%.2f",_orderitem.get_Qty()));
                 }
-            });*/
+            });
         }
         else{
             _viewholder=(ViewHolderOrderDtl) vw.getTag();
