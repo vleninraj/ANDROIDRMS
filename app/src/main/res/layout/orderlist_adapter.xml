@@ -30,7 +30,7 @@
 
         <TextView
             android:id="@+id/lbltable"
-            android:layout_width="200dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblvoucherno"
             android:fontFamily="@font/nunito_regular"
@@ -38,18 +38,20 @@
             android:text="TAB 1"
             android:textSize="20sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/lblbilledstatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lblvoucherno"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/lbltable"
             android:fontFamily="@font/nunito_regular"
+            android:text="Billed"
+            android:textColor="@color/green"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_toRightOf="@id/lbltable"
-            android:layout_below="@+id/lblvoucherno"
-            android:textColor="@color/green"
-            android:text="Billed"
-            />
+            android:visibility="visible" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
