@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 /*
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
@@ -29,7 +30,7 @@ public class NewOrderActivity extends AppCompatActivity {
 
     TextView txtparty,txtinvno,dtdate,txtsalestype,txtbillamount;
     TextView lblmobilenumber,lbltablename;
-    Button btnAddItem,btnCalandar;
+    Button btnAddItem,btnCalandar,btnSaveOrder;
     Boolean blnNewRecord=false;
     GridView grdneworder;
 
@@ -48,6 +49,7 @@ public class NewOrderActivity extends AppCompatActivity {
         btnAddItem=findViewById(R.id.btnadditem);
         btnCalandar=findViewById(R.id.btnCalandar);
         grdneworder=findViewById(R.id.grdneworder);
+        btnSaveOrder=findViewById(R.id.btnsaveorder);
         final Intent intent = getIntent();
         Bundle bd = intent.getExtras();
         txtparty.setText((String) bd.get("PartyName"));
@@ -85,7 +87,13 @@ public class NewOrderActivity extends AppCompatActivity {
 
             }
         });
-
+        btnSaveOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(NewOrderActivity.this,"Order Saved...",Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
 /*
         btnCalandar.setOnClickListener(new View.OnClickListener() {
             @Override
