@@ -68,7 +68,11 @@ public class OrderListActivity extends AppCompatActivity {
                 OrderList _order= _orders.get(i);
                 if(_order!=null)
                 {
-                    Toast.makeText(OrderListActivity.this,_order.get_VoucherNo(),Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(OrderListActivity.this, NewOrderActivity.class);
+                    intent.putExtra("NewRecord",false);
+                    intent.putExtra("OrderID",_order.get_id());
+                    startActivity(intent);
+                   // Toast.makeText(OrderListActivity.this,_order.get_VoucherNo(),Toast.LENGTH_LONG).show();
                 }
             }
         });

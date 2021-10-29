@@ -3,6 +3,7 @@ package com.atlanta.rms;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +16,7 @@ import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 */
+import com.android.volley.RequestQueue;
 import com.atlanta.rms.Adapter.OrderdtlAdapter;
 import com.atlanta.rms.Models.OrderDTL;
 
@@ -25,6 +27,17 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.atlanta.rms.Models.Product;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class NewOrderActivity extends AppCompatActivity {
 
 
@@ -33,7 +46,8 @@ public class NewOrderActivity extends AppCompatActivity {
     Button btnAddItem,btnCalandar,btnSaveOrder;
     Boolean blnNewRecord=false;
     GridView grdneworder;
-
+    String sIpAddress="";
+    RequestQueue requestQueue;
     Calendar cal = Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,24 +64,29 @@ public class NewOrderActivity extends AppCompatActivity {
         btnCalandar=findViewById(R.id.btnCalandar);
         grdneworder=findViewById(R.id.grdneworder);
         btnSaveOrder=findViewById(R.id.btnsaveorder);
+        requestQueue = Volley.newRequestQueue(this);
         final Intent intent = getIntent();
         Bundle bd = intent.getExtras();
-        txtparty.setText((String) bd.get("PartyName"));
-        txtparty.setTag((Integer) bd.get("PartyID"));
-        txtsalestype.setText(Common.sCurrentOrderType);
-        lblmobilenumber.setText((String) bd.get("MobileNumber"));
-        lbltablename.setText((String) bd.get("TableName"));
-        lbltablename.setTag((String) bd.get("TableID"));
         blnNewRecord=(Boolean) bd.get("NewRecord");
-        dtdate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+        final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
+        sIpAddress=ipAddress.getString("ipaddress", "");
         if(blnNewRecord)
         {
+           txtinvno.setTag(0);
+            dtdate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
             Common._orderdtls=new ArrayList<>();
             Common._orderdtls.clear();
-
+            txtparty.setText((String) bd.get("PartyName"));
+            txtparty.setTag((Integer) bd.get("PartyID"));
+            txtsalestype.setText(Common.sCurrentOrderType);
+            lblmobilenumber.setText((String) bd.get("MobileNumber"));
+            lbltablename.setText((String) bd.get("TableName"));
+            lbltablename.setTag((String) bd.get("TableID"));
         }
         else
         {
+            txtinvno.setTag((Integer) bd.get("OrderID"));
+            fillOrderData(txtinvno.getTag().toString());
             // Existing Record
         }
         CalcTotals();
@@ -123,6 +142,69 @@ public class NewOrderActivity extends AppCompatActivity {
             }
         });
 */
+    }
+    private  void fillOrderData(String sOrderID)
+    {
+        Common._orderdtls=new ArrayList<>();
+        Common._orderdtls.clear();
+        String url="http://" + sIpAddress + "/" + Common.DomainName + "/api/Order?OrderID=" + sOrderID;
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Common._orderdtls=new ArrayList<>();
+                Common._orderdtls.clear();
+                JSONArray jsonArray = response;
+                try {
+                    String sPartyName="",sInvno="",sSalesType="",sTableName="",sMobileNumber="";
+                    Integer iPartyID=0,iTableID=0,ihdrid=0;
+                    Double dblGrandTotal=0.0;
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        OrderDTL _dtl = new OrderDTL();
+                        _dtl.set_id(jsonObject.getInt("dtlid"));
+                        _dtl.set_productid(jsonObject.getInt("ProductID"));
+                        _dtl.set_ProductName(jsonObject.getString("ProductName"));
+                        _dtl.set_ProductCode(jsonObject.getString("ProductCode"));
+                        _dtl.set_Qty(jsonObject.getDouble("Qty"));
+                        _dtl.set_Rate(jsonObject.getDouble("Rate"));
+                        _dtl.set_unitid(jsonObject.getInt("UnitID"));
+                        _dtl.set_Unit(jsonObject.getString("Unit"));
+                        _dtl.set_Amount(jsonObject.getDouble("Amount"));
+                        Common._orderdtls.add(_dtl);
+                        iPartyID=jsonObject.getInt("PartyID");
+                        sPartyName=jsonObject.getString("PartyName");
+                        sInvno=jsonObject.getString("VoucherNo");
+                        sSalesType=jsonObject.getString("SalesType");
+                        sTableName=jsonObject.getString("TableName");
+                        sMobileNumber=jsonObject.getString("MobileNumber");
+                        iTableID=jsonObject.getInt("TableID");
+                        dblGrandTotal=jsonObject.getDouble("GrandTotal");
+                        ihdrid=jsonObject.getInt("hdrid");
+                    }
+                    txtparty.setText(sPartyName);
+                    txtparty.setTag(iPartyID);
+                    txtinvno.setText(sInvno);
+                    txtinvno.setTag(ihdrid);
+                    txtsalestype.setText(sSalesType);
+                    lblmobilenumber.setText(sMobileNumber);
+                    lbltablename.setText(sTableName);
+                    lbltablename.setTag(iTableID);
+                    CalcTotals();
+                    OrderdtlAdapter _orderDtlAdapter=new OrderdtlAdapter(NewOrderActivity.this,Common._orderdtls);
+                    grdneworder.setAdapter(_orderDtlAdapter);
+                    _orderDtlAdapter.notifyDataSetChanged();
+                }
+                catch(Exception ex)
+                {
+                    Toast.makeText(NewOrderActivity.this,ex.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(NewOrderActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void CalcTotals()
