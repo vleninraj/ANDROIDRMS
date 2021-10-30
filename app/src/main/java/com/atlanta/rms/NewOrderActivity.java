@@ -205,6 +205,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 Toast.makeText(NewOrderActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
+        requestQueue.add(jsonArrayRequest);
     }
 
     private void CalcTotals()
