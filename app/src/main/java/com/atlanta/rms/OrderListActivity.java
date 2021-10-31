@@ -28,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.atlanta.rms.Adapter.OrderListAdapter;
+import com.atlanta.rms.Adapter.OrderdtlAdapter;
 import com.atlanta.rms.Models.OrderDTL;
 import com.atlanta.rms.Models.OrderList;
 import com.atlanta.rms.Models.Party;
@@ -293,5 +294,11 @@ public class OrderListActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonArrayRequest);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getOrderList();
+
     }
 }
