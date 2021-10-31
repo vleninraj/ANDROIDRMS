@@ -95,6 +95,7 @@ public class ProductActivity extends AppCompatActivity {
                 Product p=_productlist.get(Integer.valueOf( Common.selectedProductID));
                 if(p!=null) {
                     _dtl.set_id(Common._orderdtls.size() + 1);
+                    _dtl.set_productid(p.get_id());
                     _dtl.set_ProductCode(p.get_productCode());
                     _dtl.set_ProductName(p.get_productName());
                     _dtl.set_Qty(1.0);
