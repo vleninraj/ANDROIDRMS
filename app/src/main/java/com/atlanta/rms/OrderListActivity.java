@@ -68,6 +68,11 @@ public class OrderListActivity extends AppCompatActivity {
                 OrderList _order= _orders.get(i);
                 if(_order!=null)
                 {
+                    if(_order.get_billed()==1)
+                    {
+                        Toast.makeText(OrderListActivity.this,"You can't edit billed order!",Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     Intent intent = new Intent(OrderListActivity.this, NewOrderActivity.class);
                     intent.putExtra("NewRecord",false);
                     intent.putExtra("OrderID",_order.get_id());

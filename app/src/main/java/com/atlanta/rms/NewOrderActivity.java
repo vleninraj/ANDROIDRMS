@@ -36,6 +36,7 @@ import com.android.volley.toolbox.Volley;
 import com.atlanta.rms.Models.Product;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class NewOrderActivity extends AppCompatActivity {
@@ -109,8 +110,10 @@ public class NewOrderActivity extends AppCompatActivity {
         btnSaveOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(NewOrderActivity.this,"Order Saved...",Toast.LENGTH_LONG).show();
-                finish();
+
+
+                SaveData();
+
             }
         });
 /*
@@ -142,6 +145,48 @@ public class NewOrderActivity extends AppCompatActivity {
             }
         });
 */
+    }
+    private void SaveData()
+    {
+        JSONObject jsnSaveData=new JSONObject();
+        JSONArray jsnArray=new JSONArray();
+        for(OrderDTL _dtl :Common._orderdtls)
+        {
+            JSONObject obj=new JSONObject();
+            try {
+                obj.put("hdrid",txtinvno.getTag().toString());
+                obj.put("VoucherNo",txtinvno.getText().toString());
+                obj.put("SalesType",txtsalestype.getText().toString());
+                obj.put("PartyID",txtparty.getTag().toString());
+                obj.put("TableID",lbltablename.getTag().toString());
+                obj.put("GrandTotal",Double.valueOf(txtbillamount.getText().toString()));
+                obj.put("ProductID",_dtl.get_id());
+                obj.put("Qty",_dtl.get_Qty());
+                obj.put("Rate",_dtl.get_Rate());
+                obj.put("UnitID",_dtl.get_unitid());
+                jsnArray.put(obj);
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        String url="http://" + sIpAddress + "/" + Common.DomainName + "/api/Order";
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.POST, url, jsnArray, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+              if(response!=null) {
+                  Toast.makeText(NewOrderActivity.this, "Order Saved...", Toast.LENGTH_LONG).show();
+                  finish();
+              }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
     }
     private  void fillOrderData(String sOrderID)
     {
