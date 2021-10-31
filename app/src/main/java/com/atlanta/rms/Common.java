@@ -21,7 +21,7 @@ public class Common {
     public static Dictionary<String, Party> _parties;
     public static Dictionary<String, Table> _tables;
     public static Dictionary<String, Floor> _floors;
-    public static String selectedTableName;
-    public static String selectedTableID;
+    public static String selectedTableName="";
+    public static String selectedTableID="";
     public static ArrayList<OrderDTL> _orderdtls;
 }
