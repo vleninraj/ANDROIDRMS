@@ -206,6 +206,12 @@ public class NewOrderActivity extends AppCompatActivity {
                             }
                               finish();
                       }
+                      else if(iStatus==2)
+                      {
+                          String sError=_jsnresponse.getString("ErrorString");
+                          String sMessage="Order while printing ! " +sError;
+                          Toast.makeText(NewOrderActivity.this, sMessage, Toast.LENGTH_LONG).show();
+                      }
                       else
                       {
                           String sError=_jsnresponse.getString("ErrorString");
