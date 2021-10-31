@@ -266,7 +266,7 @@ public class NewOrderActivity extends AppCompatActivity {
                         iTableID=jsonObject.getInt("TableID");
                         dblGrandTotal=jsonObject.getDouble("GrandTotal");
                         ihdrid=jsonObject.getInt("hdrid");
-                        sVehicleName=jsonObject.getString("sVehicleName");
+                        sVehicleName=jsonObject.getString("VehicleName");
                         sVehicleNumber=jsonObject.getString("VehicleNo");
                     }
                     txtparty.setText(sPartyName);
