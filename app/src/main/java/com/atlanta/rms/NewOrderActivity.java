@@ -177,6 +177,9 @@ public class NewOrderActivity extends AppCompatActivity {
                 {
                     obj.put("NewRecord",0);
                 }
+                obj.put("WaiterID",Common.sCurrentWaiterID);
+                obj.put("MobileNumber",lblmobilenumber.getText().toString());
+
                 jsnArray.put(obj);
             }
             catch (JSONException e)
