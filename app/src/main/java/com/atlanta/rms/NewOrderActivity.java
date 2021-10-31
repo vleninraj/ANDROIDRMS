@@ -49,6 +49,7 @@ public class NewOrderActivity extends AppCompatActivity {
     GridView grdneworder;
     String sIpAddress="";
     RequestQueue requestQueue;
+    String sVehicleName="",sVehicleNumber="";
     Calendar cal = Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,8 @@ public class NewOrderActivity extends AppCompatActivity {
             lblmobilenumber.setText((String) bd.get("MobileNumber"));
             lbltablename.setText((String) bd.get("TableName"));
             lbltablename.setTag((String) bd.get("TableID"));
+            sVehicleName =(String)bd.get("VehicleName");
+            sVehicleNumber=(String)bd.get("VehicleNumber");
         }
         else
         {
@@ -164,6 +167,16 @@ public class NewOrderActivity extends AppCompatActivity {
                 obj.put("Qty",_dtl.get_Qty());
                 obj.put("Rate",_dtl.get_Rate());
                 obj.put("UnitID",_dtl.get_unitid());
+                obj.put("VehicleName",sVehicleName);
+                obj.put("VehicleNumber",sVehicleNumber);
+                if(blnNewRecord)
+                {
+                    obj.put("NewRecord",1);
+                }
+                else
+                {
+                    obj.put("NewRecord",0);
+                }
                 jsnArray.put(obj);
             }
             catch (JSONException e)
@@ -176,14 +189,39 @@ public class NewOrderActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
               if(response!=null) {
-                  Toast.makeText(NewOrderActivity.this, "Order Saved...", Toast.LENGTH_LONG).show();
-                  finish();
+                  try {
+                      JSONObject _jsnresponse=response.getJSONObject(0);
+                      String sVoucherNo= _jsnresponse.getString("VoucherNo");
+                      Integer iStatus=_jsnresponse.getInt("Status");
+                      if(iStatus==1) {
+                            if(blnNewRecord) {
+                                Toast.makeText(NewOrderActivity.this, "Order saved with Voucher No " + sVoucherNo, Toast.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(NewOrderActivity.this, "Order Updated with Voucher No " + sVoucherNo, Toast.LENGTH_LONG).show();
+                            }
+                              finish();
+                      }
+                      else
+                      {
+                          String sError=_jsnresponse.getString("ErrorString");
+                          String sMessage="Order Saving Failed! " +sError;
+                          Toast.makeText(NewOrderActivity.this, sMessage, Toast.LENGTH_LONG).show();
+
+                      }
+                  }
+                  catch (JSONException e)
+                  {
+                      e.printStackTrace();
+                  }
               }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(NewOrderActivity.this, "Order Saving failed!", Toast.LENGTH_LONG).show();
+                finish();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -225,6 +263,8 @@ public class NewOrderActivity extends AppCompatActivity {
                         iTableID=jsonObject.getInt("TableID");
                         dblGrandTotal=jsonObject.getDouble("GrandTotal");
                         ihdrid=jsonObject.getInt("hdrid");
+                        sVehicleName=jsonObject.getString("sVehicleName");
+                        sVehicleNumber=jsonObject.getString("VehicleNo");
                     }
                     txtparty.setText(sPartyName);
                     txtparty.setTag(iPartyID);
