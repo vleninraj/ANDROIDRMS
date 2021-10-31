@@ -163,7 +163,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 obj.put("PartyID",txtparty.getTag().toString());
                 obj.put("TableID",lbltablename.getTag().toString());
                 obj.put("GrandTotal",Double.valueOf(txtbillamount.getText().toString()));
-                obj.put("ProductID",_dtl.get_id());
+                obj.put("ProductID",_dtl.get_productid());
                 obj.put("Qty",_dtl.get_Qty());
                 obj.put("Rate",_dtl.get_Rate());
                 obj.put("UnitID",_dtl.get_unitid());
