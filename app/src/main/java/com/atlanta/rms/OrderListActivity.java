@@ -95,12 +95,13 @@ public class OrderListActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
+                Common.selectedTableName="";
+                Common.selectedTableID="";
                 if(Common.sCurrentOrderType.equals("Dine In"))
                 {
                     Intent intent = new Intent(OrderListActivity.this, TableActivity.class);
                     startActivity(intent);
                 }
-
                 LayoutInflater layoutInflater=getLayoutInflater();
                 final View DialougView = layoutInflater.inflate(R.layout.select_party, null);
                 final AutoCompleteTextView txtcustomername=DialougView.findViewById(R.id.txtcustomername);

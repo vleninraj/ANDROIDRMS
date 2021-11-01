@@ -43,7 +43,7 @@ public class NewOrderActivity extends AppCompatActivity {
 
 
     TextView txtparty,txtinvno,dtdate,txtsalestype,txtbillamount;
-    TextView lblmobilenumber,lbltablename;
+    TextView lblmobilenumber,lbltablename,lbltablenamecap;
     Button btnAddItem,btnCalandar,btnSaveOrder;
     Boolean blnNewRecord=false;
     GridView grdneworder;
@@ -62,6 +62,7 @@ public class NewOrderActivity extends AppCompatActivity {
         txtbillamount=findViewById(R.id.txtbillamount);
         lblmobilenumber=findViewById(R.id.lblnewordermobileno);
         lbltablename=findViewById(R.id.lblnewordertablename);
+        lbltablenamecap=findViewById(R.id.lbltablecap);
         btnAddItem=findViewById(R.id.btnadditem);
         btnCalandar=findViewById(R.id.btnCalandar);
         grdneworder=findViewById(R.id.grdneworder);
@@ -72,6 +73,17 @@ public class NewOrderActivity extends AppCompatActivity {
         blnNewRecord=(Boolean) bd.get("NewRecord");
         final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
         sIpAddress=ipAddress.getString("ipaddress", "");
+        if(Common.sCurrentOrderType.equals("Dine In"))
+        {
+            lbltablename.setVisibility(View.VISIBLE);
+            lbltablenamecap.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            lbltablename.setVisibility(View.INVISIBLE);
+            lbltablenamecap.setVisibility(View.INVISIBLE);
+        }
+
         if(blnNewRecord)
         {
            txtinvno.setTag(0);

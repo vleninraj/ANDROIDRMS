@@ -56,15 +56,16 @@
         android:id="@+id/relorderdate"
         android:layout_below="@id/txtparty"
         >
+
         <TextView
+            android:id="@+id/lblmobilecap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_regular"
-            android:text="Mob No: "
             android:layout_alignParentStart="true"
-            android:textSize="12sp"
             android:layout_marginTop="15dp"
-            android:id="@+id/lblmobilecap"
+            android:fontFamily="@font/nunito_regular"
+            android:text="Mobile No :  "
+            android:textSize="12sp"
 
             />
         <TextView
