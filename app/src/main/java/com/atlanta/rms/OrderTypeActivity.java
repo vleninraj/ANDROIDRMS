@@ -21,7 +21,7 @@ public class OrderTypeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-               Common.sCurrentOrderType="DineIn";
+               Common.sCurrentOrderType="Dine In";
                 Intent intent = new Intent(OrderTypeActivity.this, OrderListActivity.class);
                 startActivity(intent);
             }
@@ -29,7 +29,7 @@ public class OrderTypeActivity extends AppCompatActivity {
         btnTakeAway.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Common.sCurrentOrderType="TakeAway";
+                Common.sCurrentOrderType="Take Away";
                 Intent intent = new Intent(OrderTypeActivity.this, OrderListActivity.class);
                 startActivity(intent);
             }

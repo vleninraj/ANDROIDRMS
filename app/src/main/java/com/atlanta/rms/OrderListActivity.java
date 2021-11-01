@@ -95,7 +95,7 @@ public class OrderListActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if(Common.sCurrentOrderType.equals("DineIn"))
+                if(Common.sCurrentOrderType.equals("Dine In"))
                 {
                     Intent intent = new Intent(OrderListActivity.this, TableActivity.class);
                     startActivity(intent);
@@ -240,7 +240,7 @@ public class OrderListActivity extends AppCompatActivity {
     {
         _orders.clear();
         String url="";
-        if(Common.sCurrentOrderType.equals("DineIn")) {
+        if(Common.sCurrentOrderType.equals("Dine In")) {
             url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Order?WaiterID=" + Common.sCurrentWaiterID
                     + "&TypeID=688";
         }
