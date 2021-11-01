@@ -103,7 +103,7 @@ public class ProductActivity extends AppCompatActivity {
                     _dtl.set_Unit(p.get_DefaultUnit());
                     _dtl.set_Rate(p.get_SalesRate());
                     _dtl.set_Amount(p.get_SalesRate());
-
+                    _dtl.set_OrderStatus(0);
                     Common._orderdtls.add(_dtl);
 
                     Toast.makeText(ProductActivity.this,"Added to Cart!",Toast.LENGTH_LONG).show();

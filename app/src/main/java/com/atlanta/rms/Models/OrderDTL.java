@@ -11,6 +11,7 @@ private Double _Rate;
 private int _unitid;
 private String _Unit;
 private Double _Amount;
+private int _OrderStatus;
 
     public int get_id() {
         return _id;
@@ -82,5 +83,13 @@ private Double _Amount;
 
     public void set_Amount(Double _Amount) {
         this._Amount = _Amount;
+    }
+
+    public int get_OrderStatus() {
+        return _OrderStatus;
+    }
+
+    public void set_OrderStatus(int _OrderStatus) {
+        this._OrderStatus = _OrderStatus;
     }
 }

@@ -113,10 +113,7 @@ public class NewOrderActivity extends AppCompatActivity {
         btnSaveOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 SaveData();
-
             }
         });
 /*
@@ -179,7 +176,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 }
                 obj.put("WaiterID",Common.sCurrentWaiterID);
                 obj.put("MobileNumber",lblmobilenumber.getText().toString());
-
+                obj.put("OrderStatus",_dtl.get_OrderStatus());
                 jsnArray.put(obj);
             }
             catch (JSONException e)
@@ -262,6 +259,7 @@ public class NewOrderActivity extends AppCompatActivity {
                         _dtl.set_unitid(jsonObject.getInt("UnitID"));
                         _dtl.set_Unit(jsonObject.getString("Unit"));
                         _dtl.set_Amount(jsonObject.getDouble("Amount"));
+                        _dtl.set_OrderStatus(jsonObject.getInt("OrderStatus"));
                         Common._orderdtls.add(_dtl);
                         iPartyID=jsonObject.getInt("PartyID");
                         sPartyName=jsonObject.getString("PartyName");
