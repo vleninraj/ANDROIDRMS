@@ -11,7 +11,8 @@ public class ViewHolderProduct {
     public TextView txtproductname;
     public ViewHolderProduct(View v)
     {
-        imgview=(ImageView)v.findViewById(R.id.imgwaiter);
+        imgview=(ImageView)v.findViewById(R.id.imgproduct);
         txtproductname=(TextView)v.findViewById(R.id.txtproductname);
+
     }
 }
