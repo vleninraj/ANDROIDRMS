@@ -1,6 +1,8 @@
 package com.atlanta.rms.Adapter;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import com.atlanta.rms.Models.Product;
 import com.atlanta.rms.ViewHolder.ViewHolderProduct;
 
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class ProductAdapter extends BaseAdapter {
     private static final String TAG = "GroupAdapter";
@@ -57,6 +60,12 @@ public class ProductAdapter extends BaseAdapter {
         final Product _product = (Product) this.getItem(i);
         _viewholder.txtproductname.setText(_product.get_productName());
         _viewholder.txtproductname.setTag(_product.get_id());
+        String sProductImage=_product.get_ProductImage();
+        if(!sProductImage.equals("")) {
+            byte[] decodedString= android.util.Base64.decode(sProductImage,android.util.Base64.DEFAULT);
+            Bitmap bmp = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            _viewholder.imgview.setImageBitmap(bmp);
+        }
         Log.d(TAG, "From View" + _product.get_productName());
         return vw;
     }

@@ -8,6 +8,7 @@ public class Product {
     private Double _PurchaseRate;
     private Double _SalesRate;
     private int _UnitID;
+    private String _ProductImage;
 
     public int get_id() {
         return _id;
@@ -63,5 +64,13 @@ public class Product {
 
     public void set_UnitID(int _UnitID) {
         this._UnitID = _UnitID;
+    }
+
+    public String get_ProductImage() {
+        return _ProductImage;
+    }
+
+    public void set_ProductImage(String _ProductImage) {
+        this._ProductImage = _ProductImage;
     }
 }

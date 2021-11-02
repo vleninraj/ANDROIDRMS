@@ -139,6 +139,7 @@ public class ProductActivity extends AppCompatActivity {
                         _product.set_SalesRate(jsonObject.getDouble("SalesRate"));
                         _product.set_UnitID(jsonObject.getInt("UnitID"));
                         _product.set_DefaultUnit(jsonObject.getString("Unit"));
+                        _product.set_ProductImage(jsonObject.getString("ProductImage"));
                         productnames.add(_product.get_productName());
                         _products.add(_product);
                         _productlist.put(_product.get_id(),_product);
