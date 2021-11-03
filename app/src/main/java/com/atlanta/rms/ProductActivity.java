@@ -196,6 +196,7 @@ public class ProductActivity extends AppCompatActivity {
                 Toast.makeText(ProductActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
+        requestQueue.add(jsonArrayRequest);
         grdunits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
