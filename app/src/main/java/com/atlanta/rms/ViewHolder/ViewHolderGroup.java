@@ -10,7 +10,7 @@ public class ViewHolderGroup {
     public TextView txtgroupname;
     public ViewHolderGroup(View v)
     {
-        imgview=(ImageView)v.findViewById(R.id.imgwaiter);
+        imgview=(ImageView)v.findViewById(R.id.imggroup);
         txtgroupname=(TextView)v.findViewById(R.id.txtgroupname);
     }
 }

@@ -5,6 +5,7 @@ public class Group {
     private  int _id;
     private  String _GroupName;
     private  String _GroupCode;
+    private String _GroupImage;
 
     public int get_id() {
         return _id;
@@ -28,5 +29,13 @@ public class Group {
 
     public void set_GroupCode(String _GroupCode) {
         this._GroupCode = _GroupCode;
+    }
+
+    public String get_GroupImage() {
+        return _GroupImage;
+    }
+
+    public void set_GroupImage(String _GroupImage) {
+        this._GroupImage = _GroupImage;
     }
 }

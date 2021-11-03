@@ -1,6 +1,8 @@
 package com.atlanta.rms.Adapter;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +59,12 @@ public class GroupAdapter extends BaseAdapter {
         final Group _group = (Group) this.getItem(i);
         _viewholder.txtgroupname.setText(_group.get_GroupName());
         _viewholder.txtgroupname.setTag(_group.get_id());
+        String sGroupImage=_group.get_GroupImage();
+        if(!sGroupImage.equals("")) {
+            byte[] decodedString= android.util.Base64.decode(sGroupImage,android.util.Base64.DEFAULT);
+            Bitmap bmp = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            _viewholder.imgview.setImageBitmap(bmp);
+        }
         Log.d(TAG, "From View" + _group.get_GroupName());
         return vw;
     }

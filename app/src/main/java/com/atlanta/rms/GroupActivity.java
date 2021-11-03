@@ -110,6 +110,7 @@ public class GroupActivity extends AppCompatActivity {
                         _group.set_id(jsonObject.getInt("id"));
                         _group.set_GroupCode(jsonObject.getString("GroupCode"));
                         _group.set_GroupName(jsonObject.getString("GroupName"));
+                        _group.set_GroupImage(jsonObject.getString("GroupImage"));
                         groupnames.add(_group.get_GroupName());
                         _groups.add(_group);
                     }
