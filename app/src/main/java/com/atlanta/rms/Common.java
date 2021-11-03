@@ -24,4 +24,12 @@ public class Common {
     public static String selectedTableName="";
     public static String selectedTableID="";
     public static ArrayList<OrderDTL> _orderdtls;
+    //Company Details
+    public static String CompanyName="";
+    public static String Address1="";
+    public static String Address2="";
+    public static String Address3="";
+    public static int NoofDecimals=2;
+    public static String CurrencySymbol="";
+    public static String Country="";
 }
