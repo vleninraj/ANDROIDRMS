@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.atlanta.rms.Common;
 import com.atlanta.rms.Models.Product;
@@ -81,6 +82,11 @@ public class UnitAdapter extends BaseAdapter  {
 
                 mSelectedPosition = position;
                 mSelectedRB = (RadioButton) view;
+                TextView txtunitselunit=_context.findViewById(R.id.txtunitselunit);
+                TextView txtunitselsalesrate=_context.findViewById(R.id.txtunitselsalesrate);
+                txtunitselunit.setText(_unitrate.get_Unit());
+                txtunitselunit.setTag(_unitrate.get_id());
+                txtunitselsalesrate.setText(String.format(Common.sDecimals,_unitrate.get_SalesRate()));
             }
         });
 
@@ -88,6 +94,7 @@ public class UnitAdapter extends BaseAdapter  {
             _viewholder.radunit.setChecked(false);
         } else {
             _viewholder.radunit.setChecked(true);
+
             if (mSelectedRB != null && _viewholder.radunit != mSelectedRB) {
                 mSelectedRB = _viewholder.radunit;
             }

@@ -117,14 +117,12 @@ public class ProductActivity extends AppCompatActivity {
     }
     private void SelectUnit(Product p)
     {
-        final String[] selectedUnitID = {""};
-        final String[] selectedUnitName = {""};
-        final Double[] dblSelectedSalesRate = {0.0};
         ArrayList<UnitRate> _unitrates=new ArrayList<>();
         final AlertDialog alert=new AlertDialog.Builder(ProductActivity.this).create();
         LayoutInflater layoutInflater=getLayoutInflater();
         final View DialougView = layoutInflater.inflate(R.layout.activity_unitselection, null);
         final ImageView imgunit=(ImageView)DialougView.findViewById(R.id.imgunitproduct);
+        final TextView txtunitselunit=(TextView)DialougView.findViewById(R.id.txtunitselunit);
         final TextView txtunitproductname=(TextView)DialougView.findViewById(R.id.txtunitproductname);
         final TextView txtunititemdesription=(TextView)DialougView.findViewById(R.id.txtunititemdesription);
         final TextView txtunitselsalesratecap=(TextView)DialougView.findViewById(R.id.txtunitselsalesratecap);
@@ -142,6 +140,8 @@ public class ProductActivity extends AppCompatActivity {
         }
         txtunitproductname.setText(p.get_productName());
         txtunititemdesription.setText(p.get_Description());
+        txtunitselunit.setText(p.get_DefaultUnit());
+        txtunitselunit.setTag(p.get_UnitID());
         txtunitselsalesratecap.setText(Common.CurrencySymbol);
         txtunitselsalesrate.setText(String.format(Common.sDecimals,p.get_SalesRate()));
         lblunitselqty.setText("1");
@@ -197,41 +197,21 @@ public class ProductActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonArrayRequest);
-        grdunits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ViewHolderUnitSelection holder=(ViewHolderUnitSelection) view.getTag();
-                selectedUnitID[0] =holder.txtselunitname.getTag().toString();
-                selectedUnitName[0] =  holder.txtselunitname.getText().toString();
-                dblSelectedSalesRate[0] =Double.valueOf(holder.txtunitsalesrate.getText().toString());
-            }
-        });
         btnaddtocartunit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(_unitrates.size()>0 && selectedUnitID[0].equals(""))
-                {
-                    Toast.makeText(ProductActivity.this,"Unit must be selected!",Toast.LENGTH_LONG).show();
-                    return;
-                }
+
                 OrderDTL _dtl=new OrderDTL();
                 _dtl.set_id(Common._orderdtls.size() + 1);
                 _dtl.set_productid(p.get_id());
                 _dtl.set_ProductCode(p.get_productCode());
                 _dtl.set_ProductName(p.get_productName());
-                _dtl.set_Qty(1.0);
-                if(selectedUnitID[0].equals("")) {
-                    _dtl.set_unitid(p.get_UnitID());
-                    _dtl.set_Unit(p.get_DefaultUnit());
-                    _dtl.set_Rate(p.get_SalesRate());
-                    _dtl.set_Amount(p.get_SalesRate());
-                }
-                else {
-                    _dtl.set_unitid(Integer.valueOf(selectedUnitID[0]));
-                    _dtl.set_Unit(selectedUnitName[0]);
-                    _dtl.set_Rate(dblSelectedSalesRate[0]);
-                    _dtl.set_Amount(dblSelectedSalesRate[0]);
-                }
+                _dtl.set_Qty(Double.valueOf(lblunitselqty.getText().toString()));
+                _dtl.set_unitid(Integer.valueOf(txtunitselunit.getTag().toString()));
+                _dtl.set_Unit(txtunitselunit.getText().toString());
+                _dtl.set_Rate(Double.valueOf(txtunitselsalesrate.getText().toString()));
+                _dtl.set_Amount(p.get_SalesRate());
+
                 _dtl.set_OrderStatus(0);
                 Common._orderdtls.add(_dtl);
                 Toast.makeText(ProductActivity.this,"Added to Cart!",Toast.LENGTH_LONG).show();

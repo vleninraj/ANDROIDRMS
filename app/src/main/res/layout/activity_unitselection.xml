@@ -83,6 +83,19 @@
                 android:textStyle="bold"
                 android:layout_margin="5dp"
                 />
+            <TextView
+                android:id="@+id/txtunitselunit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtunititemdesription"
+                android:layout_toRightOf="@id/txtunitselsalesrate"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="--"
+                android:textColor="#090909"
+                android:textSize="16sp"
+                android:layout_margin="5dp"
+                />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
