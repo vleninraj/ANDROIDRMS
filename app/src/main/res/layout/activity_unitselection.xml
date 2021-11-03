@@ -30,7 +30,7 @@
             <ImageView
                 android:id="@+id/imgunitproduct"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="130dp"
                 android:layout_centerHorizontal="true"
                 app:srcCompat="@drawable/nogroup" />
     <TextView
@@ -42,7 +42,7 @@
         android:gravity="left"
         android:text="Sample Product"
         android:textColor="#090909"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:layout_margin="10dp"
         android:textStyle="bold" />
     <TextView
@@ -55,7 +55,7 @@
         android:gravity="left"
         android:text="Item Description"
         android:textColor="@color/darkgray"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
             <TextView
                 android:id="@+id/txtunitselsalesratecap"
                 android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                 android:gravity="left"
                 android:text="Sales Rate :"
                 android:textColor="#090909"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textStyle="bold"
                 />
@@ -79,7 +79,7 @@
                 android:gravity="right"
                 android:text="0.00"
                 android:textColor="#090909"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_margin="5dp"
                 />
@@ -102,8 +102,8 @@
                   >
                 <Button
                     android:id="@+id/btnunitseldecrement"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="@drawable/minusicon"
                     android:elevation="5dp"
                     android:layout_margin="5dp"
@@ -112,18 +112,18 @@
                 <TextView
                     android:id="@+id/lblunitselqty"
                     android:layout_width="60dp"
-                    android:layout_height="40dp"
+                    android:layout_height="30dp"
                     android:fontFamily="@font/nunito_regular"
                     android:layout_toRightOf="@id/btnunitseldecrement"
                     android:text="0"
                     android:gravity="center"
-                    android:textSize="22sp"
+                    android:textSize="16sp"
                     android:layout_margin="5dp"
                     android:textStyle="bold" />
                 <Button
                     android:id="@+id/btnunitselincrement"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_toRightOf="@id/lblunitselqty"
                     android:background="@drawable/addicon"
                     android:layout_margin="5dp"
@@ -153,7 +153,7 @@
                 android:gravity="left"
                 android:text="Your Choice of Size:"
                 android:textColor="#090909"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
