@@ -60,6 +60,9 @@ public class ProductAdapter extends BaseAdapter {
         final Product _product = (Product) this.getItem(i);
         _viewholder.txtproductname.setText(_product.get_productName());
         _viewholder.txtproductname.setTag(_product.get_id());
+        _viewholder.txtprditemdesription.setText(_product.get_Description());
+        _viewholder.txtprdsalesrate.setText(String.format("%.2f",_product.get_SalesRate()));
+        _viewholder.txtprdunit.setText(_product.get_DefaultUnit());
         String sProductImage=_product.get_ProductImage();
         if(!sProductImage.equals("")) {
             byte[] decodedString= android.util.Base64.decode(sProductImage,android.util.Base64.DEFAULT);

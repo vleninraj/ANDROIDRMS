@@ -9,6 +9,7 @@ public class Product {
     private Double _SalesRate;
     private int _UnitID;
     private String _ProductImage;
+    private String _Description;
 
     public int get_id() {
         return _id;
@@ -72,5 +73,13 @@ public class Product {
 
     public void set_ProductImage(String _ProductImage) {
         this._ProductImage = _ProductImage;
+    }
+
+    public String get_Description() {
+        return _Description;
+    }
+
+    public void set_Description(String _Description) {
+        this._Description = _Description;
     }
 }

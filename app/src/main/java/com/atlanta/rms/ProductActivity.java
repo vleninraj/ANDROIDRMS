@@ -132,7 +132,6 @@ public class ProductActivity extends AppCompatActivity {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         Product _product=new Product();
                         _product.set_id(jsonObject.getInt("id"));
-
                         _product.set_productCode(jsonObject.getString("ProductCode"));
                         _product.set_productName(jsonObject.getString("ProductName"));
                         _product.set_PurchaseRate(jsonObject.getDouble("PurchaseRate"));
@@ -140,6 +139,7 @@ public class ProductActivity extends AppCompatActivity {
                         _product.set_UnitID(jsonObject.getInt("UnitID"));
                         _product.set_DefaultUnit(jsonObject.getString("Unit"));
                         _product.set_ProductImage(jsonObject.getString("ProductImage"));
+                        _product.set_Description(jsonObject.getString("Description"));
                         productnames.add(_product.get_productName());
                         _products.add(_product);
                         _productlist.put(_product.get_id(),_product);
