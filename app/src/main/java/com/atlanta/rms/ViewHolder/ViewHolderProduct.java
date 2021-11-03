@@ -13,6 +13,7 @@ public class ViewHolderProduct {
     public TextView txtprditemdesription;
     public TextView txtprdsalesrate;
     public TextView txtprdunit;
+    public TextView txtprdsalesratecap;
     public ViewHolderProduct(View v)
     {
         imgview=(ImageView)v.findViewById(R.id.imgproduct);
@@ -20,5 +21,6 @@ public class ViewHolderProduct {
         txtprditemdesription=(TextView)v.findViewById(R.id.txtprditemdesription);
         txtprdsalesrate=(TextView)v.findViewById(R.id.txtprdsalesrate);
         txtprdunit=(TextView)v.findViewById(R.id.txtprdunit);
+        txtprdsalesratecap=(TextView)v.findViewById(R.id.txtprdsalesratecap);
     }
 }

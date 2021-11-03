@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.atlanta.rms.Common;
 import com.atlanta.rms.R;
 
 import com.atlanta.rms.Models.Product;
@@ -63,6 +65,7 @@ public class ProductAdapter extends BaseAdapter {
         _viewholder.txtprditemdesription.setText(_product.get_Description());
         _viewholder.txtprdsalesrate.setText(String.format("%.2f",_product.get_SalesRate()));
         _viewholder.txtprdunit.setText(_product.get_DefaultUnit());
+        _viewholder.txtprdsalesratecap.setText(Common.CurrencySymbol);
         String sProductImage=_product.get_ProductImage();
         if(!sProductImage.equals("")) {
             byte[] decodedString= android.util.Base64.decode(sProductImage,android.util.Base64.DEFAULT);
