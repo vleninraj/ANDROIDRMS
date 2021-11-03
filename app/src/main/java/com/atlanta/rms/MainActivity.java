@@ -76,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
                         Common.CurrencySymbol = response.getString("CurrencySymbol");
                         Common.Country = response.getString("Country");
                         Common.NoofDecimals = response.getInt("NoofDecimals");
+                        Common.NoofDecimalsQty=response.getInt("NoofDecimalinQty");
                         Common.sDecimals="%." + Common.NoofDecimals + "f";
+                        Common.sDecimalsQty="%." + Common.NoofDecimalsQty + "f";
                         Intent intent = new Intent(MainActivity.this, WaiterListActivity.class);
                         startActivity(intent);
                     }

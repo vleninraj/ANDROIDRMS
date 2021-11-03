@@ -31,7 +31,9 @@ public class Common {
     public static String Address2="";
     public static String Address3="";
     public static int NoofDecimals=2;
+    public static int NoofDecimalsQty=1;
     public static String CurrencySymbol="";
     public static String Country="";
     public static String sDecimals="";
+    public static String sDecimalsQty="";
 }

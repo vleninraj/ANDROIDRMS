@@ -151,7 +151,7 @@ public class ProductActivity extends AppCompatActivity {
             public void onClick(View view) {
                Double dblQty=Double.valueOf(lblunitselqty.getText().toString());
                dblQty=dblQty + 1;
-               lblunitselqty.setText(String.format("%.2f",dblQty));
+               lblunitselqty.setText(String.format(Common.sDecimalsQty,dblQty));
             }
         });
         btnunitseldecrement.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +161,7 @@ public class ProductActivity extends AppCompatActivity {
                 if(dblQty>1)
                 {
                     dblQty=dblQty-1;
-                    lblunitselqty.setText(String.format("%.2f",dblQty));
+                    lblunitselqty.setText(String.format(Common.sDecimalsQty,dblQty));
                 }
             }
         });

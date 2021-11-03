@@ -58,7 +58,7 @@ public class OrderdtlAdapter extends BaseAdapter {
                     Double dblQty=_orderitem.get_Qty();
                     dblQty++;
                     _orderitem.set_Qty(dblQty);
-                    _viewholder.lblneworderqty.setText(String.format(Common.sDecimals,_orderitem.get_Qty()));
+                    _viewholder.lblneworderqty.setText(String.format(Common.sDecimalsQty,_orderitem.get_Qty()));
                     Double dblRate=Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString());
                     _viewholder.lblneworderamount.setText(String.format(Common.sDecimals,dblRate*dblQty));
                     _orderitem.set_Qty(Double.valueOf(_viewholder.lblneworderqty.getText().toString()));
@@ -75,7 +75,7 @@ public class OrderdtlAdapter extends BaseAdapter {
                     {
                         dblQty--;
                         _orderitem.set_Qty(dblQty);
-                        _viewholder.lblneworderqty.setText(String.format(Common.sDecimals,_orderitem.get_Qty()));
+                        _viewholder.lblneworderqty.setText(String.format(Common.sDecimalsQty,_orderitem.get_Qty()));
                         Double dblRate=Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString());
                         _viewholder.lblneworderamount.setText(String.format(Common.sDecimals,dblRate*dblQty));
                         _orderitem.set_Qty(Double.valueOf(_viewholder.lblneworderqty.getText().toString()));
@@ -98,7 +98,7 @@ public class OrderdtlAdapter extends BaseAdapter {
 
             _viewholder.lblneworderproductname.setText(_orderitem.get_ProductName());
             _viewholder.lblneworderproductname.setTag(_orderitem.get_productid());
-            _viewholder.lblneworderqty.setText(String.format(Common.sDecimals,_orderitem.get_Qty()));
+            _viewholder.lblneworderqty.setText(String.format(Common.sDecimalsQty,_orderitem.get_Qty()));
             _viewholder.lblnewordersalesrate.setText(String.format(Common.sDecimals,_orderitem.get_Rate()));
             _viewholder.lblneworderunit.setText(_orderitem.get_Unit());
             _viewholder.lblneworderunit.setTag(_orderitem.get_unitid());
@@ -114,7 +114,7 @@ public class OrderdtlAdapter extends BaseAdapter {
             final ViewHolderOrderDtl _viewholder=(ViewHolderOrderDtl) vw.getTag();
             _viewholder.lblneworderproductname.setText(_orderitem.get_ProductName());
             _viewholder.lblneworderproductname.setTag(_orderitem.get_productid());
-            _viewholder.lblneworderqty.setText(String.format(Common.sDecimals,_orderitem.get_Qty()));
+            _viewholder.lblneworderqty.setText(String.format(Common.sDecimalsQty,_orderitem.get_Qty()));
             _viewholder.lblnewordersalesrate.setText(String.format(Common.sDecimals,_orderitem.get_Rate()));
             _viewholder.lblneworderunit.setText(_orderitem.get_Unit());
             _viewholder.lblneworderunit.setTag(_orderitem.get_unitid());
