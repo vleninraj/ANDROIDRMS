@@ -1,17 +1,25 @@
 package com.atlanta.rms;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -21,9 +29,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.atlanta.rms.Adapter.ProductAdapter;
+import com.atlanta.rms.Adapter.UnitAdapter;
 import com.atlanta.rms.Models.OrderDTL;
+import com.atlanta.rms.Models.OrderList;
+import com.atlanta.rms.Models.Party;
 import com.atlanta.rms.Models.Product;
+import com.atlanta.rms.Models.UnitRate;
 import com.atlanta.rms.ViewHolder.ViewHolderProduct;
+import com.atlanta.rms.ViewHolder.ViewHolderUnitSelection;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,6 +56,7 @@ public class ProductActivity extends AppCompatActivity {
     AutoCompleteTextView txtproductsearch;
     String sIpAddress="";
     String sGroupID="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,27 +105,144 @@ public class ProductActivity extends AppCompatActivity {
                 ViewHolderProduct holder=(ViewHolderProduct) view.getTag();
                 Common.selectedProductName=  holder.txtproductname.getText().toString();
                 Common.selectedProductID=holder.txtproductname.getTag().toString();
-                OrderDTL _dtl=new OrderDTL();
                 Product p=_productlist.get(Integer.valueOf( Common.selectedProductID));
                 if(p!=null) {
-                    _dtl.set_id(Common._orderdtls.size() + 1);
-                    _dtl.set_productid(p.get_id());
-                    _dtl.set_ProductCode(p.get_productCode());
-                    _dtl.set_ProductName(p.get_productName());
-                    _dtl.set_Qty(1.0);
+                    SelectUnit(p);
+
+
+                }
+
+            }
+        });
+    }
+    private void SelectUnit(Product p)
+    {
+        final String[] selectedUnitID = {""};
+        final String[] selectedUnitName = {""};
+        final Double[] dblSelectedSalesRate = {0.0};
+        ArrayList<UnitRate> _unitrates=new ArrayList<>();
+        final AlertDialog alert=new AlertDialog.Builder(ProductActivity.this).create();
+        LayoutInflater layoutInflater=getLayoutInflater();
+        final View DialougView = layoutInflater.inflate(R.layout.activity_unitselection, null);
+        final ImageView imgunit=(ImageView)DialougView.findViewById(R.id.imgunitproduct);
+        final TextView txtunitproductname=(TextView)DialougView.findViewById(R.id.txtunitproductname);
+        final TextView txtunititemdesription=(TextView)DialougView.findViewById(R.id.txtunititemdesription);
+        final TextView txtunitselsalesratecap=(TextView)DialougView.findViewById(R.id.txtunitselsalesratecap);
+        final TextView txtunitselsalesrate=(TextView)DialougView.findViewById(R.id.txtunitselsalesrate);
+        final Button btnunitseldecrement=(Button)DialougView.findViewById(R.id.btnunitseldecrement);
+        final Button btnunitselincrement=(Button)DialougView.findViewById(R.id.btnunitselincrement);
+        final TextView lblunitselqty=(TextView)DialougView.findViewById(R.id.lblunitselqty);
+        final GridView grdunits=(GridView)DialougView.findViewById(R.id.grdunits);
+        final Button btnaddtocartunit=(Button)DialougView.findViewById(R.id.btnaddtocartunit);
+        String sProductImage=p.get_ProductImage();
+        if(!sProductImage.equals("")) {
+            byte[] decodedString= android.util.Base64.decode(sProductImage,android.util.Base64.DEFAULT);
+            Bitmap bmp = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            imgunit.setImageBitmap(bmp);
+        }
+        txtunitproductname.setText(p.get_productName());
+        txtunititemdesription.setText(p.get_Description());
+        txtunitselsalesratecap.setText(Common.CurrencySymbol);
+        txtunitselsalesrate.setText(String.format(Common.sDecimals,p.get_SalesRate()));
+        lblunitselqty.setText("1");
+        btnunitselincrement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Double dblQty=Double.valueOf(lblunitselqty.getText().toString());
+               dblQty=dblQty + 1;
+               lblunitselqty.setText(String.format("%.2f",dblQty));
+            }
+        });
+        btnunitseldecrement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Double dblQty=Double.valueOf(lblunitselqty.getText().toString());
+                if(dblQty>1)
+                {
+                    dblQty=dblQty-1;
+                    lblunitselqty.setText(String.format("%.2f",dblQty));
+                }
+            }
+        });
+        _unitrates.clear();
+        String url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Unit?ProductID=" + p.get_id();
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONArray jsonArray = response;
+                try {
+                    _unitrates.clear();
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        UnitRate _unitRate=new UnitRate();
+                        _unitRate.set_Unit(jsonObject.getString("UnitName"));
+                        _unitRate.set_id(jsonObject.getInt("id"));
+                        _unitRate.set_cf(jsonObject.getDouble("CF"));
+                        _unitRate.set_SalesRate(jsonObject.getDouble("SalesRate"));
+                        _unitrates.add(_unitRate);
+                    }
+                    UnitAdapter adapter = new UnitAdapter(ProductActivity.this, _unitrates);
+                    grdunits.setAdapter(adapter);
+                }
+                catch (Exception w)
+                {
+                    Toast.makeText(ProductActivity.this,w.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ProductActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+        grdunits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ViewHolderUnitSelection holder=(ViewHolderUnitSelection) view.getTag();
+                selectedUnitID[0] =holder.txtselunitname.getTag().toString();
+                selectedUnitName[0] =  holder.txtselunitname.getText().toString();
+                dblSelectedSalesRate[0] =Double.valueOf(holder.txtunitsalesrate.getText().toString());
+            }
+        });
+        btnaddtocartunit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(_unitrates.size()>0 && selectedUnitID[0].equals(""))
+                {
+                    Toast.makeText(ProductActivity.this,"Unit must be selected!",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                OrderDTL _dtl=new OrderDTL();
+                _dtl.set_id(Common._orderdtls.size() + 1);
+                _dtl.set_productid(p.get_id());
+                _dtl.set_ProductCode(p.get_productCode());
+                _dtl.set_ProductName(p.get_productName());
+                _dtl.set_Qty(1.0);
+                if(selectedUnitID[0].equals("")) {
                     _dtl.set_unitid(p.get_UnitID());
                     _dtl.set_Unit(p.get_DefaultUnit());
                     _dtl.set_Rate(p.get_SalesRate());
                     _dtl.set_Amount(p.get_SalesRate());
-                    _dtl.set_OrderStatus(0);
-                    Common._orderdtls.add(_dtl);
-
-                    Toast.makeText(ProductActivity.this,"Added to Cart!",Toast.LENGTH_LONG).show();
                 }
-                //  Intent intent = new Intent(GroupActivity.this, OrderTypeActivity.class);
-                //  startActivity(intent);
+                else {
+                    _dtl.set_unitid(Integer.valueOf(selectedUnitID[0]));
+                    _dtl.set_Unit(selectedUnitName[0]);
+                    _dtl.set_Rate(dblSelectedSalesRate[0]);
+                    _dtl.set_Amount(dblSelectedSalesRate[0]);
+                }
+                _dtl.set_OrderStatus(0);
+                Common._orderdtls.add(_dtl);
+                Toast.makeText(ProductActivity.this,"Added to Cart!",Toast.LENGTH_LONG).show();
+                alert.dismiss();
             }
         });
+        alert.setView(DialougView);
+        alert.show();
+
+
+
+
     }
     private  void getProductList(String sGroupID)
     {

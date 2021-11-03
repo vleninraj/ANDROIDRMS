@@ -63,7 +63,7 @@ public class ProductAdapter extends BaseAdapter {
         _viewholder.txtproductname.setText(_product.get_productName());
         _viewholder.txtproductname.setTag(_product.get_id());
         _viewholder.txtprditemdesription.setText(_product.get_Description());
-        _viewholder.txtprdsalesrate.setText(String.format("%.2f",_product.get_SalesRate()));
+        _viewholder.txtprdsalesrate.setText(String.format(Common.sDecimals,_product.get_SalesRate()));
         _viewholder.txtprdunit.setText(_product.get_DefaultUnit());
         _viewholder.txtprdsalesratecap.setText(Common.CurrencySymbol);
         String sProductImage=_product.get_ProductImage();

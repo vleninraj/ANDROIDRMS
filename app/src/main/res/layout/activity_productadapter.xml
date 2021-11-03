@@ -16,8 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_margin="5dp"
-            android:padding="10dp">
+            android:layout_margin="2dp"
+            android:padding="2dp">
 
             <TextView
                 android:id="@+id/txtproductname"
@@ -30,18 +30,21 @@
                 android:textSize="14sp"
                 android:layout_margin="5dp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/txtprditemdesription"
                 android:layout_width="wrap_content"
-                android:layout_below="@id/txtproductname"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/txtproductname"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="sans-serif"
                 android:gravity="left"
                 android:text="Item Description"
-                android:textColor="#090909"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                />
+                android:textColor="@color/darkgray"
+                android:textSize="14sp" />
             <TextView
                 android:id="@+id/txtprdsalesratecap"
                 android:layout_width="wrap_content"
@@ -84,8 +87,8 @@
 
             <ImageView
                 android:id="@+id/imgproduct"
-                android:layout_width="140dp"
-                android:layout_height="130dp"
+                android:layout_width="130dp"
+                android:layout_height="110dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 app:srcCompat="@drawable/nogroup" />

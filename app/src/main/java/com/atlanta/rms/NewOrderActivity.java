@@ -319,7 +319,7 @@ public class NewOrderActivity extends AppCompatActivity {
         {
             dblNetAmount=dblNetAmount + (dtl.get_Qty()*dtl.get_Rate());
         }
-        txtbillamount.setText(String.format("%.2f",dblNetAmount));
+        txtbillamount.setText(String.format(Common.sDecimals,dblNetAmount));
     }
     @Override
     protected void onResume() {

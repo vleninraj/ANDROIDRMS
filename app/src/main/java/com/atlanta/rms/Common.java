@@ -23,6 +23,7 @@ public class Common {
     public static Dictionary<String, Floor> _floors;
     public static String selectedTableName="";
     public static String selectedTableID="";
+
     public static ArrayList<OrderDTL> _orderdtls;
     //Company Details
     public static String CompanyName="";
@@ -32,4 +33,5 @@ public class Common {
     public static int NoofDecimals=2;
     public static String CurrencySymbol="";
     public static String Country="";
+    public static String sDecimals="";
 }
