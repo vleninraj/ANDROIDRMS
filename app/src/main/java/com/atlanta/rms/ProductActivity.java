@@ -56,6 +56,7 @@ public class ProductActivity extends AppCompatActivity {
     AutoCompleteTextView txtproductsearch;
     String sIpAddress="";
     String sGroupID="";
+    View DialougView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +121,7 @@ public class ProductActivity extends AppCompatActivity {
         ArrayList<UnitRate> _unitrates=new ArrayList<>();
         final AlertDialog alert=new AlertDialog.Builder(ProductActivity.this).create();
         LayoutInflater layoutInflater=getLayoutInflater();
-        final View DialougView = layoutInflater.inflate(R.layout.activity_unitselection, null);
+        DialougView = layoutInflater.inflate(R.layout.activity_unitselection, null);
         final ImageView imgunit=(ImageView)DialougView.findViewById(R.id.imgunitproduct);
         final TextView txtunitselunit=(TextView)DialougView.findViewById(R.id.txtunitselunit);
         final TextView txtunitproductname=(TextView)DialougView.findViewById(R.id.txtunitproductname);
@@ -182,7 +183,7 @@ public class ProductActivity extends AppCompatActivity {
                         _unitRate.set_SalesRate(jsonObject.getDouble("SalesRate"));
                         _unitrates.add(_unitRate);
                     }
-                    UnitAdapter adapter = new UnitAdapter(ProductActivity.this, _unitrates);
+                    UnitAdapter adapter = new UnitAdapter(ProductActivity.this, _unitrates,DialougView);
                     grdunits.setAdapter(adapter);
                 }
                 catch (Exception w)

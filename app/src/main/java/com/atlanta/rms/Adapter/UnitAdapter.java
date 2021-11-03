@@ -29,11 +29,12 @@ public class UnitAdapter extends BaseAdapter  {
     RadioGroup rgp;
     private RadioButton mSelectedRB;
     private int mSelectedPosition = -1;
-
-    public UnitAdapter(Activity  context, ArrayList<UnitRate> unitRates) {
+    View _dlgview;
+    public UnitAdapter(Activity  context, ArrayList<UnitRate> unitRates,View dlgview) {
         //   super(c, R.layout.listview,workid);
         this._context=context;
         this._unitrates=unitRates;
+        this._dlgview=dlgview;
         rgp = new RadioGroup(context);
     }
     @Override
@@ -82,8 +83,9 @@ public class UnitAdapter extends BaseAdapter  {
 
                 mSelectedPosition = position;
                 mSelectedRB = (RadioButton) view;
-                TextView txtunitselunit=_context.findViewById(R.id.txtunitselunit);
-                TextView txtunitselsalesrate=_context.findViewById(R.id.txtunitselsalesrate);
+
+                TextView txtunitselunit=_dlgview.findViewById(R.id.txtunitselunit);
+                TextView txtunitselsalesrate=_dlgview.findViewById(R.id.txtunitselsalesrate);
                 txtunitselunit.setText(_unitrate.get_Unit());
                 txtunitselunit.setTag(_unitrate.get_id());
                 txtunitselsalesrate.setText(String.format(Common.sDecimals,_unitrate.get_SalesRate()));
@@ -94,6 +96,7 @@ public class UnitAdapter extends BaseAdapter  {
             _viewholder.radunit.setChecked(false);
         } else {
             _viewholder.radunit.setChecked(true);
+
 
             if (mSelectedRB != null && _viewholder.radunit != mSelectedRB) {
                 mSelectedRB = _viewholder.radunit;
