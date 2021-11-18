@@ -4,51 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".IPSettingsActivity">
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         >
-        <ImageView
-            android:id="@+id/imglogo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/rmslogo"
-            />
-        <Button
-            android:id="@+id/btnlogin"
+        <EditText
+            android:fontFamily="@font/nunito_regular"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@id/imglogo"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="40dp"
+            android:hint="Enter IP Address"
+            android:id="@+id/txtipaddress"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:gravity="center"
+            android:background="@drawable/rounded_background"
+            android:layout_marginTop="20dp"/>
+        <Button
+            android:id="@+id/btnsavesettings"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/txtipaddress"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
             android:backgroundTint="@color/colorPrimaryDark"
             android:fontFamily="@font/nunito_regular"
-            android:text="Login"
+            android:text="Save"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:textColorHint="#fff" />
-        <Button
-            android:id="@+id/btnopensettings"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/btnlogin"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:fontFamily="@font/nunito_regular"
-            android:text="Settings"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:textColorHint="#fff" />
-
 
     </RelativeLayout>
+
 
 </RelativeLayout>
