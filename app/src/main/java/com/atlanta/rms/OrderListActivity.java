@@ -93,7 +93,6 @@ public class OrderListActivity extends AppCompatActivity {
                 final EditText txtmobilenumber=DialougView.findViewById(R.id.txtmobilenumber);
                 final EditText txtVehicleName = DialougView.findViewById(R.id.txtvehiclename);
                 final EditText txtVehicleNumber = DialougView.findViewById(R.id.txtvehiclenumber);
-                txtcustomername.requestFocus();
                 final AlertDialog alert=new AlertDialog.Builder(OrderListActivity.this).create();
                 final Button btnSelectParty=DialougView.findViewById(R.id.btnselectparty);
 
@@ -125,6 +124,8 @@ public class OrderListActivity extends AppCompatActivity {
                             ArrayAdapter<String> _partyAdapter = new ArrayAdapter<String>(OrderListActivity.this, android.R.layout.simple_list_item_1, _partynames.toArray(new String[_partynames.size()]));
                             txtcustomername.setAdapter(_partyAdapter);
                             txtcustomername.setThreshold(0);
+                            txtcustomername.setText("Cash Account");
+                            txtcustomername.requestFocus();
                         }
                         catch (Exception w)
                         {
