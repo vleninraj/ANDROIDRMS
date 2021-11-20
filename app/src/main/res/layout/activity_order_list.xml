@@ -42,12 +42,11 @@
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorHeight="3dp"
         app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="#77a3a7"
-        >
-    </com.google.android.material.tabs.TabLayout>
+        app:tabTextColor="#77a3a7"/>
     <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/tbmain"
         android:id="@+id/vwpager"/>
 
     <RelativeLayout
