@@ -1,5 +1,6 @@
 package com.atlanta.rms;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.atlanta.rms.Adapter.OrderListAdapter;
+import com.atlanta.rms.Models.OrderList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +36,11 @@ public class BilledFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    final ArrayList<OrderList> _vouchers=new ArrayList<>();
+    final ArrayList<OrderList> _vouchersfiltered=new ArrayList<>();
+    RequestQueue requestQueue;
+    String sIpAddress="";
+    GridView grdvouchers;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -43,6 +64,7 @@ public class BilledFragment extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -53,14 +75,86 @@ public class BilledFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final View fragvw=inflater.inflate(R.layout.fragment_billed, container, false);
+        grdvouchers= fragvw.findViewById(R.id.grdbilled);
+        getOrderList();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_billed, container, false);
+        return fragvw;
+    }
+    private void getOrderList()
+    {
+        final SharedPreferences ipAddress = getActivity().getApplicationContext().getSharedPreferences("ipaddress", 0);
+        sIpAddress=ipAddress.getString("ipaddress", "");
+        requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        _vouchers.clear();
+        String url="";
+        if(Common.sCurrentOrderType.equals("Dine In")) {
+            url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Order?WaiterID=" + Common.sCurrentWaiterID
+                    + "&TypeID=688";
+        }
+        else
+        {
+            url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Order?WaiterID=" + Common.sCurrentWaiterID
+                    + "&TypeID=689";
+        }
+/*
+        HashMap<String ,String> params=new HashMap<String, String>();
+        params.put("WaiterID",Common.sCurrentWaiterID);
+        if(Common.sCurrentOrderType.equals("DineIn")) {
+
+            params.put("TypeID","688") ;
+        }
+        else
+        {
+            params.put("TypeID","689") ;
+        }
+*/
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONArray jsonArray = response;
+                try {
+                    _vouchers.clear();
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if(jsonObject.getInt("BilledStatus")==1)
+                        {
+                            OrderList _order=new OrderList();
+                            _order.set_id(jsonObject.getInt("id"));
+                            _order.set_VoucherNo(jsonObject.getString("VoucherNo"));
+                            _order.set_Party(jsonObject.getString("Party"));
+                            _order.set_MobileNumber(jsonObject.getString("MobileNumber"));
+                            _order.set_TableName(jsonObject.getString("TableName"));
+                            _order.set_billed(jsonObject.getInt("BilledStatus"));
+                            _vouchers.add(_order);
+
+                        }
+                    }
+
+                        OrderListAdapter adapter = new OrderListAdapter(getActivity(), _vouchers);
+                        grdvouchers.setAdapter(adapter);
+                }
+                catch (Exception w)
+                {
+                    Toast.makeText(getActivity().getApplicationContext(),w.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity().getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
     }
 }

@@ -47,10 +47,7 @@ public class OrderListActivity extends AppCompatActivity {
     TabLayout tbp;
     ViewPager2 pager2;
     FragmentAdapter fradapter;
-    final ArrayList<OrderList> _unbilledvouchers=new ArrayList<>();
-    final ArrayList<OrderList> _unbilledvouchersfiltered=new ArrayList<>();
-    final ArrayList<OrderList> _billedvouchers=new ArrayList<>();
-    final ArrayList<OrderList> _billedvouchersfiltered=new ArrayList<>();
+
 
     String sIpAddress="";
     final ArrayList<String> _partynames = new ArrayList<>();
@@ -64,8 +61,12 @@ public class OrderListActivity extends AppCompatActivity {
         tbp=(TabLayout)findViewById(R.id.tbmain);
         pager2=findViewById(R.id.vwpager);
         requestQueue = Volley.newRequestQueue(this);
+
+
+
         FragmentManager fm=getSupportFragmentManager();
         fradapter=new FragmentAdapter(fm,getLifecycle());
+
         pager2.setAdapter(fradapter);
         tbp.addTab(tbp.newTab().setText("Un Billed"));
         tbp.addTab(tbp.newTab().setText("Billed"));
@@ -249,7 +250,7 @@ public class OrderListActivity extends AppCompatActivity {
 
         final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
         sIpAddress=ipAddress.getString("ipaddress", "");
-        getOrderList();
+       // getOrderList();
 
 
 
@@ -263,7 +264,7 @@ public class OrderListActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String s) {
 
 
-                    _unbilledvouchersfiltered.clear();
+                /*    _unbilledvouchersfiltered.clear();
                     for (OrderList _orderlist : _unbilledvouchers) {
                         if (_orderlist.get_VoucherNo().toUpperCase().startsWith(s.toString().toUpperCase())
                                 || _orderlist.get_VoucherNo().toUpperCase().endsWith(s.toString().toUpperCase())) {
@@ -271,99 +272,17 @@ public class OrderListActivity extends AppCompatActivity {
                         }
                     }
                   //  OrderListAdapter adapter = new OrderListAdapter(OrderListActivity.this, _unbilledvouchersfiltered);
-                   // grdvouchers.setAdapter(adapter);
+                   // grdvouchers.setAdapter(adapter);*/
                 return true;
             }
         });
 
     }
 
-    private void getOrderList()
-    {
-        _billedvouchers.clear();
-        _unbilledvouchers.clear();
-        String url="";
-        if(Common.sCurrentOrderType.equals("Dine In")) {
-            url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Order?WaiterID=" + Common.sCurrentWaiterID
-                    + "&TypeID=688";
-        }
-        else
-        {
-            url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Order?WaiterID=" + Common.sCurrentWaiterID
-                    + "&TypeID=689";
-        }
-/*
-        HashMap<String ,String> params=new HashMap<String, String>();
-        params.put("WaiterID",Common.sCurrentWaiterID);
-        if(Common.sCurrentOrderType.equals("DineIn")) {
-
-            params.put("TypeID","688") ;
-        }
-        else
-        {
-            params.put("TypeID","689") ;
-        }
-*/
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONArray jsonArray = response;
-                try {
-                    _billedvouchers.clear();
-                    _unbilledvouchers.clear();
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        if(jsonObject.getInt("BilledStatus")==1)
-                        {
-                            OrderList _order=new OrderList();
-                            _order.set_id(jsonObject.getInt("id"));
-                            _order.set_VoucherNo(jsonObject.getString("VoucherNo"));
-                            _order.set_Party(jsonObject.getString("Party"));
-                            _order.set_MobileNumber(jsonObject.getString("MobileNumber"));
-                            _order.set_TableName(jsonObject.getString("TableName"));
-                            _order.set_billed(jsonObject.getInt("BilledStatus"));
-                            _billedvouchers.add(_order);
-
-                        }
-                        else
-                        {
-                            OrderList _order=new OrderList();
-                            _order.set_id(jsonObject.getInt("id"));
-                            _order.set_VoucherNo(jsonObject.getString("VoucherNo"));
-                            _order.set_Party(jsonObject.getString("Party"));
-                            _order.set_MobileNumber(jsonObject.getString("MobileNumber"));
-                            _order.set_TableName(jsonObject.getString("TableName"));
-                            _order.set_billed(jsonObject.getInt("BilledStatus"));
-                            _unbilledvouchers.add(_order);
-
-                        }
-
-                    }
-
-                    //    OrderListAdapter adapter = new OrderListAdapter(OrderListActivity.this, _unbilledvouchers);
-                     //   grdvouchers.setAdapter(adapter);
-
-
-
-                }
-                catch (Exception w)
-                {
-                    Toast.makeText(OrderListActivity.this,w.getMessage(),Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(OrderListActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-    }
     @Override
     protected void onResume() {
         super.onResume();
-        getOrderList();
+       // getOrderList();
 
     }
 }
