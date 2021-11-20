@@ -1,5 +1,6 @@
 package com.atlanta.rms;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,10 +8,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -83,8 +87,51 @@ public class WaiterListActivity extends AppCompatActivity {
                 ViewHolderWaiter holder=(ViewHolderWaiter) view.getTag();
                Common.sCurrentWaiterName=  holder.txtwaitername.getText().toString();
                Common.sCurrentWaiterID=holder.txtwaitername.getTag().toString();
-                Intent intent = new Intent(WaiterListActivity.this, OrderTypeActivity.class);
-                startActivity(intent);
+               Waiter currentWaiter=null;
+                for(Waiter _waiter:_waiters)
+                {
+                    if(_waiter.get_id()==Integer.valueOf(Common.sCurrentWaiterID))
+                    {
+                        currentWaiter=_waiter;
+                        break;
+                    }
+                }
+                if(currentWaiter!=null) {
+                    LayoutInflater layoutInflater = getLayoutInflater();
+                    final View DialougView = layoutInflater.inflate(R.layout.activity_waiterpin, null);
+                    final Button btnwaiterLogin = DialougView.findViewById(R.id.btnwaiterlogin);
+                    final EditText txtwaiterpin = DialougView.findViewById(R.id.txtwaiterpin);
+                    String sWaiterpin=currentWaiter.get_PINNumber().trim();
+                    txtwaiterpin.requestFocus();
+                    final AlertDialog alert=new AlertDialog.Builder(WaiterListActivity.this).create();
+                    btnwaiterLogin.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(sWaiterpin.equals(""))
+                            {
+                                Toast.makeText(WaiterListActivity.this,"Set PIN Number to this waiter!",Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            if(sWaiterpin.equals(txtwaiterpin.getText().toString().trim()))
+                            {
+                                Intent intent = new Intent(WaiterListActivity.this, OrderTypeActivity.class);
+                                startActivity(intent);
+                                Toast.makeText(WaiterListActivity.this,"Login successful!",Toast.LENGTH_LONG).show();
+                                alert.dismiss();
+                            }
+                            else
+                            {
+                                Toast.makeText(WaiterListActivity.this,"Invalid Pin Number!",Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+                    alert.setView(DialougView);
+                    alert.show();
+
+
+
+                }
             }
         });
     }
@@ -107,6 +154,7 @@ public class WaiterListActivity extends AppCompatActivity {
                         _waiter.set_id(jsonObject.getInt("id"));
                         _waiter.set_WaiterCode(jsonObject.getString("WaiterCode"));
                         _waiter.set_WaiterName(jsonObject.getString("WaiterName"));
+                        _waiter.set_PINNumber(jsonObject.getString("PINNumber"));
                         waiternames.add(_waiter.get_WaiterName());
                         _waiters.add(_waiter);
                     }

@@ -1,10 +1,13 @@
 package com.atlanta.rms.Models;
 
+import java.security.PrivateKey;
+
 public class Waiter {
 
     private int _id;
     private String _WaiterName;
     private String _WaiterCode;
+    private String _PINNumber;
 
 
     public int get_id() {
@@ -29,5 +32,13 @@ public class Waiter {
 
     public void set_WaiterCode(String _WaiterCode) {
         this._WaiterCode = _WaiterCode;
+    }
+
+    public String get_PINNumber() {
+        return _PINNumber;
+    }
+
+    public void set_PINNumber(String _PINNumber) {
+        this._PINNumber = _PINNumber;
     }
 }
