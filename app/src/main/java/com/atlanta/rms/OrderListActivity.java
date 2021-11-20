@@ -127,7 +127,7 @@ public class OrderListActivity extends AppCompatActivity {
                             txtcustomername.setAdapter(_partyAdapter);
                             txtcustomername.setThreshold(0);
                             txtcustomername.setText("Cash Account");
-                            txtcustomername.requestFocus();
+                            txtmobilenumber.requestFocus();
                         }
                         catch (Exception w)
                         {
