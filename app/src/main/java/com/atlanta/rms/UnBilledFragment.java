@@ -91,6 +91,7 @@ public class UnBilledFragment extends Fragment {
         grdvouchers= fragvw.findViewById(R.id.grdunbilled);
         searchvw=fragvw.findViewById(R.id.searchvwunbilled);
         btnsearch=fragvw.findViewById(R.id.btnsearchunbilled);
+
         getOrderList();
         searchvw.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override

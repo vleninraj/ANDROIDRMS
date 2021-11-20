@@ -5,6 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProductActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relproductsearch"
+        >
     <AutoCompleteTextView
         android:id="@+id/txtproductsearch"
         android:layout_width="match_parent"
@@ -16,12 +21,22 @@
         android:fontFamily="@font/nunito_regular"
         android:hint="Enter text to search Product"
         android:padding="5dp"
+        android:visibility="gone"
         />
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnsearchproduct"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_search_black_24dp"
+            android:backgroundTint="@color/white"
+            android:visibility="visible" />
+    </RelativeLayout>
     <GridView
         android:id="@+id/grdproducts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/txtproductsearch"
+        android:layout_below="@id/relproductsearch"
         android:numColumns="1" />
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.atlanta.rms;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +20,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +59,7 @@ public class ProductActivity extends AppCompatActivity {
     String sIpAddress="";
     String sGroupID="";
     View DialougView;
+    Button btnsearchproduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,7 @@ public class ProductActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         Bundle bd = intent.getExtras();
         sGroupID=(String) bd.get("GroupID");
+        btnsearchproduct=findViewById(R.id.btnsearchproduct);
         grdproducts=(GridView)findViewById(R.id.grdproducts);
         txtproductsearch=(AutoCompleteTextView)findViewById(R.id.txtproductsearch);
         requestQueue = Volley.newRequestQueue(this);
@@ -98,6 +102,21 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+        btnsearchproduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtproductsearch.getVisibility()==View.VISIBLE)
+                {
+                    txtproductsearch.setVisibility(View.GONE);
+                    btnsearchproduct.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_search_black_24dp));
+                }
+                else
+                {
+                    txtproductsearch.setVisibility(View.VISIBLE);
+                    btnsearchproduct.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.searchclose));
+                }
             }
         });
         grdproducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
