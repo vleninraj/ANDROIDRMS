@@ -55,7 +55,7 @@ public class ProductActivity extends AppCompatActivity {
     Dictionary<Integer,Product> _productlist=new Hashtable<Integer, Product>();
     final ArrayList<Product> _productsfiltered=new ArrayList<>();
     ArrayList<String> productnames = new ArrayList<>();
-    AutoCompleteTextView txtproductsearch;
+    SearchView txtproductsearch;
     String sIpAddress="";
     String sGroupID="";
     View DialougView;
@@ -70,54 +70,49 @@ public class ProductActivity extends AppCompatActivity {
         sGroupID=(String) bd.get("GroupID");
         btnsearchproduct=findViewById(R.id.btnsearchproduct);
         grdproducts=(GridView)findViewById(R.id.grdproducts);
-        txtproductsearch=(AutoCompleteTextView)findViewById(R.id.txtproductsearch);
+        txtproductsearch=(SearchView) findViewById(R.id.txtproductsearch);
         requestQueue = Volley.newRequestQueue(this);
         final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
         sIpAddress=ipAddress.getString("ipaddress", "");
         getProductList(sGroupID);
-        ArrayAdapter<String> _productadapter = new ArrayAdapter<String>(ProductActivity.this, android.R.layout.simple_list_item_1, productnames.toArray(new String[productnames.size()]));
+       /* ArrayAdapter<String> _productadapter = new ArrayAdapter<String>(ProductActivity.this, android.R.layout.simple_list_item_1, productnames.toArray(new String[productnames.size()]));
         txtproductsearch.setAdapter(_productadapter);
-        txtproductsearch.setThreshold(0);
-        txtproductsearch.addTextChangedListener(new TextWatcher() {
+        txtproductsearch.setThreshold(0); */
+        txtproductsearch.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            public boolean onClose() {
+                btnsearchproduct.setVisibility(View.VISIBLE);
+                txtproductsearch.setVisibility(View.GONE);
+                return true;
             }
-
+        });
+        btnsearchproduct.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence str, int i, int i1, int i2) {
-
+            public void onClick(View v) {
+                btnsearchproduct.setVisibility(View.GONE);
+                txtproductsearch.setVisibility(View.VISIBLE);
+                txtproductsearch.setIconified(false);
+            }
+        });
+        txtproductsearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
                 _productsfiltered.clear();
                 for(Product _product:_products)
                 {
-                    if(_product.get_productName().toUpperCase().startsWith(str.toString().toUpperCase())
-                            || _product.get_productName().toUpperCase().endsWith(str.toString().toUpperCase()))
+                    if(_product.get_productName().toUpperCase().startsWith(s.toString().toUpperCase())
+                            || _product.get_productName().toUpperCase().endsWith(s.toString().toUpperCase()))
                     {
                         _productsfiltered.add(_product);
                     }
                 }
                 ProductAdapter adapter = new ProductAdapter(ProductActivity.this, _productsfiltered);
                 grdproducts.setAdapter(adapter);
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        btnsearchproduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(txtproductsearch.getVisibility()==View.VISIBLE)
-                {
-                    txtproductsearch.setVisibility(View.GONE);
-                    btnsearchproduct.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_search_black_24dp));
-                }
-                else
-                {
-                    txtproductsearch.setVisibility(View.VISIBLE);
-                    txtproductsearch.requestFocus();
-                    btnsearchproduct.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.searchclose));
-                }
+                return true;
             }
         });
         grdproducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
