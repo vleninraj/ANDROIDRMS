@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -87,6 +88,13 @@ public class BilledFragment extends Fragment {
         final View fragvw=inflater.inflate(R.layout.fragment_billed, container, false);
         grdvouchers= fragvw.findViewById(R.id.grdbilled);
         getOrderList();
+        grdvouchers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getActivity().getApplicationContext(),"You can't edit billed order!",Toast.LENGTH_LONG).show();
+                return;
+            }
+        });
         // Inflate the layout for this fragment
         return fragvw;
     }
