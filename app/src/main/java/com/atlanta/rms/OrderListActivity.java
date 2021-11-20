@@ -2,6 +2,8 @@ package com.atlanta.rms;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,10 +43,10 @@ public class OrderListActivity extends AppCompatActivity {
 
     RequestQueue requestQueue;
     SearchView search;
-    GridView grdunbilled;
-    GridView grdbilled;
     Button btnSearch,btnneworder;
     TabLayout tbp;
+    ViewPager2 pager2;
+    FragmentAdapter fradapter;
     final ArrayList<OrderList> _unbilledvouchers=new ArrayList<>();
     final ArrayList<OrderList> _unbilledvouchersfiltered=new ArrayList<>();
     final ArrayList<OrderList> _billedvouchers=new ArrayList<>();
@@ -57,12 +59,40 @@ public class OrderListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
         search=findViewById(R.id.searchvw);
-        grdbilled=findViewById(R.id.grdbilled);
-        grdunbilled=findViewById(R.id.grdunbilled);
         btnSearch=findViewById(R.id.btnsearchorder);
         btnneworder=findViewById(R.id.btnneworder);
         tbp=(TabLayout)findViewById(R.id.tbmain);
+        pager2=findViewById(R.id.vwpager);
         requestQueue = Volley.newRequestQueue(this);
+        FragmentManager fm=getSupportFragmentManager();
+        fradapter=new FragmentAdapter(fm,getLifecycle());
+        pager2.setAdapter(fradapter);
+        tbp.addTab(tbp.newTab().setText("Un Billed"));
+        tbp.addTab(tbp.newTab().setText("Billed"));
+        tbp.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                pager2.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        pager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                tbp.selectTab(tbp.getTabAt(position));
+            }
+        });
+
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +101,8 @@ public class OrderListActivity extends AppCompatActivity {
                 search.setIconified(false);
             }
         });
-        grdunbilled.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*
+        grdvouchers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 OrderList _order= _unbilledvouchers.get(i);
@@ -90,13 +121,7 @@ public class OrderListActivity extends AppCompatActivity {
                 }
             }
         });
-        grdbilled.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(OrderListActivity.this,"You can't edit billed order!",Toast.LENGTH_LONG).show();
-                return;
-            }
-        });
+*/
         search.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
@@ -237,7 +262,7 @@ public class OrderListActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String s) {
 
-                if(tbp.getSelectedTabPosition()==0) {
+
                     _unbilledvouchersfiltered.clear();
                     for (OrderList _orderlist : _unbilledvouchers) {
                         if (_orderlist.get_VoucherNo().toUpperCase().startsWith(s.toString().toUpperCase())
@@ -245,23 +270,8 @@ public class OrderListActivity extends AppCompatActivity {
                             _unbilledvouchersfiltered.add(_orderlist);
                         }
                     }
-                    OrderListAdapter adapter = new OrderListAdapter(OrderListActivity.this, _unbilledvouchersfiltered);
-                    grdunbilled.setAdapter(adapter);
-                }
-                else
-                {
-                    _billedvouchersfiltered.clear();
-                    for (OrderList _orderlist : _billedvouchers) {
-                        if (_orderlist.get_VoucherNo().toUpperCase().startsWith(s.toString().toUpperCase())
-                                || _orderlist.get_VoucherNo().toUpperCase().endsWith(s.toString().toUpperCase())) {
-                            _billedvouchersfiltered.add(_orderlist);
-                        }
-                    }
-                    OrderListAdapter adapter = new OrderListAdapter(OrderListActivity.this, _billedvouchersfiltered);
-                    grdbilled.setAdapter(adapter);
-                }
-
-
+                  //  OrderListAdapter adapter = new OrderListAdapter(OrderListActivity.this, _unbilledvouchersfiltered);
+                   // grdvouchers.setAdapter(adapter);
                 return true;
             }
         });
@@ -314,6 +324,7 @@ public class OrderListActivity extends AppCompatActivity {
                             _order.set_TableName(jsonObject.getString("TableName"));
                             _order.set_billed(jsonObject.getInt("BilledStatus"));
                             _billedvouchers.add(_order);
+
                         }
                         else
                         {
@@ -325,13 +336,16 @@ public class OrderListActivity extends AppCompatActivity {
                             _order.set_TableName(jsonObject.getString("TableName"));
                             _order.set_billed(jsonObject.getInt("BilledStatus"));
                             _unbilledvouchers.add(_order);
+
                         }
 
                     }
-                    OrderListAdapter adapter = new OrderListAdapter(OrderListActivity.this, _unbilledvouchers);
-                    grdunbilled.setAdapter(adapter);
-                    OrderListAdapter adapter2 = new OrderListAdapter(OrderListActivity.this, _billedvouchers);
-                    grdbilled.setAdapter(adapter2);
+
+                    //    OrderListAdapter adapter = new OrderListAdapter(OrderListActivity.this, _unbilledvouchers);
+                     //   grdvouchers.setAdapter(adapter);
+
+
+
                 }
                 catch (Exception w)
                 {

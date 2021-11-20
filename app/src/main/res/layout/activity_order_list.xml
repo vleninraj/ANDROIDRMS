@@ -44,33 +44,11 @@
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="#77a3a7"
         >
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tbitemunbilled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Un Billed">
-            <GridView
-                android:fontFamily="@font/nunito_regular"
-                android:layout_width="match_parent"
-                android:id="@+id/grdunbilled"
-                android:layout_height="match_parent"
-                android:padding="10dp"/>
-        </com.google.android.material.tabs.TabItem>
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tbitembilled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Billed">
-            <GridView
-                android:fontFamily="@font/nunito_regular"
-                android:layout_width="match_parent"
-                android:id="@+id/grdbilled"
-                android:layout_height="match_parent"
-                android:padding="10dp"/>
-        </com.google.android.material.tabs.TabItem>
-
     </com.google.android.material.tabs.TabLayout>
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/vwpager"/>
 
     <RelativeLayout
         android:layout_width="150dp"
