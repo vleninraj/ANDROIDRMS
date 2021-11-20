@@ -11,7 +11,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,7 +24,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.atlanta.rms.Adapter.GroupAdapter;
+import com.atlanta.rms.Adapter.ProductAdapter;
 import com.atlanta.rms.Models.Group;
+import com.atlanta.rms.Models.Product;
 import com.atlanta.rms.ViewHolder.ViewHolderGroup;
 
 import org.json.JSONArray;
@@ -35,30 +39,48 @@ public class GroupActivity extends AppCompatActivity {
     final ArrayList<Group> _groups=new ArrayList<>();
     final ArrayList<Group> _groupsfiltered=new ArrayList<>();
     ArrayList<String> groupnames = new ArrayList<>();
-    AutoCompleteTextView txtgroupsearch;
+    SearchView txtgroupsearch;
     String sIpAddress="";
+    Button btnsearchgroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
         grdgroups=(GridView)findViewById(R.id.grdgroups);
-        txtgroupsearch=(AutoCompleteTextView)findViewById(R.id.txtgroupsearch);
+        txtgroupsearch=(SearchView)findViewById(R.id.txtgroupsearch);
+        btnsearchgroup=(Button)findViewById(R.id.btnsearchgroup);
         requestQueue = Volley.newRequestQueue(this);
         final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
         sIpAddress=ipAddress.getString("ipaddress", "");
         getGroupList();
+        /*
         ArrayAdapter<String> _groupadapter = new ArrayAdapter<String>(GroupActivity.this, android.R.layout.simple_list_item_1, groupnames.toArray(new String[groupnames.size()]));
         txtgroupsearch.setAdapter(_groupadapter);
         txtgroupsearch.setThreshold(0);
-        txtgroupsearch.addTextChangedListener(new TextWatcher() {
+         */
+        txtgroupsearch.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            public boolean onClose() {
+                btnsearchgroup.setVisibility(View.VISIBLE);
+                txtgroupsearch.setVisibility(View.GONE);
+                return true;
             }
-
+        });
+        btnsearchgroup.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence str, int i, int i1, int i2) {
-
+            public void onClick(View v) {
+                btnsearchgroup.setVisibility(View.GONE);
+                txtgroupsearch.setVisibility(View.VISIBLE);
+                txtgroupsearch.setIconified(false);
+            }
+        });
+        txtgroupsearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String str) {
                 _groupsfiltered.clear();
                 for(Group _group:_groups)
                 {
@@ -70,12 +92,10 @@ public class GroupActivity extends AppCompatActivity {
                 }
                 GroupAdapter adapter = new GroupAdapter(GroupActivity.this, _groupsfiltered);
                 grdgroups.setAdapter(adapter);
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-
+                return true;
             }
         });
+
         grdgroups.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
