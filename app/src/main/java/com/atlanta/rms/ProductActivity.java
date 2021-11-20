@@ -115,6 +115,7 @@ public class ProductActivity extends AppCompatActivity {
                 else
                 {
                     txtproductsearch.setVisibility(View.VISIBLE);
+                    txtproductsearch.requestFocus();
                     btnsearchproduct.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.searchclose));
                 }
             }
