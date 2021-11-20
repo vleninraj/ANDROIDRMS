@@ -12,6 +12,7 @@ private int _unitid;
 private String _Unit;
 private Double _Amount;
 private int _OrderStatus;
+private String _KitchenNote;
 
     public int get_id() {
         return _id;
@@ -91,5 +92,13 @@ private int _OrderStatus;
 
     public void set_OrderStatus(int _OrderStatus) {
         this._OrderStatus = _OrderStatus;
+    }
+
+    public String get_KitchenNote() {
+        return _KitchenNote;
+    }
+
+    public void set_KitchenNote(String _KitchenNote) {
+        this._KitchenNote = _KitchenNote;
     }
 }

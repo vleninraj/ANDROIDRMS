@@ -154,6 +154,7 @@
         android:layout_below="@+id/crdmain"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
+        android:id="@+id/crdunits"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -187,24 +188,48 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginRight="5dp"
                 />
-
             <GridView
                 android:id="@+id/grdunits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtsizechoicecap2"
                 android:numColumns="1" />
-            <Button
-                android:id="@+id/btnaddtocartunit"
-                android:layout_width="match_parent"
-                android:layout_below="@id/grdunits"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:text="Add To Cart"
 
-                 />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/crdunits"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:id="@+id/crdnotes"
+        >
 
+        <EditText
+            android:id="@+id/txtkitchenNotes"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/nunito_regular"
+            android:hint="Enter Kitchen Notes"
+            android:singleLine="false" />
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/crdnotes"
+        >
+        <Button
+            android:id="@+id/btnaddtocartunit"
+            android:layout_width="match_parent"
+
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:text="Add To Cart"
+            />
+    </RelativeLayout>
 
 </RelativeLayout>

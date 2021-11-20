@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -143,6 +144,7 @@ public class ProductActivity extends AppCompatActivity {
         final TextView txtunititemdesription=(TextView)DialougView.findViewById(R.id.txtunititemdesription);
         final TextView txtunitselsalesratecap=(TextView)DialougView.findViewById(R.id.txtunitselsalesratecap);
         final TextView txtunitselsalesrate=(TextView)DialougView.findViewById(R.id.txtunitselsalesrate);
+        final EditText txtKitchenNote=(EditText)DialougView.findViewById(R.id.txtkitchenNotes);
         final Button btnunitseldecrement=(Button)DialougView.findViewById(R.id.btnunitseldecrement);
         final Button btnunitselincrement=(Button)DialougView.findViewById(R.id.btnunitselincrement);
         final TextView lblunitselqty=(TextView)DialougView.findViewById(R.id.lblunitselqty);
@@ -161,6 +163,7 @@ public class ProductActivity extends AppCompatActivity {
         txtunitselsalesratecap.setText(Common.CurrencySymbol);
         txtunitselsalesrate.setText(String.format(Common.sDecimals,p.get_SalesRate()));
         lblunitselqty.setText("1");
+        txtKitchenNote.setText("");
         btnunitselincrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -227,7 +230,7 @@ public class ProductActivity extends AppCompatActivity {
                 _dtl.set_Unit(txtunitselunit.getText().toString());
                 _dtl.set_Rate(Double.valueOf(txtunitselsalesrate.getText().toString()));
                 _dtl.set_Amount(p.get_SalesRate());
-
+                _dtl.set_KitchenNote(txtKitchenNote.getText().toString());
                 _dtl.set_OrderStatus(0);
                 Common._orderdtls.add(_dtl);
                 Toast.makeText(ProductActivity.this,"Added to Cart!",Toast.LENGTH_LONG).show();
