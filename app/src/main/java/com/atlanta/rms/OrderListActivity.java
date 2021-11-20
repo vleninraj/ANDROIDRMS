@@ -54,6 +54,8 @@ public class OrderListActivity extends AppCompatActivity {
         pager2.setAdapter(fradapter);
         tbp.addTab(tbp.newTab().setText("Un Billed"));
         tbp.addTab(tbp.newTab().setText("Billed"));
+        final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
+        sIpAddress=ipAddress.getString("ipaddress", "");
         tbp.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -193,8 +195,7 @@ public class OrderListActivity extends AppCompatActivity {
             }
         });
 
-        final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
-        sIpAddress=ipAddress.getString("ipaddress", "");
+
        // getOrderList();
 
     }
