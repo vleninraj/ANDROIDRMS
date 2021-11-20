@@ -16,6 +16,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,7 +26,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.atlanta.rms.Adapter.ProductAdapter;
 import com.atlanta.rms.Adapter.WaiterAdapter;
+import com.atlanta.rms.Models.Product;
 import com.atlanta.rms.Models.Waiter;
 import com.atlanta.rms.ViewHolder.ViewHolderWaiter;
 
@@ -39,31 +42,43 @@ public class WaiterListActivity extends AppCompatActivity {
     final ArrayList<Waiter> _waiters=new ArrayList<>();
     final ArrayList<Waiter> _waiterfiltered=new ArrayList<>();
     ArrayList<String> waiternames = new ArrayList<>();
-    AutoCompleteTextView txtwaitersearch;
+    SearchView txtwaitersearch;
     String sIpAddress="";
+    Button btnsearchwaiter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiter_list);
         grdWaiters=(GridView) findViewById(R.id.grdwaiters);
-        txtwaitersearch=(AutoCompleteTextView) findViewById(R.id.txtwaitersearch);
+        txtwaitersearch=(SearchView) findViewById(R.id.txtwaitersearch);
+        btnsearchwaiter=(Button)findViewById(R.id.btnsearchwaiter);
         requestQueue = Volley.newRequestQueue(this);
         final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
         sIpAddress=ipAddress.getString("ipaddress", "");
         getWaiterList();
-
-        ArrayAdapter<String> _waiteradapter = new ArrayAdapter<String>(WaiterListActivity.this, android.R.layout.simple_list_item_1, waiternames.toArray(new String[waiternames.size()]));
-        txtwaitersearch.setAdapter(_waiteradapter);
-        txtwaitersearch.setThreshold(0);
-        txtwaitersearch.addTextChangedListener(new TextWatcher() {
+        txtwaitersearch.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            public boolean onClose() {
+                btnsearchwaiter.setVisibility(View.VISIBLE);
+                txtwaitersearch.setVisibility(View.GONE);
+                return true;
             }
-
+        });
+        btnsearchwaiter.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence str, int i, int i1, int i2) {
-
+            public void onClick(View v) {
+                btnsearchwaiter.setVisibility(View.GONE);
+                txtwaitersearch.setVisibility(View.VISIBLE);
+                txtwaitersearch.setIconified(false);
+            }
+        });
+        txtwaitersearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String str) {
                 _waiterfiltered.clear();
                 for(Waiter _waiter:_waiters)
                 {
@@ -75,10 +90,7 @@ public class WaiterListActivity extends AppCompatActivity {
                 }
                 WaiterAdapter adapter = new WaiterAdapter(WaiterListActivity.this, _waiterfiltered);
                 grdWaiters.setAdapter(adapter);
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-
+                return true;
             }
         });
         grdWaiters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
