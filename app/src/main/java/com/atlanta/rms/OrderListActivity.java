@@ -10,17 +10,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 
 import com.android.volley.Request;
@@ -29,10 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.atlanta.rms.Adapter.OrderListAdapter;
-import com.atlanta.rms.Adapter.OrderdtlAdapter;
-import com.atlanta.rms.Models.OrderDTL;
-import com.atlanta.rms.Models.OrderList;
+import com.atlanta.rms.Adapter.FragmentAdapter;
 import com.atlanta.rms.Models.Party;
 import com.google.android.material.tabs.TabLayout;
 
@@ -42,31 +35,22 @@ import org.json.JSONObject;
 public class OrderListActivity extends AppCompatActivity {
 
     RequestQueue requestQueue;
-    SearchView search;
-    Button btnSearch,btnneworder;
+    Button btnneworder;
     TabLayout tbp;
     ViewPager2 pager2;
     FragmentAdapter fradapter;
-
-
     String sIpAddress="";
     final ArrayList<String> _partynames = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
-        search=findViewById(R.id.searchvw);
-        btnSearch=findViewById(R.id.btnsearchorder);
         btnneworder=findViewById(R.id.btnneworder);
         tbp=(TabLayout)findViewById(R.id.tbmain);
         pager2=findViewById(R.id.vwpager);
         requestQueue = Volley.newRequestQueue(this);
-
-
-
         FragmentManager fm=getSupportFragmentManager();
         fradapter=new FragmentAdapter(fm,getLifecycle());
-
         pager2.setAdapter(fradapter);
         tbp.addTab(tbp.newTab().setText("Un Billed"));
         tbp.addTab(tbp.newTab().setText("Billed"));
@@ -93,49 +77,9 @@ public class OrderListActivity extends AppCompatActivity {
                 tbp.selectTab(tbp.getTabAt(position));
             }
         });
-
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnSearch.setVisibility(View.GONE);
-                search.setVisibility(View.VISIBLE);
-                search.setIconified(false);
-            }
-        });
-        /*
-        grdvouchers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                OrderList _order= _unbilledvouchers.get(i);
-                if(_order!=null)
-                {
-                    if(_order.get_billed()==1)
-                    {
-                        Toast.makeText(OrderListActivity.this,"You can't edit billed order!",Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    Intent intent = new Intent(OrderListActivity.this, NewOrderActivity.class);
-                    intent.putExtra("NewRecord",false);
-                    intent.putExtra("OrderID",_order.get_id());
-                    startActivity(intent);
-                   // Toast.makeText(OrderListActivity.this,_order.get_VoucherNo(),Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-*/
-        search.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                btnSearch.setVisibility(View.VISIBLE);
-                search.setVisibility(View.GONE);
-                return true;
-            }
-        });
         btnneworder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 Common.selectedTableName="";
                 Common.selectedTableID="";
                 if(Common.sCurrentOrderType.equals("Dine In"))
@@ -251,31 +195,6 @@ public class OrderListActivity extends AppCompatActivity {
         final SharedPreferences ipAddress = getApplicationContext().getSharedPreferences("ipaddress", MODE_PRIVATE);
         sIpAddress=ipAddress.getString("ipaddress", "");
        // getOrderList();
-
-
-
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-
-
-                /*    _unbilledvouchersfiltered.clear();
-                    for (OrderList _orderlist : _unbilledvouchers) {
-                        if (_orderlist.get_VoucherNo().toUpperCase().startsWith(s.toString().toUpperCase())
-                                || _orderlist.get_VoucherNo().toUpperCase().endsWith(s.toString().toUpperCase())) {
-                            _unbilledvouchersfiltered.add(_orderlist);
-                        }
-                    }
-                  //  OrderListAdapter adapter = new OrderListAdapter(OrderListActivity.this, _unbilledvouchersfiltered);
-                   // grdvouchers.setAdapter(adapter);*/
-                return true;
-            }
-        });
 
     }
 

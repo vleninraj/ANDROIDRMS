@@ -1,4 +1,7 @@
-package com.atlanta.rms;
+package com.atlanta.rms.Adapter;
+
+import com.atlanta.rms.BilledFragment;
+import com.atlanta.rms.UnBilledFragment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

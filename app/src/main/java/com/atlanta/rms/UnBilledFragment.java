@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -39,6 +41,8 @@ public class UnBilledFragment extends Fragment {
     RequestQueue requestQueue;
     String sIpAddress="";
     GridView grdvouchers;
+    SearchView searchvw;
+    Button btnsearch;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -85,7 +89,47 @@ public class UnBilledFragment extends Fragment {
 
         final View fragvw=inflater.inflate(R.layout.fragment_un_billed, container, false);
         grdvouchers= fragvw.findViewById(R.id.grdunbilled);
+        searchvw=fragvw.findViewById(R.id.searchvwunbilled);
+        btnsearch=fragvw.findViewById(R.id.btnsearchunbilled);
         getOrderList();
+        searchvw.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                btnsearch.setVisibility(View.VISIBLE);
+                searchvw.setVisibility(View.GONE);
+                return true;
+            }
+        });
+        btnsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnsearch.setVisibility(View.GONE);
+                searchvw.setVisibility(View.VISIBLE);
+                searchvw.setIconified(false);
+            }
+        });
+        searchvw.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+
+
+                _vouchersfiltered.clear();
+                    for (OrderList _orderlist : _vouchers) {
+                        if (_orderlist.get_VoucherNo().toUpperCase().startsWith(s.toString().toUpperCase())
+                                || _orderlist.get_VoucherNo().toUpperCase().endsWith(s.toString().toUpperCase())) {
+                            _vouchersfiltered.add(_orderlist);
+                        }
+                    }
+                    OrderListAdapter adapter = new OrderListAdapter(getActivity(), _vouchersfiltered);
+                    grdvouchers.setAdapter(adapter);
+                return true;
+            }
+        });
         grdvouchers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
