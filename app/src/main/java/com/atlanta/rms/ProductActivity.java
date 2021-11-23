@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -155,7 +156,7 @@ public class ProductActivity extends AppCompatActivity {
         final TextView lblunitselqty=(TextView)DialougView.findViewById(R.id.lblunitselqty);
         final GridView grdunits=(GridView)DialougView.findViewById(R.id.grdunits);
         final GridView grdmodifiers=(GridView)DialougView.findViewById(R.id.grdmodifiers);
-        final Button btnaddtocartunit=(Button)DialougView.findViewById(R.id.btnaddtocartunit);
+        final RelativeLayout btnaddtocartunit=(RelativeLayout) DialougView.findViewById(R.id.reladdtocart);
         Common._selectedmodifiers=new Hashtable<>();
         String sProductImage=p.get_ProductImage();
         if(!sProductImage.equals("")) {
