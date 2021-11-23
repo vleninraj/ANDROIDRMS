@@ -7,7 +7,7 @@ public class OrderList {
     private String _Party;
     private String _MobileNumber;
     private String _TableName;
-    private String _GrandAmount;
+    private Double _GrandAmount;
     private int _billed;
     public int get_id() {
         return _id;
@@ -49,19 +49,19 @@ public class OrderList {
         this._TableName = _TableName;
     }
 
-    public String get_GrandAmount() {
-        return _GrandAmount;
-    }
-
-    public void set_GrandAmount(String _GrandAmount) {
-        this._GrandAmount = _GrandAmount;
-    }
-
     public int get_billed() {
         return _billed;
     }
 
     public void set_billed(int _billed) {
         this._billed = _billed;
+    }
+
+    public Double get_GrandAmount() {
+        return _GrandAmount;
+    }
+
+    public void set_GrandAmount(Double _GrandAmount) {
+        this._GrandAmount = _GrandAmount;
     }
 }

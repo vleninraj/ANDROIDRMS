@@ -199,6 +199,7 @@ public class UnBilledFragment extends Fragment {
                             _order.set_MobileNumber(jsonObject.getString("MobileNumber"));
                             _order.set_TableName(jsonObject.getString("TableName"));
                             _order.set_billed(jsonObject.getInt("BilledStatus"));
+                            _order.set_GrandAmount(jsonObject.getDouble("GrandTotal"));
                             _vouchers.add(_order);
 
                         }

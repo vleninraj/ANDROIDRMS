@@ -79,7 +79,7 @@ public class OrderListAdapter extends BaseAdapter {
             _viewholder.lblbilledstatus.setText("Un Billed");
             _viewholder.lblbilledstatus.setTextColor(Color.parseColor("#ED2929"));
         }
-        _viewholder.lblgrandamount.setText(_order.get_GrandAmount());
+        _viewholder.lblgrandamount.setText(String.format(Common.sDecimals,_order.get_GrandAmount()));
         Log.d(TAG, "From View" + _order.get_VoucherNo());
         return vw;
     }
