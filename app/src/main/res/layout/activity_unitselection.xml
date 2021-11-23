@@ -1,276 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:paddingBottom="5dp"
     android:paddingEnd="5dp"
     android:paddingStart="5dp"
     android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:fillViewport="true"
     android:scrollbars="none"
-    tools:context=".Alert"
-    >
+    tools:context=".Alert">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:id="@+id/crdmain"
-        >
+        android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="2dp"
-            android:padding="2dp"
-            >
+            android:layout_below="@+id/crdmodifiers">
 
-            <ImageView
-                android:id="@+id/imgunitproduct"
+            <Button
+                android:id="@+id/btnaddtocartunit"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:layout_centerHorizontal="true"
-                app:srcCompat="@drawable/nogroup" />
-    <TextView
-        android:id="@+id/txtunitproductname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/imgunitproduct"
-        android:fontFamily="sans-serif"
-        android:gravity="left"
-        android:text="Sample Product"
-        android:textColor="#090909"
-        android:textSize="18sp"
-        android:layout_margin="10dp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/txtunititemdesription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtunitproductname"
-        android:layout_margin="5dp"
-        android:fontFamily="sans-serif"
-        android:gravity="left"
-        android:text="Item Description"
-        android:textColor="@color/darkgray"
-        android:textSize="14sp" />
-            <TextView
-                android:id="@+id/txtunitselsalesratecap"
-                android:layout_width="wrap_content"
-                android:layout_below="@id/txtunititemdesription"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:gravity="left"
-                android:text="Sales Rate :"
-                android:textColor="#090909"
-                android:textSize="14sp"
-                android:layout_margin="5dp"
-                android:textStyle="bold"
-                />
-            <TextView
-                android:id="@+id/txtunitselsalesrate"
-                android:layout_width="wrap_content"
-                android:layout_below="@id/txtunititemdesription"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/txtunitselsalesratecap"
-                android:fontFamily="sans-serif"
-                android:gravity="right"
-                android:text="0.00"
-                android:textColor="#090909"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_margin="5dp"
-                />
-            <TextView
-                android:id="@+id/txtunitselunit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txtunititemdesription"
-                android:layout_toRightOf="@id/txtunitselsalesrate"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="--"
-                android:textColor="#090909"
-                android:textSize="16sp"
-                android:layout_margin="5dp"
-                />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/txtunitproductname"
-                android:layout_marginBottom="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="2dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="10dp">
-              <RelativeLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:padding="5dp"
-                  >
-                <Button
-                    android:id="@+id/btnunitseldecrement"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/minusicon"
-                    android:elevation="5dp"
-                    android:layout_margin="5dp"
-                    />
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:text="Add To Cart" />
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/crdunits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/crdmain"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <GridView
+                    android:id="@+id/grdunits"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtsizechoicecap2"
+                    android:numColumns="1" />
 
                 <TextView
-                    android:id="@+id/lblunitselqty"
-                    android:layout_width="60dp"
-                    android:layout_height="30dp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:layout_toRightOf="@id/btnunitseldecrement"
-                    android:text="0"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:layout_margin="5dp"
+                    android:id="@+id/txtsizechoicecap2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtsizechoicecap"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="left"
+                    android:text="Choose 1"
+                    android:textColor="#090909"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/txtsizechoicecap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="left"
+                    android:text="Your Choice of Size:"
+                    android:textColor="#090909"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
-                <Button
-                    android:id="@+id/btnunitselincrement"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_toRightOf="@id/lblunitselqty"
-                    android:background="@drawable/addicon"
-                    android:layout_margin="5dp"
-                    android:elevation="5dp" />
-              </RelativeLayout>
-            </androidx.cardview.widget.CardView>
 
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_below="@+id/crdmain"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:id="@+id/crdunits"
-        >
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/crdnotes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/txtsizechoicecap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:gravity="left"
-                android:text="Your Choice of Size:"
-                android:textColor="#090909"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                />
-            <TextView
-                android:id="@+id/txtsizechoicecap2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txtsizechoicecap"
-                android:fontFamily="sans-serif"
-                android:gravity="left"
-                android:text="Choose 1"
-                android:textColor="#090909"
-                android:textSize="12sp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="5dp"
-                />
-            <GridView
-                android:id="@+id/grdunits"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txtsizechoicecap2"
-                android:numColumns="1" />
-
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_below="@+id/crdunits"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:id="@+id/crdnotes"
-        >
-        <EditText
-            android:id="@+id/txtkitchenNotes"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/nunito_regular"
-            android:hint="Enter Kitchen Notes"
-            android:singleLine="false" />
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_below="@+id/crdnotes"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:id="@+id/crdmodifiers"
-        >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/txtmodifiercap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:gravity="left"
-                android:text="Select Modifiers:"
-                android:textColor="#090909"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                />
-            <GridView
-                android:id="@+id/grdmodifiers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txtmodifiercap"
-                android:numColumns="1" />
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/crdmodifiers"
-        >
-        <Button
-            android:id="@+id/btnaddtocartunit"
-            android:layout_width="match_parent"
-
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/crdunits"
             android:layout_margin="5dp"
-            android:text="Add To Cart"
-            />
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp">
+
+            <EditText
+                android:id="@+id/txtkitchenNotes"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_regular"
+                android:hint="Enter Kitchen Notes"
+                android:singleLine="false" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/crdmodifiers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/crdnotes"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <GridView
+                    android:id="@+id/grdmodifiers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtmodifiercap"
+                    android:numColumns="1" />
+
+                <TextView
+                    android:id="@+id/txtmodifiercap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="left"
+                    android:text="Select Modifiers:"
+                    android:textColor="#090909"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/crdmain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="2dp"
+                android:padding="2dp">
+
+                <ImageView
+                    android:id="@+id/imgunitproduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_centerHorizontal="true"
+                    app:srcCompat="@drawable/nogroup" />
+
+                <TextView
+                    android:id="@+id/txtunitproductname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imgunitproduct"
+                    android:layout_margin="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="left"
+                    android:text="Sample Product"
+                    android:textColor="#090909"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtunititemdesription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtunitproductname"
+                    android:layout_margin="5dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="left"
+                    android:text="Item Description"
+                    android:textColor="@color/darkgray"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/txtunitselsalesratecap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtunititemdesription"
+                    android:layout_margin="5dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="left"
+                    android:text="Sales Rate :"
+                    android:textColor="#090909"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtunitselsalesrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtunititemdesription"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@id/txtunitselsalesratecap"
+                    android:fontFamily="sans-serif"
+                    android:gravity="right"
+                    android:text="0.00"
+                    android:textColor="#090909"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtunitselunit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtunititemdesription"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@id/txtunitselsalesrate"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="--"
+                    android:textColor="#090909"
+                    android:textSize="16sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/txtunitproductname"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+
+                        <Button
+                            android:id="@+id/btnunitseldecrement"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/minusicon"
+                            android:elevation="5dp" />
+
+                        <Button
+                            android:id="@+id/btnunitselincrement"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_margin="5dp"
+                            android:layout_toRightOf="@id/lblunitselqty"
+                            android:background="@drawable/addicon"
+                            android:elevation="5dp" />
+
+                        <TextView
+                            android:id="@+id/lblunitselqty"
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:layout_margin="5dp"
+                            android:layout_toRightOf="@id/btnunitseldecrement"
+                            android:fontFamily="@font/nunito_regular"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
-    </RelativeLayout>
-</ScrollView >
+</ScrollView>
