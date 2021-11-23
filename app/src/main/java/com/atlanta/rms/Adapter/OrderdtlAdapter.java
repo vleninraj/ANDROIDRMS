@@ -103,6 +103,16 @@ public class OrderdtlAdapter extends BaseAdapter {
             _viewholder.lblneworderunit.setText(_orderitem.get_Unit());
             _viewholder.lblneworderunit.setTag(_orderitem.get_unitid());
             _viewholder.btnincrement.setTag(_orderitem.get_id());
+            _viewholder.lblnotesandmodifiers.setText(_orderitem.get_KitchenNote() + " " + _orderitem.get_Modifiers());
+            if(_viewholder.lblnotesandmodifiers.getText().toString().equals(""))
+            {
+                _viewholder.lblnotesandmodifiers.setVisibility(View.GONE);
+            }
+            else
+            {
+                _viewholder.lblnotesandmodifiers.setVisibility(View.VISIBLE);
+            }
+
             Double dblQty=Double.valueOf(_viewholder.lblneworderqty.getText().toString());
             Double dblRate=Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString());
             _viewholder.lblneworderamount.setText(String.format(Common.sDecimals,dblRate*dblQty));
@@ -119,6 +129,7 @@ public class OrderdtlAdapter extends BaseAdapter {
             _viewholder.lblneworderunit.setText(_orderitem.get_Unit());
             _viewholder.lblneworderunit.setTag(_orderitem.get_unitid());
             _viewholder.btnincrement.setTag(_orderitem.get_id());
+            _viewholder.lblnotesandmodifiers.setText(_orderitem.get_KitchenNote() + " " + _orderitem.get_Modifiers());
 
             Double dblQty=Double.valueOf(_viewholder.lblneworderqty.getText().toString());
             Double dblRate=Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString());
@@ -126,6 +137,14 @@ public class OrderdtlAdapter extends BaseAdapter {
             _orderitem.set_Qty(Double.valueOf(_viewholder.lblneworderqty.getText().toString()));
             _orderitem.set_Rate(Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString()));
             _orderitem.set_Amount(Double.valueOf(_viewholder.lblneworderamount.getText().toString()));
+            if(_viewholder.lblnotesandmodifiers.getText().toString().equals(""))
+            {
+                _viewholder.lblnotesandmodifiers.setVisibility(View.GONE);
+            }
+            else
+            {
+                _viewholder.lblnotesandmodifiers.setVisibility(View.VISIBLE);
+            }
 
         }
 

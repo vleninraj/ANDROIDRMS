@@ -16,6 +16,7 @@ public class ViewHolderOrderDtl {
     public Button btnincrement;
     public Button btndecrement;
     public Button btnremoveitem;
+    public TextView lblnotesandmodifiers;
 
     public ViewHolderOrderDtl(View v)
     {
@@ -27,6 +28,7 @@ public class ViewHolderOrderDtl {
         btndecrement=(Button)v.findViewById(R.id.btnneworderdecrement);
         btnremoveitem=(Button)v.findViewById(R.id.btnremoveitem);
         lblneworderamount=(TextView)v.findViewById(R.id.lblneworderamount);
+        lblnotesandmodifiers=(TextView)v.findViewById(R.id.lblnotesandmodifiers);
     }
 }
 

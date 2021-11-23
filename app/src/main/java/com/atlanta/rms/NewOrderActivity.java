@@ -274,6 +274,8 @@ public class NewOrderActivity extends AppCompatActivity {
                         _dtl.set_Unit(jsonObject.getString("Unit"));
                         _dtl.set_Amount(jsonObject.getDouble("Amount"));
                         _dtl.set_OrderStatus(jsonObject.getInt("OrderStatus"));
+                        _dtl.set_KitchenNote(jsonObject.getString("KitchenNote"));
+                        _dtl.set_Modifiers(jsonObject.getString("Modifiers"));
                         Common._orderdtls.add(_dtl);
                         iPartyID=jsonObject.getInt("PartyID");
                         sPartyName=jsonObject.getString("PartyName");
