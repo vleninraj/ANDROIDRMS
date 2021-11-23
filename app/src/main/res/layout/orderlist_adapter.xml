@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
@@ -49,20 +50,22 @@
             android:fontFamily="@font/nunito_regular"
             android:text="Billed"
             android:textColor="@color/green"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:visibility="visible" />
+
         <TextView
+            android:id="@+id/lblgrandamount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_regular"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/lblvoucherno"
+            android:fontFamily="@font/nunito_regular"
             android:text="0.00"
             android:textColor="#0D9228"
-            android:layout_alignParentRight="true"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:id="@+id/lblgrandamount"/>
+            tools:visibility="visible" />
         <View
             android:fontFamily="@font/nunito_regular"
             android:layout_width="match_parent"

@@ -293,9 +293,6 @@ public class ProductActivity extends AppCompatActivity {
         alert.setView(DialougView);
         alert.show();
 
-
-
-
     }
     private  void getProductList(String sGroupID)
     {
