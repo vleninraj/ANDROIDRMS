@@ -190,6 +190,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 obj.put("MobileNumber",lblmobilenumber.getText().toString());
                 obj.put("OrderStatus",_dtl.get_OrderStatus());
                 obj.put("KitchenNote",_dtl.get_KitchenNote());
+                obj.put("Modifiers",_dtl.get_Modifiers());
                 jsnArray.put(obj);
             }
             catch (JSONException e)

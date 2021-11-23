@@ -13,6 +13,7 @@ private String _Unit;
 private Double _Amount;
 private int _OrderStatus;
 private String _KitchenNote;
+private String _Modifiers;
 
     public int get_id() {
         return _id;
@@ -100,5 +101,13 @@ private String _KitchenNote;
 
     public void set_KitchenNote(String _KitchenNote) {
         this._KitchenNote = _KitchenNote;
+    }
+
+    public String get_Modifiers() {
+        return _Modifiers;
+    }
+
+    public void set_Modifiers(String _Modifiers) {
+        this._Modifiers = _Modifiers;
     }
 }

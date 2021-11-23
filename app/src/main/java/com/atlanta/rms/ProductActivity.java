@@ -48,7 +48,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -154,6 +156,7 @@ public class ProductActivity extends AppCompatActivity {
         final GridView grdunits=(GridView)DialougView.findViewById(R.id.grdunits);
         final GridView grdmodifiers=(GridView)DialougView.findViewById(R.id.grdmodifiers);
         final Button btnaddtocartunit=(Button)DialougView.findViewById(R.id.btnaddtocartunit);
+        Common._selectedmodifiers=new Hashtable<>();
         String sProductImage=p.get_ProductImage();
         if(!sProductImage.equals("")) {
             byte[] decodedString= android.util.Base64.decode(sProductImage,android.util.Base64.DEFAULT);
@@ -259,6 +262,16 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                String smodifiers="";
+                Enumeration<String> modi = Common._selectedmodifiers.keys();
+                while(modi.hasMoreElements()) {
+                    String k = modi.nextElement();
+                    smodifiers = smodifiers + k + ",";
+                }
+                if(!smodifiers.equals(""))
+                {
+                    smodifiers=smodifiers.substring(0,smodifiers.length()-1);
+                }
                 OrderDTL _dtl=new OrderDTL();
                 _dtl.set_id(Common._orderdtls.size() + 1);
                 _dtl.set_productid(p.get_id());
@@ -270,6 +283,7 @@ public class ProductActivity extends AppCompatActivity {
                 _dtl.set_Rate(Double.valueOf(txtunitselsalesrate.getText().toString()));
                 _dtl.set_Amount(p.get_SalesRate());
                 _dtl.set_KitchenNote(txtKitchenNote.getText().toString());
+                _dtl.set_Modifiers(smodifiers);
                 _dtl.set_OrderStatus(0);
                 Common._orderdtls.add(_dtl);
                 Toast.makeText(ProductActivity.this,"Added to Cart!",Toast.LENGTH_LONG).show();

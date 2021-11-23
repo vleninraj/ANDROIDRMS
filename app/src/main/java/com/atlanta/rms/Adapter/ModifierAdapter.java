@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -72,7 +73,22 @@ public class ModifierAdapter extends BaseAdapter  {
         final Modifier _modifier = (Modifier) this.getItem(position);
         _viewholder.txtselmodifiername.setText(_modifier.get_Name());
         _viewholder.txtselmodifiername.setTag(_modifier.get_id());
-
+        _viewholder.chkmodifier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CheckBox chk=(CheckBox)view;
+                if(chk.isChecked())
+                {
+                    Common._selectedmodifiers.put(chk.getText().toString(),chk.getText().toString());
+                }
+                else
+                {
+                    if(Common._selectedmodifiers.get(chk.getText().toString())!=null) {
+                        Common._selectedmodifiers.remove(chk.getText().toString());
+                    }
+                }
+            }
+        });
 
         return vw;
     }
