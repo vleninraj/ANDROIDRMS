@@ -31,8 +31,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.atlanta.rms.Adapter.ModifierAdapter;
 import com.atlanta.rms.Adapter.ProductAdapter;
 import com.atlanta.rms.Adapter.UnitAdapter;
+import com.atlanta.rms.Models.Modifier;
 import com.atlanta.rms.Models.OrderDTL;
 import com.atlanta.rms.Models.OrderList;
 import com.atlanta.rms.Models.Party;
@@ -135,6 +137,7 @@ public class ProductActivity extends AppCompatActivity {
     private void SelectUnit(Product p)
     {
         ArrayList<UnitRate> _unitrates=new ArrayList<>();
+        ArrayList<Modifier> _modifiers=new ArrayList<>();
         final AlertDialog alert=new AlertDialog.Builder(ProductActivity.this).create();
         LayoutInflater layoutInflater=getLayoutInflater();
         DialougView = layoutInflater.inflate(R.layout.activity_unitselection, null);
@@ -149,6 +152,7 @@ public class ProductActivity extends AppCompatActivity {
         final Button btnunitselincrement=(Button)DialougView.findViewById(R.id.btnunitselincrement);
         final TextView lblunitselqty=(TextView)DialougView.findViewById(R.id.lblunitselqty);
         final GridView grdunits=(GridView)DialougView.findViewById(R.id.grdunits);
+        final GridView grdmodifiers=(GridView)DialougView.findViewById(R.id.grdmodifiers);
         final Button btnaddtocartunit=(Button)DialougView.findViewById(R.id.btnaddtocartunit);
         String sProductImage=p.get_ProductImage();
         if(!sProductImage.equals("")) {
@@ -183,6 +187,8 @@ public class ProductActivity extends AppCompatActivity {
                 }
             }
         });
+
+
         _unitrates.clear();
         String url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Unit?ProductID=" + p.get_id();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -216,6 +222,39 @@ public class ProductActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonArrayRequest);
+        // Populating Modifiers
+        _modifiers.clear();
+        url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Modifier?ProductID=" + p.get_id();
+        JsonArrayRequest jsonArrayRequest2 = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONArray jsonArray = response;
+                try {
+                    _modifiers.clear();
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Modifier _modifier=new Modifier();
+                        _modifier.set_Name(jsonObject.getString("Name"));
+                        _modifier.set_id(jsonObject.getInt("id"));
+                        _modifiers.add(_modifier);
+                    }
+                    ModifierAdapter adapter2= new ModifierAdapter(ProductActivity.this, _modifiers,DialougView);
+                    grdmodifiers.setAdapter(adapter2);
+                }
+                catch (Exception w)
+                {
+                    Toast.makeText(ProductActivity.this,w.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ProductActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+        requestQueue.add(jsonArrayRequest2);
+
         btnaddtocartunit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

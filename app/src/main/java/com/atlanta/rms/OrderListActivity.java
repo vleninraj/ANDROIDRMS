@@ -147,7 +147,6 @@ public class OrderListActivity extends AppCompatActivity {
                     public void onClick(View view) {
 
                         try {
-
                             if(txtcustomername.getText().toString().trim().equals(""))
                             {
                                 Toast.makeText(getApplicationContext(),"Customer name must be selected!",Toast.LENGTH_LONG).show();
@@ -185,9 +184,6 @@ public class OrderListActivity extends AppCompatActivity {
                         {
                             Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-
-
-
                     }
                 });
                 alert.setView(DialougView);
