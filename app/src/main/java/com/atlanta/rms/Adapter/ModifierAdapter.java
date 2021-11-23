@@ -79,12 +79,12 @@ public class ModifierAdapter extends BaseAdapter  {
                 CheckBox chk=(CheckBox)view;
                 if(chk.isChecked())
                 {
-                    Common._selectedmodifiers.put(chk.getText().toString(),chk.getText().toString());
+                    Common._selectedmodifiers.put(_modifier.get_Name().trim(),_modifier.get_Name().trim());
                 }
                 else
                 {
-                    if(Common._selectedmodifiers.get(chk.getText().toString())!=null) {
-                        Common._selectedmodifiers.remove(chk.getText().toString());
+                    if(Common._selectedmodifiers.get(_modifier.get_Name().trim())!=null) {
+                        Common._selectedmodifiers.remove(_modifier.get_Name().trim());
                     }
                 }
             }
