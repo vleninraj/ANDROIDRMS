@@ -50,6 +50,7 @@ public class NewOrderActivity extends AppCompatActivity {
     String sIpAddress="";
     RequestQueue requestQueue;
     String sVehicleName="",sVehicleNumber="";
+    Boolean blnSavingStart=false;
     Calendar cal = Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +162,9 @@ public class NewOrderActivity extends AppCompatActivity {
     }
     private void SaveData()
     {
-        btnSaveOrder.setEnabled(false);
+        if(blnSavingStart){ return; }
+        blnSavingStart=true;
+        btnSaveOrder.setVisibility(View.INVISIBLE);
         JSONObject jsnSaveData=new JSONObject();
         JSONArray jsnArray=new JSONArray();
         for(OrderDTL _dtl :Common._orderdtls)
@@ -217,7 +220,6 @@ public class NewOrderActivity extends AppCompatActivity {
                             {
                                 Toast.makeText(NewOrderActivity.this, "Order Updated with Voucher No " + sVoucherNo, Toast.LENGTH_LONG).show();
                             }
-                          btnSaveOrder.setEnabled(true);
                               finish();
                       }
                       else if(iStatus==2)
@@ -225,21 +227,24 @@ public class NewOrderActivity extends AppCompatActivity {
                           String sError=_jsnresponse.getString("ErrorString");
                           String sMessage="Order while printing ! " +sError;
                           Toast.makeText(NewOrderActivity.this, sMessage, Toast.LENGTH_LONG).show();
-                          btnSaveOrder.setEnabled(true);
+                          blnSavingStart=false;
+                          btnSaveOrder.setVisibility(View.VISIBLE);
                       }
                       else
                       {
                           String sError=_jsnresponse.getString("ErrorString");
                           String sMessage="Order Saving Failed! " +sError;
                           Toast.makeText(NewOrderActivity.this, sMessage, Toast.LENGTH_LONG).show();
-                          btnSaveOrder.setEnabled(true);
+                          blnSavingStart=false;
+                          btnSaveOrder.setVisibility(View.VISIBLE);
 
                       }
                   }
                   catch (JSONException e)
                   {
                       e.printStackTrace();
-                      btnSaveOrder.setEnabled(true);
+                      blnSavingStart=false;
+                      btnSaveOrder.setVisibility(View.VISIBLE);
                   }
               }
             }
@@ -247,7 +252,6 @@ public class NewOrderActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(NewOrderActivity.this, "Order Saving failed!", Toast.LENGTH_LONG).show();
-                btnSaveOrder.setEnabled(true);
                 finish();
             }
         });
