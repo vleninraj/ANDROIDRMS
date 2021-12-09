@@ -196,11 +196,12 @@
     </RelativeLayout>
 
 </RelativeLayout>
+
     <GridView
+        android:id="@+id/grdneworder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relhead"
-        android:id="@+id/grdneworder"/>
+        android:layout_below="@+id/relhead" />
 
     <LinearLayout
         android:id="@+id/lnbuttons"

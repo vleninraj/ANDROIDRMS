@@ -6,6 +6,7 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
 
+
        <Button
            android:id="@+id/btnremoveitem"
            android:layout_width="50dp"
@@ -18,118 +19,147 @@
            android:layout_marginTop="0dp"
            android:background="@drawable/removeicon"
            android:elevation="5dp" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:id="@+id/relnewordhead"
-        >
+       <Button
+           android:id="@+id/btncancelitem"
+           android:layout_width="50dp"
+           android:layout_height="50dp"
+           android:layout_toLeftOf="@id/btnremoveitem"
+           android:layout_centerVertical="true"
+           android:layout_marginBottom="0dp"
+           android:layout_marginEnd="5dp"
+           android:layout_marginStart="0dp"
+           android:layout_marginTop="0dp"
+           android:background="@drawable/canceltem"
+           android:elevation="5dp" />
 
-        <TextView
-            android:id="@+id/lblneworderproductname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/nunito_regular"
-            android:text="Product 1"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/lblnotesandmodifiers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lblneworderproductname"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/nunito_regular"
-            android:text=""
-            android:visibility="gone"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/relnewordhead"
-        android:id="@+id/relcenter"
-        >
+       <RelativeLayout
+           android:id="@+id/relnewordhead"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+         >
 
-        <Button
-            android:id="@+id/btnneworderdecrement"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/minusicon"
-            android:elevation="5dp" />
+           <TextView
+               android:id="@+id/lblneworderproductname"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="5dp"
+               android:layout_marginTop="5dp"
+               android:layout_marginEnd="5dp"
+               android:layout_marginBottom="5dp"
+               android:fontFamily="@font/nunito_regular"
+               android:text="Product 1"
+               android:textSize="16sp"
+               android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/lblneworderqty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_regular"
-            android:layout_toRightOf="@id/btnneworderdecrement"
-            android:text="0"
-            android:layout_margin="5dp"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-        <Button
-            android:id="@+id/btnneworderincrement"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="5dp"
-            android:layout_toRightOf="@id/lblneworderqty"
-            android:background="@drawable/addicon"
-            android:elevation="5dp" />
-        <TextView
-            android:id="@+id/lblneworderunit"
-            android:layout_width="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnneworderincrement"
-            android:fontFamily="@font/nunito_regular"
-            android:text="KG"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+           <TextView
+               android:id="@+id/lblnotesandmodifiers"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/lblneworderproductname"
+               android:layout_marginStart="5dp"
+               android:layout_marginTop="5dp"
+               android:layout_marginEnd="5dp"
+               android:layout_marginBottom="5dp"
+               android:fontFamily="@font/nunito_regular"
+               android:text=""
+               android:textSize="16sp"
+               android:textStyle="bold"
+               android:visibility="gone" />
+       </RelativeLayout>
 
-        <TextView
-            android:id="@+id/lblnewordersalesrate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/lblneworderunit"
-            android:fontFamily="@font/nunito_regular"
-            android:text="0.0"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+       <RelativeLayout
+           android:id="@+id/relcenter"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/relnewordhead">
+           <Button
+               android:id="@+id/btnneworderdecrement"
+               android:layout_width="30dp"
+               android:layout_height="30dp"
+               android:layout_margin="5dp"
+               android:background="@drawable/minusicon"
+               android:elevation="5dp" />
 
-        <TextView
-            android:id="@+id/lblneworderamount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="5dp"
-            android:layout_alignBaseline="@id/lblnewordersalesrate"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/nunito_regular"
-            android:gravity="right"
-            android:text="0.0"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+           <TextView
+               android:id="@+id/lblneworderqty"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_margin="5dp"
+               android:layout_toRightOf="@id/btnneworderdecrement"
+               android:fontFamily="@font/nunito_regular"
+               android:text="0"
+               android:textSize="20sp"
+               android:textStyle="bold" />
+
+           <Button
+               android:id="@+id/btnneworderincrement"
+               android:layout_width="30dp"
+               android:layout_height="30dp"
+               android:layout_margin="5dp"
+               android:layout_toRightOf="@id/lblneworderqty"
+               android:background="@drawable/addicon"
+               android:elevation="5dp" />
+
+           <TextView
+               android:id="@+id/lblneworderunit"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_margin="5dp"
+               android:layout_toRightOf="@id/btnneworderincrement"
+               android:fontFamily="@font/nunito_regular"
+               android:text="KG"
+               android:textSize="18sp"
+               android:textStyle="bold" />
+
+           <TextView
+               android:id="@+id/lblnewordersalesrate"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="10dp"
+               android:layout_marginTop="5dp"
+               android:layout_marginBottom="5dp"
+               android:layout_toRightOf="@id/lblneworderunit"
+               android:fontFamily="@font/nunito_regular"
+               android:text="0.0"
+               android:textSize="18sp"
+               android:textStyle="bold" />
+       </RelativeLayout>
+
+       <RelativeLayout
+           android:id="@+id/relstatus"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/relcenter"
+           android:layout_marginStart="10dp"
+           android:layout_marginLeft="8dp"
+           android:layout_marginTop="10dp"
+           android:layout_marginEnd="10dp"
+           android:layout_marginBottom="10dp">
+           <TextView
+               android:id="@+id/lblorderitemstatus"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="new"
+               android:textSize="15sp"
+               android:textStyle="bold" />
+           <TextView
+               android:id="@+id/lblneworderamount"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignBaseline="@id/lblorderitemstatus"
+               android:layout_alignParentEnd="true"
+               android:fontFamily="@font/nunito_regular"
+               android:gravity="right"
+               android:text="0.0"
+               android:textSize="18sp"
+               android:textStyle="bold" />
+       </RelativeLayout>
     <View
         android:fontFamily="@font/nunito_regular"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/relcenter"
+        android:layout_below="@id/relstatus"
         android:background="#B8CBEB"/>
    </RelativeLayout>
 </RelativeLayout>

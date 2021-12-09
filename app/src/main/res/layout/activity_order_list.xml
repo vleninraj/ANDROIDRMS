@@ -15,11 +15,12 @@
         app:tabIndicatorHeight="3dp"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="#77a3a7"/>
+
     <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vwpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tbmain"
-        android:id="@+id/vwpager"/>
+        android:layout_below="@id/tbmain" />
 
     <RelativeLayout
         android:layout_width="150dp"

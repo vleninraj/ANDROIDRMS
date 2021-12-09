@@ -16,7 +16,9 @@ public class ViewHolderOrderDtl {
     public Button btnincrement;
     public Button btndecrement;
     public Button btnremoveitem;
+    public Button btnCancelItem;
     public TextView lblnotesandmodifiers;
+    public TextView lblorderitemstatus;
 
     public ViewHolderOrderDtl(View v)
     {
@@ -27,8 +29,10 @@ public class ViewHolderOrderDtl {
         btnincrement=(Button)v.findViewById(R.id.btnneworderincrement);
         btndecrement=(Button)v.findViewById(R.id.btnneworderdecrement);
         btnremoveitem=(Button)v.findViewById(R.id.btnremoveitem);
+        btnCancelItem=(Button)v.findViewById(R.id.btncancelitem);
         lblneworderamount=(TextView)v.findViewById(R.id.lblneworderamount);
         lblnotesandmodifiers=(TextView)v.findViewById(R.id.lblnotesandmodifiers);
+        lblorderitemstatus=(TextView)v.findViewById(R.id.lblorderitemstatus);
     }
 }
 

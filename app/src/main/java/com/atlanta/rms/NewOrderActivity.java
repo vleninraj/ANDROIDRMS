@@ -1,14 +1,21 @@
 package com.atlanta.rms;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 /*
@@ -16,6 +23,7 @@ import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 */
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.atlanta.rms.Adapter.OrderdtlAdapter;
 import com.atlanta.rms.Models.OrderDTL;
@@ -33,6 +41,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.atlanta.rms.Models.Party;
 import com.atlanta.rms.Models.Product;
 
 import org.json.JSONArray;
@@ -44,7 +53,7 @@ public class NewOrderActivity extends AppCompatActivity {
 
     TextView txtparty,txtinvno,dtdate,txtsalestype,txtbillamount;
     TextView lblmobilenumber,lbltablename,lbltablenamecap;
-    Button btnAddItem,btnCalandar,btnSaveOrder;
+    Button btnAddItem,btnCalandar,btnSaveOrder,btncancelitem;
     Boolean blnNewRecord=false;
     GridView grdneworder;
     String sIpAddress="";
@@ -52,6 +61,8 @@ public class NewOrderActivity extends AppCompatActivity {
     String sVehicleName="",sVehicleNumber="";
     Boolean blnSavingStart=false;
     Calendar cal = Calendar.getInstance();
+    OrderdtlAdapter _orderDtlAdapter;
+    final ArrayList<String> _partynames = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +79,7 @@ public class NewOrderActivity extends AppCompatActivity {
         btnCalandar=findViewById(R.id.btnCalandar);
         grdneworder=findViewById(R.id.grdneworder);
         btnSaveOrder=findViewById(R.id.btnsaveorder);
+        btncancelitem=findViewById(R.id.btncancelitem);
         requestQueue = Volley.newRequestQueue(this);
         final Intent intent = getIntent();
         Bundle bd = intent.getExtras();
@@ -107,7 +119,7 @@ public class NewOrderActivity extends AppCompatActivity {
             // Existing Record
         }
         CalcTotals();
-        OrderdtlAdapter _orderDtlAdapter=new OrderdtlAdapter(NewOrderActivity.this,Common._orderdtls);
+        _orderDtlAdapter =new OrderdtlAdapter(NewOrderActivity.this,Common._orderdtls);
         grdneworder.setAdapter(_orderDtlAdapter);
         _orderDtlAdapter.notifyDataSetChanged();
         btnAddItem.setOnClickListener(new View.OnClickListener() {
@@ -117,17 +129,122 @@ public class NewOrderActivity extends AppCompatActivity {
                   startActivity(intent);
             }
         });
-        grdneworder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-            }
-        });
         btnSaveOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                SaveData();
+                Common.selectedTableName="";
+                Common.selectedTableID="";
+                if(Common.sCurrentOrderType.equals("Dine In"))
+                {
+                    Intent intent = new Intent(NewOrderActivity.this, TableActivity.class);
+                    startActivity(intent);
+                }
+                LayoutInflater layoutInflater=getLayoutInflater();
+                final View DialougView = layoutInflater.inflate(R.layout.select_party, null);
+                final AutoCompleteTextView txtcustomername=DialougView.findViewById(R.id.txtcustomername);
+                final EditText txtmobilenumber=DialougView.findViewById(R.id.txtmobilenumber);
+                final EditText txtVehicleName = DialougView.findViewById(R.id.txtvehiclename);
+                final EditText txtVehicleNumber = DialougView.findViewById(R.id.txtvehiclenumber);
+                final AlertDialog alert=new AlertDialog.Builder(NewOrderActivity.this).create();
+                final Button btnSelectParty=DialougView.findViewById(R.id.btnselectparty);
+                txtcustomername.setText(txtparty.getText().toString());
+                txtcustomername.setTag(txtparty.getTag().toString());
+                txtmobilenumber.setText(lblmobilenumber.getText().toString());
+                txtVehicleName.setText(sVehicleName);
+                txtVehicleNumber.setText(sVehicleNumber);
+
+                Common._parties=new Hashtable<String, Party>();
+                _partynames.clear();
+                String url = "http://" + sIpAddress + "/" + Common.DomainName + "/api/Party";
+                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        JSONArray jsonArray = response;
+                        try {
+                            Common._parties=new Hashtable<String, Party>();
+                            _partynames.clear();
+                            for(int i=0;i<jsonArray.length();i++)
+                            {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                Party _party=new Party();
+                                _party.set_id(jsonObject.getInt("id"));
+                                _party.set_PartyCode(jsonObject.getString("PartyCode"));
+                                _party.set_PartyName(jsonObject.getString("PartyName").trim());
+                                _party.set_ArabicName(jsonObject.getString("ArabicName"));
+                                _party.set_GSTNO(jsonObject.getString("GSTNO"));
+                                _party.set_VATNO(jsonObject.getString("VATNO"));
+                                _party.set_MobileNumber(jsonObject.getString("MobileNumber"));
+                                _party.set_Balance(jsonObject.getDouble("Balance"));
+                                _partynames.add(_party.get_PartyName());
+                                Common._parties.put(_party.get_PartyName(),_party);
+                            }
+                            ArrayAdapter<String> _partyAdapter = new ArrayAdapter<String>(NewOrderActivity.this, android.R.layout.simple_list_item_1, _partynames.toArray(new String[_partynames.size()]));
+                            txtcustomername.setAdapter(_partyAdapter);
+                            txtcustomername.setThreshold(0);
+                            txtcustomername.setText("Cash Account");
+                            txtmobilenumber.requestFocus();
+                        }
+                        catch (Exception w)
+                        {
+                            Toast.makeText(NewOrderActivity.this,w.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(NewOrderActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                });
+                requestQueue.add(jsonArrayRequest);
+
+                btnSelectParty.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        try {
+                            if(txtcustomername.getText().toString().trim().equals(""))
+                            {
+                                Toast.makeText(getApplicationContext(),"Customer name must be selected!",Toast.LENGTH_LONG).show();
+                                txtcustomername.requestFocus();
+                                return;
+                            }
+                            Party _party=Common._parties.get(txtcustomername.getText().toString().trim());
+                            if(_party.equals(null))
+                            {
+                                Toast.makeText(getApplicationContext(),"Customer name must be selected!",Toast.LENGTH_LONG).show();
+                                txtcustomername.requestFocus();
+                                return;
+                            }
+                            if(Common.sCurrentOrderType.equals("TakeAway")
+                                    && txtmobilenumber.getText().toString().trim().equals(""))
+                            {
+                                Toast.makeText(getApplicationContext(),"Mobile number must be entered for take away!",Toast.LENGTH_LONG).show();
+                                txtmobilenumber.requestFocus();
+                                return;
+                            }
+
+                            txtcustomername.setText(_party.get_PartyName());
+                            txtcustomername.setTag(_party.get_id());
+                            lblmobilenumber.setText(txtmobilenumber.getText().toString());
+                            sVehicleName=txtVehicleName.getText().toString();
+                            sVehicleNumber=txtVehicleNumber.getText().toString();
+
+                            SaveData();
+
+                            alert.dismiss();
+                        }
+                        catch (Exception ex)
+                        {
+                            Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                alert.setView(DialougView);
+                alert.show();
+
+
             }
         });
 /*
@@ -255,6 +372,10 @@ public class NewOrderActivity extends AppCompatActivity {
                 finish();
             }
         });
+        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(jsonArrayRequest);
     }
     private  void fillOrderData(String sOrderID)

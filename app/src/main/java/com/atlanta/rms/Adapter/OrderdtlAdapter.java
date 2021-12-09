@@ -1,12 +1,17 @@
 package com.atlanta.rms.Adapter;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationCompatSideChannelService;
 
 import com.atlanta.rms.Common;
 import com.atlanta.rms.R;
@@ -86,15 +91,55 @@ public class OrderdtlAdapter extends BaseAdapter {
 
                 }
             });
+
+            if(_orderitem.get_OrderStatus()==1)
+            {
+                _viewholder.btnCancelItem.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                _viewholder.btnCancelItem.setVisibility(View.GONE);
+            }
+            _viewholder.btnCancelItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if(_orderitem!=null) {
+                        if (_orderitem.get_OrderStatus() == 1) {
+                            new AlertDialog.Builder(v.getRootView().getContext())
+                                    .setTitle("Cancel Item")
+                                    .setMessage("Atr you sure to Cancel this item ?")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            _orderitem.set_OrderStatus(2); // Cancelled
+                                            notifyDataSetChanged();
+                                            ChangeOrderStatus(_orderitem,_viewholder);
+                                            Toast.makeText(_context.getApplicationContext(),"Item Cancelled!",Toast.LENGTH_LONG).show();
+                                        }
+                                    })
+                                    .setNegativeButton("No", null)
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
+                    }
+                }
+            });
             _viewholder.btnremoveitem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    _orderitems.remove(i);
-                    notifyDataSetChanged();
-                    CalcTotals();
+
+                    if(_orderitem.get_OrderStatus()==0) {
+                        _orderitems.remove(i);
+                        notifyDataSetChanged();
+                        CalcTotals();
+                    }
+                    else
+                    {
+                        Toast.makeText(_context.getApplicationContext(), "You can't remove printed order!",Toast.LENGTH_LONG).show();
+                    }
                 }
             });
-
 
             _viewholder.lblneworderproductname.setText(_orderitem.get_ProductName());
             _viewholder.lblneworderproductname.setTag(_orderitem.get_productid());
@@ -112,13 +157,13 @@ public class OrderdtlAdapter extends BaseAdapter {
             {
                 _viewholder.lblnotesandmodifiers.setVisibility(View.VISIBLE);
             }
-
             Double dblQty=Double.valueOf(_viewholder.lblneworderqty.getText().toString());
             Double dblRate=Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString());
             _viewholder.lblneworderamount.setText(String.format(Common.sDecimals,dblRate*dblQty));
             _orderitem.set_Qty(Double.valueOf(_viewholder.lblneworderqty.getText().toString()));
             _orderitem.set_Rate(Double.valueOf(_viewholder.lblnewordersalesrate.getText().toString()));
             _orderitem.set_Amount(Double.valueOf(_viewholder.lblneworderamount.getText().toString()));
+            ChangeOrderStatus(_orderitem,_viewholder);
         }
         else{
             final ViewHolderOrderDtl _viewholder=(ViewHolderOrderDtl) vw.getTag();
@@ -145,16 +190,32 @@ public class OrderdtlAdapter extends BaseAdapter {
             {
                 _viewholder.lblnotesandmodifiers.setVisibility(View.VISIBLE);
             }
-
+            ChangeOrderStatus(_orderitem,_viewholder);
         }
-
-
-
 
      //   _viewholder.txtwaitername.setText(_orderitem.get_WaiterName());
       //  _viewholder.txtwaitername.setTag(_orderitem.get_id());
        // Log.d(TAG, "From View" + _orderitem.get_WaiterName());
         return vw;
+    }
+    private  void ChangeOrderStatus(OrderDTL _orderitem,ViewHolderOrderDtl _viewholder)
+    {
+        switch (_orderitem.get_OrderStatus())
+        {
+            case 0:
+                _viewholder.lblorderitemstatus.setText("New Order");
+                _viewholder.lblorderitemstatus.setTextColor(_context.getResources().getColor(R.color.AtlantaThemeBlue));
+                break;
+            case 1:
+                _viewholder.lblorderitemstatus.setText("Printed To Kitchen");
+                _viewholder.lblorderitemstatus.setTextColor(_context.getResources().getColor(R.color.green));
+                break;
+            case 2:
+                _viewholder.lblorderitemstatus.setText("Cancelled Order");
+                _viewholder.lblorderitemstatus.setTextColor(_context.getResources().getColor(R.color.red));
+                break;
+        }
+
     }
     private void CalcTotals()
     {

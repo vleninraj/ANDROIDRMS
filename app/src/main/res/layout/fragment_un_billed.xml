@@ -33,11 +33,12 @@
             android:backgroundTint="@color/white"
             android:visibility="visible" />
     </RelativeLayout>
+
         <GridView
-            android:layout_below="@id/relsearch"
             android:id="@+id/grdunbilled"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/relsearch"
             android:fontFamily="@font/nunito_regular"
             android:padding="10dp" />
     </RelativeLayout>
